@@ -17,7 +17,9 @@ import {
   Detail,
   Detailed,
   SignIn,
-  SignUp
+  SignUp,
+  MoreDetail,
+  Wallet
 } from "./Pages";
 
 function App() {
@@ -37,8 +39,14 @@ function App() {
           <Route path="/Detail">
             <Detail />
           </Route>
+          <Route path="/MoreDetail">
+            <MoreDetail />
+          </Route>
           <Route path="/Detailed">
             <Detailed />
+          </Route>
+          <Route path="/Wallet">
+            <Wallet />
           </Route>
           <Route path="/Testimonials">
             <Testimonials />

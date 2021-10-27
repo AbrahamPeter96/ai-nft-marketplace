@@ -6,8 +6,10 @@ import Buy from "./Buy";
 import Bid from "./Bid";
 import Sell from "./Sell";
 import Detail from "./Detail"
+import MoreDetail from "./MoreDetail"
 import Detailed from "./Detailed"
 import SignIn from "./SignIn"
 import SignUp from "./SignUp"
+import Wallet from "./Wallet"
 
-export { Creators, Collections, Aboutus, Testimonials,Buy,Bid,Sell,Detail,SignIn,SignUp,Detailed };
+export { Creators, Collections, Aboutus, Testimonials,Buy,Bid,Sell,Detail,SignIn,SignUp,Detailed,MoreDetail,Wallet };
