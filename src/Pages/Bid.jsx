@@ -1,5 +1,5 @@
-import React from 'react'
-import { Main, Top, Bottom } from "../Components";
+import React from 'react';
+import { Top } from "../Components";
 
 export default function Bid() {
     return (
