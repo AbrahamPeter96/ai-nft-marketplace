@@ -15,7 +15,7 @@ import Typography from "@mui/material/Typography";
 // import Container from "@mui/material/Container";
 import { Nav, Navbar, Container, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "./.././../Images/logo.png";
+import logo from "./.././../Images/newlogo.png";
 import top from "./.././../Images/top.jpg";
 import { Menu, Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
@@ -59,7 +59,7 @@ export default function Album() {
               <img
                 src={logo}
                 width="70"
-                height="60"
+                height="70"
                 className="d-inline-block align-top"
                 alt="React Bootstrap logo"
               />

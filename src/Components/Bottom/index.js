@@ -15,7 +15,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import pattern from "./.././../Images/pattern.jpg";
-import logo from "./.././../Images/logo.png";
+import logo from "./.././../Images/newlogo.png";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Row, Col } from "react-bootstrap";
 import {
