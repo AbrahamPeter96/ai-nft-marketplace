@@ -1,25 +1,25 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
+// import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
-import CameraIcon from "@mui/icons-material/PhotoCamera";
+// import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, CardActions } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 import { Row, Col } from "react-bootstrap";
-import { Image } from "antd";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
+// import { Image } from "antd";
+// import CssBaseline from "@mui/material/CssBaseline";
+// import Grid from "@mui/material/Grid";
+// import Stack from "@mui/material/Stack";
+// import Box from "@mui/material/Box";
+// import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
+// import Paper from "@mui/material/Paper";
+// import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import one from "../../Images/1.png";
 import two from "../../Images/2.png";
@@ -28,7 +28,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Accordion from "./../Accordions";
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const responsive = {
   superLargeDesktop: {
@@ -80,11 +80,11 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-const SmallAvatar = styled(Avatar)(({ theme }) => ({
-  width: 22,
-  height: 22,
-  border: `2px solid ${theme.palette.background.paper}`,
-}));
+// const SmallAvatar = styled(Avatar)(({ theme }) => ({
+//   width: 22,
+//   height: 22,
+//   border: `2px solid ${theme.palette.background.paper}`,
+// }));
 
 function ActionAreaCard({ img, title, des }) {
   return (
@@ -148,34 +148,34 @@ function ActionSliderCard({ img, title, des }) {
   );
 }
 
-function ImgMediaCard({ img, avatar, name }) {
-  return (
-    <Card
-      style={{
-        marginLeft: "auto",
-        marginRight: "auto",
-        alignItems: "center",
-        justifyContent: "center",
-        overflow: "hidden",
-        maxWidth: 265,
-      }}
-    >
-      <CardMedia
-        component={"img"}
-        alt="green iguana"
-        width="180"
-        height="280"
-        image={img}
-      />
-      {/* <Image
-         src={img}
-         width="180"
-         height="380"
-          fluid
-              /> */}
-    </Card>
-  );
-}
+// function ImgMediaCard({ img, avatar, name }) {
+//   return (
+//     <Card
+//       style={{
+//         marginLeft: "auto",
+//         marginRight: "auto",
+//         alignItems: "center",
+//         justifyContent: "center",
+//         overflow: "hidden",
+//         maxWidth: 265,
+//       }}
+//     >
+//       <CardMedia
+//         component={"img"}
+//         alt="green iguana"
+//         width="180"
+//         height="280"
+//         image={img}
+//       />
+//       {/* <Image
+//          src={img}
+//          width="180"
+//          height="380"
+//           fluid
+//               /> */}
+//     </Card>
+//   );
+// }
 
 export default function Album() {
   return (
