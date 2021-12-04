@@ -180,7 +180,7 @@ function ActionSliderCard({ img, title, des }) {
 export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState('Loading...');
   const [nftImageUrl, setNftImageUrl] = useState('Loading...');
-
+  const [imageObj, setImageObj] = useState('Loading...');
   useEffect(() => {
     const fun = async () => {
       setNftCollectionName(
@@ -188,9 +188,14 @@ export default function Album() {
           '0x16951A59F9d62a2FF70fbE7fCCfC0dfb1d61ACc4',
         ),
       );
-      setNftImageUrl(
-        await getNftImageUrl('0x16951A59F9d62a2FF70fbE7fCCfC0dfb1d61ACc4', 9),
+      const url = await getNftImageUrl(
+        '0x16951A59F9d62a2FF70fbE7fCCfC0dfb1d61ACc4',
+        9,
       );
+      setNftImageUrl(url);
+      const laser = await fetch(url);
+      const img = URL.createObjectURL(await laser.blob());
+      setImageObj(img);
     };
 
     fun();
@@ -204,7 +209,7 @@ export default function Album() {
         <Container>
           <Row>
             <Col xs={6}>
-              <ActionAreaCard img={two} title={nftCollectionName} />
+              <ActionAreaCard img={imageObj} title={nftCollectionName} />
             </Col>
             <Col xs={6}>
               <Typography
