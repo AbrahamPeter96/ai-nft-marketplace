@@ -182,12 +182,14 @@ export default function Album() {
   const [nftImageUrl, setNftImageUrl] = useState('Loading...');
   const [imageObj, setImageObj] = useState('Loading...');
   useEffect(() => {
-    const fun = async () => {
+    const fun1 = async () => {
       setNftCollectionName(
         await getNftCollectionName(
           '0x16951A59F9d62a2FF70fbE7fCCfC0dfb1d61ACc4',
         ),
       );
+    };
+    const fun2 = async () => {
       const url = await getNftImageUrl(
         '0x16951A59F9d62a2FF70fbE7fCCfC0dfb1d61ACc4',
         9,
@@ -198,7 +200,8 @@ export default function Album() {
       setImageObj(img);
     };
 
-    fun();
+    fun1();
+    fun2();
   }, []);
   return (
     <ThemeProvider theme={theme}>
