@@ -19,11 +19,6 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
       await nftmarketPlace.methods.getListingPrice().call(),
     );
 
-    const _howMany = Number(mintCount);
-    const totalPrice = web3.utils.toWei(
-      (Number(listingPrice) * _howMany).toString(),
-    );
-
     // here we use code from twitter post of nft
     // const purchase = nft.methods.purchaseTokens(mintCount);
     const createMarketItem = nftmarketPlace.methods.createMarketItem(
@@ -84,12 +79,15 @@ export const getNftImageUrl = async (nftContract, tokenId) => {
   return parseIpfs(metadata.image);
 };
 
-export const getNftCollectionName = async nftContract => {
+export const getNftCollectionName = async (
+  nftContract = '0x18f87c05325AE47bfe75c039198b3Dc1CB2ED23D',
+) => {
   const nft = getContractNft({ address: nftContract });
   const name = await nft.methods.name().call();
+  console.log(`name: ${name}`);
   return name;
 };
 
-console.log(
-  await getNftCollectionName('0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4'),
-);
+// console.log(
+//   await getNftCollectionName('0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4'),
+// );

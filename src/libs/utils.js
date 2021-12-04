@@ -55,11 +55,12 @@ export const parseIpfs = uriStr => {
 
 // se julien video etc
 export const loadImgURL = async (
+  ipfs,
   cid = 'Qmcm32sVsMYhURY3gqH7vSQ76492t5Rfxb3vsWCb35gVme',
   mime = 'image/png',
   limit = 524288,
 ) => {
-  if (cid == '' || cid == null || cid == undefined) {
+  if (cid === '' || cid === null || cid === undefined) {
     return;
   }
   for await (const file of ipfs.get(cid)) {

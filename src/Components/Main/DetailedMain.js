@@ -240,7 +240,7 @@ export default function Album() {
                 fontWeight="bolder"
                 textAlign="left"
               >
-                $1.0
+                $2.0
                 <br />
                 <Button
                   style={{
