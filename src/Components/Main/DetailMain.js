@@ -26,7 +26,7 @@ import two from '../../Images/2.png';
 import three from '../../Images/3.png';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { getNftCollectionName, getNftImageUrl } from '../../libs/apis';
+import { getNftCollectionName, getNftImageUrl, sellNft } from '../../libs/apis';
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -272,8 +272,16 @@ export default function Album() {
                     borderRadius: '20px',
                     color: 'white',
                   }}
+                  onClick={() => {
+                    sellNft(
+                      () => {},
+                      '0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4',
+                      9,
+                      1,
+                    );
+                  }}
                 >
-                  Buy
+                  Sell
                 </Button>
                 &nbsp;
                 <Button

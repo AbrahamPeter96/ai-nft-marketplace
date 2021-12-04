@@ -10,8 +10,8 @@
 // if you want to do only get calls then you can use defaultWeb3.
 
 import Web3 from 'web3';
-export const requiredChainId = '0x1';
-export const requiredChainIdName = 'Mainnet';
+export const requiredChainId = '0x61';
+export const requiredChainIdName = 'BSC Testnet';
 export const ipfsExplorer = 'https://ipfs.io/ipfs/';
 
 export const defaultWeb3 = new Web3(

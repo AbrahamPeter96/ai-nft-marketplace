@@ -6,21 +6,14 @@ const { isAddress } = pkg;
 
 export const sellNft = async (setLoading, nftContract, tokenId, price) => {
   _doThis(async (account, web3) => {
-    if (isAddress(nftContract)) {
+    if (!isAddress(nftContract)) {
       alert('Invalid NFT Address');
       return;
     }
 
     const nftmarketPlace = getContractMarketplace(web3);
-    // const price = web3.utils.fromWei(
-    //   await nft.methods.itemPrice().call(),
-    // );
-    const listingPrice = web3.utils.fromWei(
-      await nftmarketPlace.methods.getListingPrice().call(),
-    );
+    const listingPrice = await nftmarketPlace.methods.getListingPrice().call();
 
-    // here we use code from twitter post of nft
-    // const purchase = nft.methods.purchaseTokens(mintCount);
     const createMarketItem = nftmarketPlace.methods.createMarketItem(
       nftContract,
       tokenId,
@@ -84,7 +77,6 @@ export const getNftCollectionName = async (
 ) => {
   const nft = getContractNft({ address: nftContract });
   const name = await nft.methods.name().call();
-  console.log(`name: ${name}`);
   return name;
 };
 
