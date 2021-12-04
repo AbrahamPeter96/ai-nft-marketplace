@@ -26,7 +26,7 @@ import two from '../../Images/2.png';
 import three from '../../Images/3.png';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { getNftCollectionName } from '../../libs/apis';
+import { getNftCollectionName, getNftImageUrl } from '../../libs/apis';
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -179,15 +179,21 @@ function ActionSliderCard({ img, title, des }) {
 
 export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState('Loading...');
+  const [nftImageUrl, setNftImageUrl] = useState('Loading...');
 
   useEffect(() => {
-    (async () => {
+    const fun = async () => {
       setNftCollectionName(
         await getNftCollectionName(
           '0x16951A59F9d62a2FF70fbE7fCCfC0dfb1d61ACc4',
         ),
       );
-    })();
+      setNftImageUrl(
+        await getNftImageUrl('0x16951A59F9d62a2FF70fbE7fCCfC0dfb1d61ACc4', 9),
+      );
+    };
+
+    fun();
   }, []);
   return (
     <ThemeProvider theme={theme}>
@@ -251,7 +257,7 @@ export default function Album() {
                 fontWeight='bolder'
                 textAlign='left'
               >
-                {nftCollectionName}
+                {nftImageUrl}
                 <br />
                 <Button
                   style={{
@@ -308,147 +314,6 @@ export default function Album() {
             containerClass='carousel-container'
             removeArrowOnDeviceType={['tablet', 'mobile']}
           >
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
-            <ActionSliderCard img={two} title='001 ELLAN KARA' />
-            <ActionSliderCard img={one} title='001 ELLAN KARA' />
-            <ActionSliderCard img={three} title='001 ELLAN KARA' />
             <ActionSliderCard img={two} title='001 ELLAN KARA' />
             <ActionSliderCard img={one} title='001 ELLAN KARA' />
             <ActionSliderCard img={three} title='001 ELLAN KARA' />
