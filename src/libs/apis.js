@@ -1,17 +1,22 @@
-import { getContractMarketplace, getContractNft } from './smart-contracts.js';
+import {
+  getContractMarketplace,
+  getContractNft,
+  marketplaceAddress,
+} from './smart-contracts.js';
 import { parseIpfs, _doThis } from './utils.js';
 import pkg from 'web3-utils';
 import axios from 'axios';
 const { isAddress } = pkg;
 
 export const sellNft = async (setLoading, nftContract, tokenId, price) => {
+  setLoading(true);
   _doThis(async (account, web3) => {
     if (!isAddress(nftContract)) {
       alert('Invalid NFT Address');
       return;
     }
 
-    const nftmarketPlace = getContractMarketplace(web3);
+    const nftmarketPlace = getContractMarketplace({ web3 });
     const listingPrice = await nftmarketPlace.methods.getListingPrice().call();
 
     const createMarketItem = nftmarketPlace.methods.createMarketItem(
@@ -33,7 +38,7 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
         gas: '' + estimateGas,
       };
     } catch (e) {
-      let msg = e.message.split('\n')[0].split('reverted:')[1];
+      let msg = e.message; //.split('\n')[0].split('reverted:')[1];
 
       if (!msg) msg = 'Insufficient funds';
 
@@ -42,12 +47,11 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
     }
 
     try {
-      setLoading(true);
       await createMarketItem.send(options).on('confirmation', i => {
         //here
         if (i === 0) {
           setLoading(false);
-          alert('DONEEEEEEEEEEEEEEEEEEEEEEEEEEE');
+          alert('done');
           // if (
           //   window.confirm(
           //     `Welcome to the Cheeky Lion Club King! Go check out your Lions on opensea.io`,
@@ -78,6 +82,46 @@ export const getNftCollectionName = async (
   const nft = getContractNft({ address: nftContract });
   const name = await nft.methods.name().call();
   return name;
+};
+
+export const approveMarketplaceContract = async (setLoading, nftContract) => {
+  console.log(`nftContract: ${nftContract}`);
+  console.log(`marketplaceAddress: ${marketplaceAddress}`);
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    const nft = getContractNft({ web3, address: nftContract });
+    const method = nft.methods.setApprovalForAll(marketplaceAddress, true);
+    let options = {
+      from: account,
+      gas: '0',
+    };
+    try {
+      const estimateGas = Math.trunc(await method.estimateGas(options));
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
+      let msg = e.message.split('\n')[0].split('reverted:')[1];
+
+      if (!msg) msg = 'Insufficient funds or some data error';
+
+      alert(msg);
+      return;
+    }
+
+    try {
+      await method.send(options).on('confirmation', i => {
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
 };
 
 // console.log(

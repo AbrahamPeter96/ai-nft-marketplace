@@ -26,7 +26,7 @@ import two from '../../Images/2.png';
 import three from '../../Images/3.png';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { getNftCollectionName, getNftImageUrl, sellNft } from '../../libs/apis';
+import { approveMarketplaceContract, getNftCollectionName, getNftImageUrl, sellNft } from '../../libs/apis';
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -276,6 +276,22 @@ export default function Album() {
                     color: 'white',
                   }}
                   onClick={() => {
+                    approveMarketplaceContract(() => {},
+                    '0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4');
+                  }}
+                >
+                  Approve
+                </Button>
+                &nbsp;
+                <Button
+                  style={{
+                    backgroundColor: '#00e8c9',
+                    width: 120,
+                    height: 40,
+                    borderRadius: '20px',
+                    color: 'white',
+                  }}
+                  onClick={() => {
                     sellNft(
                       () => {},
                       '0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4',
@@ -296,7 +312,7 @@ export default function Album() {
                     color: 'white',
                   }}
                 >
-                  Make Offer
+                  Bid
                 </Button>
               </Typography>
             </Col>
