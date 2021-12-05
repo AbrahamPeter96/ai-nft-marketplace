@@ -80,3 +80,6 @@ export const loadImgURL = async (
     }
   }
 };
+
+export const urlNft =  window.location.pathname.split('/')[2];
+export const urlTokenId =  window.location.pathname.split('/')[3];

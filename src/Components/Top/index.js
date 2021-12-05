@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 // import AppBar from "@mui/material/AppBar";
 // import Button from "@mui/material/Button";
 // import CameraIcon from "@mui/icons-material/PhotoCamera";
@@ -25,6 +25,7 @@ import top from './.././../Images/top.jpg';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { getNftCollectionName } from '../../libs/apis';
 
 const theme = createTheme();
 
@@ -43,31 +44,15 @@ const menu = (
   </Menu>
 );
 
+const getAddressFromUrl = () => window.location.pathname.split('/')[2];
 export default function Album() {
   const link = window.location.hostname;
-  // const [nftCollectionName, setNftCollectionName] = useState('Loading...');
-  // useEffect(() => {
-  //   const fun1 = async () => {
-  //     const url = await getNftImageUrl(
-  //       getAddressFromUrl(),
-  //       getTokenIdFromUrl(),
-  //     );
-  //     setNftImageUrl(url);
-  //     const laser = await fetch(url);
-  //     const img = URL.createObjectURL(await laser.blob());
-  //     setImageObj(img);
-  //   };
-  //   const fun2 = async () =>
-  //     setNftCollectionName(await getNftCollectionName(getAddressFromUrl()));
+  const [nftCollectionName, setNftCollectionName] = useState('Loading...');
+  const nft = getAddressFromUrl();
 
-  //   getIsApprovedForAll(getAddressFromUrl()).then(r => {
-  //     console.log(`r: ${r}`);
-  //     setIsApprovedForAll(r);
-  //   });
-
-  //   fun1();
-  //   fun2();
-  // }, []);
+  useEffect(() => {
+    getNftCollectionName(nft).then(setNftCollectionName);
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -151,7 +136,7 @@ export default function Album() {
                   gutterBottom
                   fontWeight='bolder'
                 >
-                  {1}
+                  {nftCollectionName}
                 </Typography>
                 {/* <Typography variant="p" align="center" color="white" paragraph>
                   you have your nft´ s in your porfolioo 2.

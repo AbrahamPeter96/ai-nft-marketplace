@@ -33,6 +33,7 @@ import {
   getNftImageUrl,
   sellNft,
 } from '../../libs/apis';
+import { urlNft, urlTokenId } from '../../libs/utils';
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -182,9 +183,6 @@ function ActionSliderCard({ img, title, des }) {
 //     </Card>
 //   );
 // }
-const getAddressFromUrl = () => window.location.pathname.split('/')[2];
-
-const getTokenIdFromUrl = () => window.location.pathname.split('/')[3];
 
 export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState('Loading...');
@@ -194,25 +192,17 @@ export default function Album() {
 
   useEffect(() => {
     const fun1 = async () => {
-      const url = await getNftImageUrl(
-        getAddressFromUrl(),
-        getTokenIdFromUrl(),
-      );
+      const url = await getNftImageUrl(urlNft, urlTokenId);
       setNftImageUrl(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
       setImageObj(img);
     };
-    const fun2 = async () =>
-      setNftCollectionName(await getNftCollectionName(getAddressFromUrl()));
 
-    getIsApprovedForAll(getAddressFromUrl()).then(r => {
-      console.log(`r: ${r}`);
-      setIsApprovedForAll(r);
-    });
+    getNftCollectionName(urlNft).then(setNftCollectionName);
+    getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
 
     fun1();
-    fun2();
   }, []);
   return (
     <ThemeProvider theme={theme}>
@@ -288,7 +278,7 @@ export default function Album() {
                       color: 'white',
                     }}
                     onClick={() => {
-                      approveMarketplaceContract(() => {}, getAddressFromUrl());
+                      approveMarketplaceContract(() => {}, urlNft);
                     }}
                   >
                     Approve
@@ -306,8 +296,8 @@ export default function Album() {
                   onClick={() => {
                     sellNft(
                       () => {},
-                      getAddressFromUrl(),
-                      getTokenIdFromUrl(),
+                      urlNft,
+                      urlTokenId,
                       prompt('Please enter NFT price in BNB', '0.1'),
                     );
                   }}
