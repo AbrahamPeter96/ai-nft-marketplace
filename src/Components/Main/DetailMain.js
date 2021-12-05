@@ -28,6 +28,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import {
   approveMarketplaceContract,
+  getIsApprovedForAll,
   getNftCollectionName,
   getNftImageUrl,
   sellNft,
@@ -189,12 +190,10 @@ export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState('Loading...');
   const [nftImageUrl, setNftImageUrl] = useState('Loading...');
   const [imageObj, setImageObj] = useState('Loading...');
+  const [isApprovedForAll, setIsApprovedForAll] = useState(false);
 
   useEffect(() => {
     const fun1 = async () => {
-      setNftCollectionName(await getNftCollectionName(getAddressFromUrl()));
-    };
-    const fun2 = async () => {
       const url = await getNftImageUrl(
         getAddressFromUrl(),
         getTokenIdFromUrl(),
@@ -204,6 +203,13 @@ export default function Album() {
       const img = URL.createObjectURL(await laser.blob());
       setImageObj(img);
     };
+    const fun2 = async () =>
+      setNftCollectionName(await getNftCollectionName(getAddressFromUrl()));
+
+    getIsApprovedForAll(getAddressFromUrl()).then(r => {
+      console.log(`r: ${r}`);
+      setIsApprovedForAll(r);
+    });
 
     fun1();
     fun2();
@@ -272,20 +278,22 @@ export default function Album() {
               >
                 {nftImageUrl}
                 <br />
-                <Button
-                  style={{
-                    backgroundColor: '#00e8c9',
-                    width: 120,
-                    height: 40,
-                    borderRadius: '20px',
-                    color: 'white',
-                  }}
-                  onClick={() => {
-                    approveMarketplaceContract(() => {}, getAddressFromUrl());
-                  }}
-                >
-                  Approve
-                </Button>
+                {!isApprovedForAll && (
+                  <Button
+                    style={{
+                      backgroundColor: '#00e8c9',
+                      width: 120,
+                      height: 40,
+                      borderRadius: '20px',
+                      color: 'white',
+                    }}
+                    onClick={() => {
+                      approveMarketplaceContract(() => {}, getAddressFromUrl());
+                    }}
+                  >
+                    Approve
+                  </Button>
+                )}
                 &nbsp;
                 <Button
                   style={{

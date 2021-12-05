@@ -8,6 +8,7 @@ import pkg from 'web3-utils';
 import axios from 'axios';
 const { isAddress, toWei } = pkg;
 
+// WRITE CONTRACT
 export const sellNft = async (setLoading, nftContract, tokenId, price) => {
   if (price === null || price === undefined) {
     return;
@@ -80,22 +81,6 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
   });
 };
 
-export const getNftImageUrl = async (nftContract, tokenId) => {
-  const nft = getContractNft({ address: nftContract });
-  const tokenURI = await nft.methods.tokenURI(tokenId).call();
-  const url = parseIpfs(tokenURI);
-  const metadata = (await axios.get(url)).data;
-  return parseIpfs(metadata.image);
-};
-
-export const getNftCollectionName = async (
-  nftContract = '0x18f87c05325AE47bfe75c039198b3Dc1CB2ED23D',
-) => {
-  const nft = getContractNft({ address: nftContract });
-  const name = await nft.methods.name().call();
-  return name;
-};
-
 export const approveMarketplaceContract = async (setLoading, nftContract) => {
   console.log(`nftContract: ${nftContract}`);
   console.log(`marketplaceAddress: ${marketplaceAddress}`);
@@ -134,6 +119,30 @@ export const approveMarketplaceContract = async (setLoading, nftContract) => {
       alert(e.message);
     }
   });
+};
+
+// READ CONTRACT
+export const getNftImageUrl = async (nftContract, tokenId) => {
+  const nft = getContractNft({ address: nftContract });
+  const tokenURI = await nft.methods.tokenURI(tokenId).call();
+  const url = parseIpfs(tokenURI);
+  const metadata = (await axios.get(url)).data;
+  return parseIpfs(metadata.image);
+};
+
+export const getNftCollectionName = async nftContract => {
+  const nft = getContractNft({ address: nftContract });
+  const name = await nft.methods.name().call();
+  return name;
+};
+
+export const getIsApprovedForAll = async address => {
+  return _doThis(
+    async account =>
+      await getContractNft({ address })
+        .methods.isApprovedForAll(account, marketplaceAddress)
+        .call(),
+  );
 };
 
 // console.log(

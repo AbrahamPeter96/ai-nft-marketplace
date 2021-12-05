@@ -31,8 +31,12 @@ export const _doThis = async (todo = null, prompt = true) => {
       method: 'eth_chainId',
     });
 
-    if (chainId === requiredChainId) todo && todo(account, new Web3(ethereum));
-    else alert(msg_chain);
+    if (chainId === requiredChainId) {
+      if (todo) {
+        return todo(account, new Web3(ethereum));
+      }
+    } else alert(msg_chain);
+
   }
 };
 
