@@ -26,6 +26,7 @@ import { Menu, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getNftCollectionName } from '../../libs/apis';
+import { urlNft } from '../../libs/utils';
 
 const theme = createTheme();
 
@@ -44,14 +45,13 @@ const menu = (
   </Menu>
 );
 
-const getAddressFromUrl = () => window.location.pathname.split('/')[2];
 export default function Album() {
   const link = window.location.hostname;
   const [nftCollectionName, setNftCollectionName] = useState('Loading...');
-  const nft = getAddressFromUrl();
+  const nftIds = [1, 2, 3, 4, 5];
 
   useEffect(() => {
-    getNftCollectionName(nft).then(setNftCollectionName);
+    getNftCollectionName(urlNft).then(setNftCollectionName);
   }, []);
   return (
     <ThemeProvider theme={theme}>
