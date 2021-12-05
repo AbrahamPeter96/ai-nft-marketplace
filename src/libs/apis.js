@@ -49,8 +49,11 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
     } catch (e) {
       let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
 
-      if (!msg) msg = 'Insufficient funds or some data error';
-
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
       alert(msg);
       return;
     }
