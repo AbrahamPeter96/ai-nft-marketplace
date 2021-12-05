@@ -45,6 +45,29 @@ const menu = (
 
 export default function Album() {
   const link = window.location.hostname;
+  // const [nftCollectionName, setNftCollectionName] = useState('Loading...');
+  // useEffect(() => {
+  //   const fun1 = async () => {
+  //     const url = await getNftImageUrl(
+  //       getAddressFromUrl(),
+  //       getTokenIdFromUrl(),
+  //     );
+  //     setNftImageUrl(url);
+  //     const laser = await fetch(url);
+  //     const img = URL.createObjectURL(await laser.blob());
+  //     setImageObj(img);
+  //   };
+  //   const fun2 = async () =>
+  //     setNftCollectionName(await getNftCollectionName(getAddressFromUrl()));
+
+  //   getIsApprovedForAll(getAddressFromUrl()).then(r => {
+  //     console.log(`r: ${r}`);
+  //     setIsApprovedForAll(r);
+  //   });
+
+  //   fun1();
+  //   fun2();
+  // }, []);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
