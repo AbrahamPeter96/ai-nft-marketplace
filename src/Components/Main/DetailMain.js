@@ -26,7 +26,12 @@ import two from '../../Images/2.png';
 import three from '../../Images/3.png';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { approveMarketplaceContract, getNftCollectionName, getNftImageUrl, sellNft } from '../../libs/apis';
+import {
+  approveMarketplaceContract,
+  getNftCollectionName,
+  getNftImageUrl,
+  sellNft,
+} from '../../libs/apis';
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -176,23 +181,23 @@ function ActionSliderCard({ img, title, des }) {
 //     </Card>
 //   );
 // }
+const getAddressFromUrl = () => window.location.pathname.split('/')[2];
+
+const getTokenIdFromUrl = () => window.location.pathname.split('/')[3];
 
 export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState('Loading...');
   const [nftImageUrl, setNftImageUrl] = useState('Loading...');
   const [imageObj, setImageObj] = useState('Loading...');
+
   useEffect(() => {
     const fun1 = async () => {
-      setNftCollectionName(
-        await getNftCollectionName(
-          '0x16951A59F9d62a2FF70fbE7fCCfC0dfb1d61ACc4',
-        ),
-      );
+      setNftCollectionName(await getNftCollectionName(getAddressFromUrl()));
     };
     const fun2 = async () => {
       const url = await getNftImageUrl(
-        '0x16951A59F9d62a2FF70fbE7fCCfC0dfb1d61ACc4',
-        9,
+        getAddressFromUrl(),
+        getTokenIdFromUrl(),
       );
       setNftImageUrl(url);
       const laser = await fetch(url);
@@ -276,8 +281,7 @@ export default function Album() {
                     color: 'white',
                   }}
                   onClick={() => {
-                    approveMarketplaceContract(() => {},
-                    '0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4');
+                    approveMarketplaceContract(() => {}, getAddressFromUrl());
                   }}
                 >
                   Approve
@@ -294,8 +298,8 @@ export default function Album() {
                   onClick={() => {
                     sellNft(
                       () => {},
-                      '0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4',
-                      9,
+                      getAddressFromUrl(),
+                      getTokenIdFromUrl(),
                       1,
                     );
                   }}
