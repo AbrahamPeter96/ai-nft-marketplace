@@ -6,9 +6,17 @@ import {
 import { parseIpfs, _doThis } from './utils.js';
 import pkg from 'web3-utils';
 import axios from 'axios';
-const { isAddress } = pkg;
+const { isAddress, toWei } = pkg;
 
 export const sellNft = async (setLoading, nftContract, tokenId, price) => {
+  if (price === null || price === undefined) {
+    return;
+  }
+  price = toWei(price);
+
+  console.log(`price: ${price}`);
+  console.log(`tokenId: ${tokenId}`);
+  console.log(`nftContract: ${nftContract}`);
   setLoading(true);
   _doThis(async (account, web3) => {
     if (!isAddress(nftContract)) {
@@ -24,6 +32,7 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
       tokenId,
       price,
     );
+    console.log(`listingPrice: ${listingPrice}`);
     let options = {
       from: account,
       gas: '0',
@@ -38,9 +47,9 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
         gas: '' + estimateGas,
       };
     } catch (e) {
-      let msg = e.message; //.split('\n')[0].split('reverted:')[1];
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
 
-      if (!msg) msg = 'Insufficient funds';
+      if (!msg) msg = 'Insufficient funds or some data error';
 
       alert(msg);
       return;

@@ -300,7 +300,7 @@ export default function Album() {
                       () => {},
                       getAddressFromUrl(),
                       getTokenIdFromUrl(),
-                      1,
+                      prompt('Please enter NFT price in BNB', '0.1'),
                     );
                   }}
                 >
