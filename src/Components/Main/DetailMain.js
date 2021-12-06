@@ -1,37 +1,35 @@
-import { useEffect, useState } from 'react';
+import { CardActionArea } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
 // import AppBar from "@mui/material/AppBar";
 import Button from '@mui/material/Button';
 // import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { CardActionArea } from '@mui/material';
-import { Row, Col } from 'react-bootstrap';
+import Container from '@mui/material/Container';
 // import { Image } from "antd";
 // import CssBaseline from "@mui/material/CssBaseline";
 // import Grid from "@mui/material/Grid";
 // import Stack from "@mui/material/Stack";
 // import Box from "@mui/material/Box";
 // import Toolbar from "@mui/material/Toolbar";
-import { styled } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
-import Avatar from '@mui/material/Avatar';
+import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-// import Paper from "@mui/material/Paper";
-// import Link from "@mui/material/Link";
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import one from '../../Images/1.png';
 import two from '../../Images/2.png';
 import three from '../../Images/3.png';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import {
   approveMarketplaceContract,
+  buyNft,
+  createNftAuction,
   getIsApprovedForAll,
   getNftCollectionName,
   getNftImageUrl,
-  getNftItemsForSale,
   sellNft,
 } from '../../libs/apis';
 import { urlNft, urlTokenId } from '../../libs/utils';
@@ -190,11 +188,17 @@ export default function Album() {
   const [nftImageUrl, setNftImageUrl] = useState('Loading...');
   const [imageObj, setImageObj] = useState('Loading...');
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   // show loader on isLoading
 
   useEffect(() => {
-    // buyNft(setIsLoading, urlNft, urlTokenId, '0.1'); // 0.1 BNB
+    setLoading(false); // for remove warnings
+    // test apis
+    false && buyNft(setLoading, urlNft, urlTokenId, '0.1'); // 0.1 BNB
+
+    // working
+    // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
+    true && createNftAuction(setLoading, urlNft, urlTokenId, '0.1');
 
     const fun1 = async () => {
       const url = await getNftImageUrl(urlNft, urlTokenId);
@@ -319,7 +323,7 @@ export default function Album() {
                     color: 'white',
                   }}
                 >
-                  Bid
+                  Bid {false && loading /* just to remove warnings*/}
                 </Button>
               </Typography>
             </Col>

@@ -1,15 +1,20 @@
 import {
+  getContractBiding,
   getContractMarketplace,
   getContractNft,
   marketplaceAddress,
 } from './smart-contracts.js';
-import { parseIpfs, priceAt, _doThis } from './utils.js';
+import { parseIpfs, priceAt, zeroAddr, _doThis } from './utils.js';
 import pkg from 'web3-utils';
 import axios from 'axios';
 const { isAddress, toWei } = pkg;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> WRITE CONTRACT
 export const sellNft = async (setLoading, nftContract, tokenId, price) => {
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
   if (price === null || price === undefined) {
     return;
   }
@@ -17,11 +22,6 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
 
   setLoading(true);
   _doThis(async (account, web3) => {
-    if (!isAddress(nftContract)) {
-      alert('Invalid NFT Address');
-      return;
-    }
-
     const nftmarketPlace = getContractMarketplace({ web3 });
     const listingPrice = await nftmarketPlace.methods.getListingPrice().call();
 
@@ -79,8 +79,10 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
 };
 
 export const approveMarketplaceContract = async (setLoading, nftContract) => {
-  console.log(`nftContract: ${nftContract}`);
-  console.log(`marketplaceAddress: ${marketplaceAddress}`);
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
   setLoading(true);
   _doThis(async (account, web3) => {
     const nft = getContractNft({ web3, address: nftContract });
@@ -134,6 +136,10 @@ struct MarketItem {
  */
 // its itemId not tokenId
 export const buyNft = async (setLoading, nftContract, itemId) => {
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
   if (itemId === null || itemId === undefined) {
     return;
   }
@@ -142,11 +148,6 @@ export const buyNft = async (setLoading, nftContract, itemId) => {
 
   setLoading(true);
   _doThis(async (account, web3) => {
-    if (!isAddress(nftContract)) {
-      alert('Invalid NFT Address');
-      return;
-    }
-
     const nftmarketPlace = getContractMarketplace({ web3 });
 
     const createMarketItem = nftmarketPlace.methods.createMarketSale(
@@ -193,9 +194,87 @@ export const buyNft = async (setLoading, nftContract, itemId) => {
   });
 };
 
+export const createNftAuction = async (
+  setLoading,
+  nftContract,
+  tokenId,
+  minPrice,
+) => {
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
+
+  if (minPrice === null || minPrice === undefined) {
+    return;
+  }
+
+  minPrice = toWei(minPrice);
+
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    const nftBiding = getContractBiding({ web3 });
+
+    const method = nftBiding.methods.createDefaultNftAuction(
+      nftContract,
+      tokenId,
+      zeroAddr,
+      minPrice,
+      0, // buyNowPrice_, https://github.com/muneebzubairkhan/nft-auction
+      [account], // feeRecipients_
+      [10000], // _feePercentages 100.00%
+    );
+    let options = {
+      from: account,
+      gas: '0',
+      value: 0,
+    };
+    try {
+      const estimateGas = Math.trunc(await method.estimateGas(options));
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
+
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
+      alert(msg);
+      return;
+    }
+
+    try {
+      await method.send(options).on('confirmation', i => {
+        //here
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+          // if (
+          //   window.confirm(
+          //     `Welcome to the Cheeky Lion Club King! Go check out your Lions on opensea.io`,
+          //   )
+          // ) {
+          //   window.location.href = `https://opensea.io/${account}`;
+          // }
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
+};
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> READ CONTRACT
 export const getNftImageUrl = async (nftContract, tokenId) => {
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
   const nft = getContractNft({ address: nftContract });
   const tokenURI = await nft.methods.tokenURI(tokenId).call();
   const url = parseIpfs(tokenURI);
@@ -204,15 +283,23 @@ export const getNftImageUrl = async (nftContract, tokenId) => {
 };
 
 export const getNftCollectionName = async nftContract => {
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
   const nft = getContractNft({ address: nftContract });
   const name = await nft.methods.name().call();
   return name;
 };
 
-export const getIsApprovedForAll = async address => {
+export const getIsApprovedForAll = async nftContract => {
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
   return _doThis(
     async account =>
-      await getContractNft({ address })
+      await getContractNft({ address: nftContract })
         .methods.isApprovedForAll(account, marketplaceAddress)
         .call(),
   );

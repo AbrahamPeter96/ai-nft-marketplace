@@ -48,7 +48,7 @@ const menu = (
 export default function Album() {
   const link = window.location.hostname;
   const [nftCollectionName, setNftCollectionName] = useState('Loading...');
-  const nftIds = [1, 2, 3, 4, 5];
+  // const nftIds = [1, 2, 3, 4, 5];
 
   useEffect(() => {
     getNftCollectionName(urlNft).then(setNftCollectionName);
