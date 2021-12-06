@@ -37,6 +37,7 @@ import {
   stakeNft,
   takeHighestBid,
   unstakeNft,
+  uploadNft,
 } from '../../libs/apis';
 import { urlNft, urlTokenId } from '../../libs/utils';
 
@@ -196,6 +197,7 @@ export default function Album() {
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [loading, setLoading] = useState(false);
   // show loader on isLoading
+  const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     setLoading(false); // for remove warnings
@@ -216,6 +218,8 @@ export default function Album() {
     0 && approveStakingContract(setLoading, urlNft);
 
     const fun1 = async () => {
+      0 && uploadNft(setLoading, await (await fetch(one)).blob());
+
       const url = await getNftImageUrl(urlNft, urlTokenId);
       setNftImageUrl(url);
       const laser = await fetch(url);
@@ -260,6 +264,15 @@ export default function Album() {
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem text of the printing and typesetting industry
               </Typography>
+              <input
+                type='file'
+                value={selectedFile}
+                onChange={e => {
+                  // for testing only
+                  0 && uploadNft(setLoading, e.target.files[0]);
+                  0 && setSelectedFile(e.target.files[0]);
+                }}
+              />
               <br />
               <Typography
                 gutterBottom

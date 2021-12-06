@@ -1,14 +1,15 @@
+import axios from 'axios';
+import pkg from 'web3-utils';
 import {
+  getContractArt,
   getContractBiding,
   getContractMarketplace,
   getContractNft,
   getContractNftStaking,
   marketplaceAddress,
-  nftStakingAddress,
+  nftStakingAddress
 } from './smart-contracts.js';
-import { maxUint256, parseIpfs, priceAt, zeroAddr, _doThis } from './utils.js';
-import pkg from 'web3-utils';
-import axios from 'axios';
+import { maxUint256, parseIpfs, priceAt, uploadIpfsText, zeroAddr, _doThis } from './utils.js';
 const { isAddress, toWei } = pkg;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> WRITE CONTRACT
@@ -570,10 +571,55 @@ export const harvestNft = async (setLoading, nftContract) => {
     }
   });
 };
+export const uploadNft = async (setLoading, image) => {
+  
+  console.log(`: ${11111111111111}`);
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    const contract = getContractArt({ web3 });
 
-export const uploadNft = async (setLoading, nftContract) => {
+    const hash = await uploadIpfsText(image);
+    console.log(`hash: ${hash}`);
 
+    const method = contract.methods.mint(`ipfs://${hash}/`);
+    let options = {
+      from: account,
+      gas: '0',
+      value: 0,
+    };
+    try {
+      const estimateGas = Math.trunc(await method.estimateGas(options));
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
+
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
+      alert(msg);
+      return;
+    }
+
+    try {
+      await method.send(options).on('confirmation', i => {
+        //here
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
 };
+
  
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> READ CONTRACT
 export const getNftImageUrl = async (nftContract, tokenId) => {

@@ -8,11 +8,18 @@ import {
 } from './smart-contracts.js';
 import MetaMaskOnboarding from '@metamask/onboarding';
 
+import * as IPFS from 'ipfs-core';
+import pinataSDK from '@pinata/sdk';
+
 const msg_mobile = 'Please use MetaMask App!';
 const msg_desk = 'Please intall MetaMask Wallet extension';
 const deepLink = 'https://metamask.app.link/dapp/cheekylionclub.com/';
 
 const msg_chain = `Please switch network to ${requiredChainIdName}!`;
+
+const PINATA_API_KEY = 'bba8cceb58cf3bf02e49';
+const PINATA_API_SECRET =
+  'f8635865638103477cf33964d57a23264bb29b16e7a2bcaf2ae31fe269d27398';
 
 export const _doThis = async (todo = null, prompt = true) => {
   const isMobile = require('is-mobile')();
@@ -83,6 +90,42 @@ export const loadImgURL = async (
       return URL.createObjectURL(new Blob(content, { type: mime }));
     }
   }
+};
+
+export const uploadIpfsFile = async content => {
+  // ipfs get connection
+  const ipfs = await IPFS.create();
+
+  // ipfs upload file
+  const { cid } = await ipfs.add({ content });
+  const hash = cid + '';
+
+  // pinata login
+  const pinata = pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
+  await pinata.testAuthentication();
+
+  // pinata pin file
+  await pinata.pinByHash(hash);
+
+  return hash;
+};
+
+export const uploadIpfsText = async text => {
+  // ipfs get connection
+  const ipfs = await IPFS.create();
+
+  // ipfs upload file
+  const { cid } = await ipfs.add(text);
+  const hash = cid + '';
+
+  // pinata login
+  const pinata = pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
+  await pinata.testAuthentication();
+
+  // pinata pin file
+  await pinata.pinByHash(hash);
+
+  return hash;
 };
 
 export const urlNft = window.location.pathname.split('/')[2];
