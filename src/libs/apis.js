@@ -8,7 +8,7 @@ import pkg from 'web3-utils';
 import axios from 'axios';
 const { isAddress, toWei } = pkg;
 
-// WRITE CONTRACT
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>> WRITE CONTRACT
 export const sellNft = async (setLoading, nftContract, tokenId, price) => {
   if (price === null || price === undefined) {
     return;
@@ -193,7 +193,8 @@ export const buyNft = async (setLoading, nftContract, itemId) => {
   });
 };
 
-// READ CONTRACT
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>> READ CONTRACT
 export const getNftImageUrl = async (nftContract, tokenId) => {
   const nft = getContractNft({ address: nftContract });
   const tokenURI = await nft.methods.tokenURI(tokenId).call();
