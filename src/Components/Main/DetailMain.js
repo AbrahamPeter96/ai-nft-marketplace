@@ -31,6 +31,7 @@ import {
   getIsApprovedForAll,
   getNftCollectionName,
   getNftImageUrl,
+  harvestNft,
   makeBid,
   sellNft,
   stakeNft,
@@ -208,7 +209,8 @@ export default function Album() {
     0 && takeHighestBid(setLoading, urlNft, urlTokenId);
 
     0 && makeBid(setLoading, urlNft, urlTokenId, '0.1');
-    1 && stakeNft(setLoading, urlNft, urlTokenId);
+    0 && stakeNft(setLoading, urlNft, urlTokenId);
+    1 && harvestNft(setLoading, urlNft);
     0 && approveStakingContract(setLoading, urlNft);
 
     const fun1 = async () => {
