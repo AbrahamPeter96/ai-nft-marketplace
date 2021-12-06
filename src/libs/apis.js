@@ -3,7 +3,7 @@ import {
   getContractNft,
   marketplaceAddress,
 } from './smart-contracts.js';
-import { parseIpfs, _doThis } from './utils.js';
+import { parseIpfs, priceAt, _doThis } from './utils.js';
 import pkg from 'web3-utils';
 import axios from 'axios';
 const { isAddress, toWei } = pkg;
@@ -121,11 +121,24 @@ export const approveMarketplaceContract = async (setLoading, nftContract) => {
   });
 };
 
-export const buyNft = async (setLoading, nftContract, tokenId, price) => {
-  if (price === null || price === undefined) {
+/*
+struct MarketItem {
+    0 uint itemId; <<<<<<<<<<<<<<
+    1 address nftContract;
+    2 uint256 tokenId; 
+    3 address payable seller;
+    4 address payable owner;
+    5 uint256 price;
+    6 bool sold;
+  }
+ */
+// its itemId not tokenId
+export const buyNft = async (setLoading, nftContract, itemId) => {
+  if (itemId === null || itemId === undefined) {
     return;
   }
-  price = toWei(price);
+
+  const price = (await getNftItemsForSale())[itemId][priceAt];
 
   setLoading(true);
   _doThis(async (account, web3) => {
@@ -135,18 +148,16 @@ export const buyNft = async (setLoading, nftContract, tokenId, price) => {
     }
 
     const nftmarketPlace = getContractMarketplace({ web3 });
-    const listingPrice = await nftmarketPlace.methods.getListingPrice().call();
 
-    const createMarketItem = nftmarketPlace.methods.createMarketItem(
+    const createMarketItem = nftmarketPlace.methods.createMarketSale(
       nftContract,
-      tokenId,
-      price,
+      itemId,
     );
-    console.log(`listingPrice: ${listingPrice}`);
+
     let options = {
       from: account,
       gas: '0',
-      value: listingPrice,
+      value: price,
     };
     try {
       const estimateGas = Math.trunc(
@@ -170,17 +181,9 @@ export const buyNft = async (setLoading, nftContract, tokenId, price) => {
 
     try {
       await createMarketItem.send(options).on('confirmation', i => {
-        //here
         if (i === 0) {
           setLoading(false);
           alert('done');
-          // if (
-          //   window.confirm(
-          //     `Welcome to the Cheeky Lion Club King! Go check out your Lions on opensea.io`,
-          //   )
-          // ) {
-          //   window.location.href = `https://opensea.io/${account}`;
-          // }
         }
       });
     } catch (e) {

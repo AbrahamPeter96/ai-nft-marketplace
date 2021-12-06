@@ -1,7 +1,11 @@
 import Web3 from 'web3';
 // import { Toast, Alert } from "react-bootstrap";
 import detectEthereumProvider from '@metamask/detect-provider';
-import { ipfsExplorer, requiredChainId, requiredChainIdName } from './smart-contracts.js';
+import {
+  ipfsExplorer,
+  requiredChainId,
+  requiredChainIdName,
+} from './smart-contracts.js';
 import MetaMaskOnboarding from '@metamask/onboarding';
 
 const msg_mobile = 'Please use MetaMask App!';
@@ -36,7 +40,6 @@ export const _doThis = async (todo = null, prompt = true) => {
         return todo(account, new Web3(ethereum));
       }
     } else alert(msg_chain);
-
   }
 };
 
@@ -51,7 +54,8 @@ export const showAddress = _address => {
 export const parseIpfs = uriStr => {
   const uri = new URL(uriStr);
   let url;
-  if (uri.protocol === 'ipfs:') url = ipfsExplorer + uri.hostname + uri.pathname;
+  if (uri.protocol === 'ipfs:')
+    url = ipfsExplorer + uri.hostname + uri.pathname;
   else url = uriStr;
 
   return url;
@@ -81,5 +85,26 @@ export const loadImgURL = async (
   }
 };
 
-export const urlNft =  window.location.pathname.split('/')[2];
-export const urlTokenId =  window.location.pathname.split('/')[3];
+export const urlNft = window.location.pathname.split('/')[2];
+export const urlTokenId = window.location.pathname.split('/')[3];
+
+/*
+struct MarketItem {
+    0 uint itemId; <<<<<<<<<<<<<<
+    1 address nftContract;
+    2 uint256 tokenId; 
+    3 address payable seller;
+    4 address payable owner;
+    5 uint256 price;
+    6 bool sold;
+  }
+ */
+export const [
+  itemIdAt,
+  nftContractAt,
+  tokenIdAt,
+  sellerAt,
+  ownerAt,
+  priceAt,
+  soldAt,
+] = [0, 1, 2, 3, 4, 5, 6];

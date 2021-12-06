@@ -6,7 +6,6 @@
 // NftStaking https://testnet.bscscan.com/address/0x067dA768914471Fa25Eb97e0F7E76A81Ab6e717B
 //
 //=========================
-
 // if you want to do only get calls then you can use defaultWeb3.
 
 import Web3 from 'web3';
