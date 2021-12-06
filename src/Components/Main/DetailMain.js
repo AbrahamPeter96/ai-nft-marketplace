@@ -31,6 +31,7 @@ import {
   getIsApprovedForAll,
   getNftCollectionName,
   getNftImageUrl,
+  getNftOwner,
   harvestNft,
   makeBid,
   sellNft,
@@ -216,6 +217,9 @@ export default function Album() {
     0 && unstakeNft(setLoading, urlNft, urlTokenId);
     0 && harvestNft(setLoading, urlNft);
     0 && approveStakingContract(setLoading, urlNft);
+    
+    // read apis
+    1 && getNftOwner(urlNft, urlTokenId);
 
     const fun1 = async () => {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());

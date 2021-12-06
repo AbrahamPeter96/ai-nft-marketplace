@@ -7,9 +7,16 @@ import {
   getContractNft,
   getContractNftStaking,
   marketplaceAddress,
-  nftStakingAddress
+  nftStakingAddress,
 } from './smart-contracts.js';
-import { maxUint256, parseIpfs, priceAt, uploadIpfsText, zeroAddr, _doThis } from './utils.js';
+import {
+  maxUint256,
+  parseIpfs,
+  priceAt,
+  uploadIpfsText,
+  zeroAddr,
+  _doThis,
+} from './utils.js';
 const { isAddress, toWei } = pkg;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> WRITE CONTRACT
@@ -519,6 +526,7 @@ export const unstakeNft = async (setLoading, nftContract, tokenId) => {
     }
   });
 };
+
 export const harvestNft = async (setLoading, nftContract) => {
   if (!isAddress(nftContract)) {
     alert('Invalid NFT Address');
@@ -572,8 +580,6 @@ export const harvestNft = async (setLoading, nftContract) => {
   });
 };
 export const uploadNft = async (setLoading, image) => {
-  
-  console.log(`: ${11111111111111}`);
   setLoading(true);
   _doThis(async (account, web3) => {
     const contract = getContractArt({ web3 });
@@ -620,7 +626,6 @@ export const uploadNft = async (setLoading, image) => {
   });
 };
 
- 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> READ CONTRACT
 export const getNftImageUrl = async (nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
@@ -674,4 +679,11 @@ export const getNftItemsForSale = async () => {
   const nft = getContractMarketplace({});
   const items = await nft.methods.fetchMarketItems().call();
   return items;
+};
+
+export const getNftOwner = async (nftContract, tokenId) => {
+  const nft = getContractNft({ address: nftContract });
+  const res = await nft.methods.ownerOf(tokenId).call();
+  // console.log(`res: ${res}`);
+  return res;
 };
