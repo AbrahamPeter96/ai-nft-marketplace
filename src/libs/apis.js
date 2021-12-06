@@ -570,10 +570,11 @@ export const harvestNft = async (setLoading, nftContract) => {
     }
   });
 };
+
 export const uploadNft = async (setLoading, nftContract) => {
 
 };
-
+ 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> READ CONTRACT
 export const getNftImageUrl = async (nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
