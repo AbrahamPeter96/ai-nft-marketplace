@@ -31,6 +31,7 @@ import {
   getNftCollectionName,
   getNftImageUrl,
   sellNft,
+  takeHighestBid,
 } from '../../libs/apis';
 import { urlNft, urlTokenId } from '../../libs/utils';
 
@@ -196,11 +197,12 @@ export default function Album() {
     // test apis
     false && buyNft(setLoading, urlNft, urlTokenId, '0.1'); // 0.1 BNB
 
-    // working
     // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
     false && createNftAuction(setLoading, urlNft, urlTokenId, '0.1');
-
     
+    // working
+    // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
+    true && takeHighestBid(setLoading, urlNft, urlTokenId);
 
     const fun1 = async () => {
       const url = await getNftImageUrl(urlNft, urlTokenId);

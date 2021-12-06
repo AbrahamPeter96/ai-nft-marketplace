@@ -255,6 +255,55 @@ export const createNftAuction = async (
   });
 };
 
+export const takeHighestBid = async (setLoading, nftContract, tokenId) => {
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
+
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    const nftBiding = getContractBiding({ web3 });
+
+    const method = nftBiding.methods.takeHighestBid(nftContract, tokenId);
+    let options = {
+      from: account,
+      gas: '0',
+      value: 0,
+    };
+    try {
+      const estimateGas = Math.trunc(await method.estimateGas(options));
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
+
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
+      alert(msg);
+      return;
+    }
+
+    try {
+      await method.send(options).on('confirmation', i => {
+        //here
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
+};
+
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> READ CONTRACT
 export const getNftImageUrl = async (nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
