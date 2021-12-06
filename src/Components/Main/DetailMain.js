@@ -31,6 +31,7 @@ import {
   getIsApprovedForAll,
   getNftCollectionName,
   getNftImageUrl,
+  getNftItemsForSale,
   sellNft,
 } from '../../libs/apis';
 import { urlNft, urlTokenId } from '../../libs/utils';
@@ -191,6 +192,8 @@ export default function Album() {
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
 
   useEffect(() => {
+    // buyNft()
+                                         
     const fun1 = async () => {
       const url = await getNftImageUrl(urlNft, urlTokenId);
       setNftImageUrl(url);

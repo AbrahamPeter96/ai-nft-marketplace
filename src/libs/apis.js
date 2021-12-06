@@ -15,9 +15,6 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
   }
   price = toWei(price);
 
-  console.log(`price: ${price}`);
-  console.log(`tokenId: ${tokenId}`);
-  console.log(`nftContract: ${nftContract}`);
   setLoading(true);
   _doThis(async (account, web3) => {
     if (!isAddress(nftContract)) {
@@ -99,10 +96,13 @@ export const approveMarketplaceContract = async (setLoading, nftContract) => {
         gas: '' + estimateGas,
       };
     } catch (e) {
-      let msg = e.message.split('\n')[0].split('reverted:')[1];
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
 
-      if (!msg) msg = 'Insufficient funds or some data error';
-
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
       alert(msg);
       return;
     }
@@ -112,6 +112,75 @@ export const approveMarketplaceContract = async (setLoading, nftContract) => {
         if (i === 0) {
           setLoading(false);
           alert('done');
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
+};
+
+export const buyNft = async (setLoading, nftContract, tokenId, price) => {
+  if (price === null || price === undefined) {
+    return;
+  }
+  price = toWei(price);
+
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    if (!isAddress(nftContract)) {
+      alert('Invalid NFT Address');
+      return;
+    }
+
+    const nftmarketPlace = getContractMarketplace({ web3 });
+    const listingPrice = await nftmarketPlace.methods.getListingPrice().call();
+
+    const createMarketItem = nftmarketPlace.methods.createMarketItem(
+      nftContract,
+      tokenId,
+      price,
+    );
+    console.log(`listingPrice: ${listingPrice}`);
+    let options = {
+      from: account,
+      gas: '0',
+      value: listingPrice,
+    };
+    try {
+      const estimateGas = Math.trunc(
+        await createMarketItem.estimateGas(options),
+      );
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
+
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
+      alert(msg);
+      return;
+    }
+
+    try {
+      await createMarketItem.send(options).on('confirmation', i => {
+        //here
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+          // if (
+          //   window.confirm(
+          //     `Welcome to the Cheeky Lion Club King! Go check out your Lions on opensea.io`,
+          //   )
+          // ) {
+          //   window.location.href = `https://opensea.io/${account}`;
+          // }
         }
       });
     } catch (e) {
@@ -145,6 +214,21 @@ export const getIsApprovedForAll = async address => {
   );
 };
 
-// console.log(
-//   await getNftCollectionName('0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4'),
-// );
+/*
+struct MarketItem {
+    uint itemId;
+    address nftContract;
+    uint256 tokenId;
+    address payable seller;
+    address payable owner;
+    uint256 price;
+    bool sold;
+  }
+ */
+
+// screen: items for sale
+export const getNftItemsForSale = async () => {
+  const nft = getContractMarketplace({});
+  const items = await nft.methods.fetchMarketItems().call();
+  return items;
+};
