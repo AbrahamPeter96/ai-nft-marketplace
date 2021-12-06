@@ -190,10 +190,12 @@ export default function Album() {
   const [nftImageUrl, setNftImageUrl] = useState('Loading...');
   const [imageObj, setImageObj] = useState('Loading...');
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  // show loader on isLoading
 
   useEffect(() => {
-    // buyNft()
-                                         
+    // buyNft(setIsLoading, urlNft, urlTokenId, '0.1'); // 0.1 BNB
+
     const fun1 = async () => {
       const url = await getNftImageUrl(urlNft, urlTokenId);
       setNftImageUrl(url);
