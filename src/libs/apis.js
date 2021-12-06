@@ -62,13 +62,6 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
         if (i === 0) {
           setLoading(false);
           alert('done');
-          // if (
-          //   window.confirm(
-          //     `Welcome to the Cheeky Lion Club King! Go check out your Lions on opensea.io`,
-          //   )
-          // ) {
-          //   window.location.href = `https://opensea.io/${account}`;
-          // }
         }
       });
     } catch (e) {
@@ -253,13 +246,6 @@ export const createNftAuction = async (
         if (i === 0) {
           setLoading(false);
           alert('done');
-          // if (
-          //   window.confirm(
-          //     `Welcome to the Cheeky Lion Club King! Go check out your Lions on opensea.io`,
-          //   )
-          // ) {
-          //   window.location.href = `https://opensea.io/${account}`;
-          // }
         }
       });
     } catch (e) {

@@ -198,7 +198,9 @@ export default function Album() {
 
     // working
     // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
-    true && createNftAuction(setLoading, urlNft, urlTokenId, '0.1');
+    false && createNftAuction(setLoading, urlNft, urlTokenId, '0.1');
+
+    
 
     const fun1 = async () => {
       const url = await getNftImageUrl(urlNft, urlTokenId);
