@@ -25,6 +25,7 @@ import two from '../../Images/2.png';
 import three from '../../Images/3.png';
 import {
   approveMarketplaceContract,
+  approveStakingContract,
   buyNft,
   createNftAuction,
   getIsApprovedForAll,
@@ -32,6 +33,7 @@ import {
   getNftImageUrl,
   makeBid,
   sellNft,
+  stakeNft,
   takeHighestBid,
 } from '../../libs/apis';
 import { urlNft, urlTokenId } from '../../libs/utils';
@@ -196,16 +198,18 @@ export default function Album() {
   useEffect(() => {
     setLoading(false); // for remove warnings
     // test apis
-    false && buyNft(setLoading, urlNft, urlTokenId, '0.1'); // 0.1 BNB
+    0 && buyNft(setLoading, urlNft, urlTokenId, '0.1'); // 0.1 BNB
 
     // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
-    false && createNftAuction(setLoading, urlNft, urlTokenId, '0.1');
+    0 && createNftAuction(setLoading, urlNft, urlTokenId, '0.1');
 
     // working
     // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
-    false && takeHighestBid(setLoading, urlNft, urlTokenId);
+    0 && takeHighestBid(setLoading, urlNft, urlTokenId);
 
-    true && makeBid(setLoading, urlNft, urlTokenId, '0.1');
+    0 && makeBid(setLoading, urlNft, urlTokenId, '0.1');
+    1 && stakeNft(setLoading, urlNft, urlTokenId);
+    0 && approveStakingContract(setLoading, urlNft);
 
     const fun1 = async () => {
       const url = await getNftImageUrl(urlNft, urlTokenId);

@@ -2,9 +2,11 @@ import {
   getContractBiding,
   getContractMarketplace,
   getContractNft,
+  getContractNftStaking,
   marketplaceAddress,
+  nftStakingAddress,
 } from './smart-contracts.js';
-import { parseIpfs, priceAt, zeroAddr, _doThis } from './utils.js';
+import { maxUint256, parseIpfs, priceAt, zeroAddr, _doThis } from './utils.js';
 import pkg from 'web3-utils';
 import axios from 'axios';
 const { isAddress, toWei } = pkg;
@@ -338,6 +340,105 @@ export const makeBid = async (setLoading, nftContract, tokenId, bidPrice) => {
       };
     } catch (e) {
       console.log(`e.message: ${e.message}`);
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
+
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
+      alert(msg);
+      return;
+    }
+
+    try {
+      await method.send(options).on('confirmation', i => {
+        //here
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
+};
+
+export const approveStakingContract = async (setLoading, nftContract) => {
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    const nft = getContractNft({ web3, address: nftContract });
+    const method = nft.methods.setApprovalForAll(nftStakingAddress, true);
+    let options = {
+      from: account,
+      gas: '0',
+    };
+    try {
+      const estimateGas = Math.trunc(await method.estimateGas(options));
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
+
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
+      alert(msg);
+      return;
+    }
+
+    try {
+      await method.send(options).on('confirmation', i => {
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
+};
+
+export const stakeNft = async (setLoading, nftContract, tokenId) => {
+  if (!isAddress(nftContract)) {
+    alert('Invalid NFT Address');
+    return;
+  }
+
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    const nftBiding = getContractNftStaking({ web3 });
+    const pid = await nftBiding.methods.getPidOfToken(nftContract).call();
+    console.log(`pid: ${pid}`);
+    if (pid === maxUint256) {
+      alert('Staking not available for this Nft collection');
+      return;
+    }
+    const method = nftBiding.methods.deposit(pid, tokenId);
+    let options = {
+      from: account,
+      gas: '0',
+      value: 0,
+    };
+    try {
+      const estimateGas = Math.trunc(await method.estimateGas(options));
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
       let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
 
       if (!msg) {
