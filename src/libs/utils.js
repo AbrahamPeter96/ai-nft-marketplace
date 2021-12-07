@@ -17,9 +17,9 @@ const deepLink = 'https://metamask.app.link/dapp/cheekylionclub.com/';
 
 const msg_chain = `Please switch network to ${requiredChainIdName}!`;
 
-const PINATA_API_KEY = 'bba8cceb58cf3bf02e49';
-const PINATA_API_SECRET =
-  'f8635865638103477cf33964d57a23264bb29b16e7a2bcaf2ae31fe269d27398';
+const PINATA_API_KEY = process.env.REACT_APP_API_KEY;
+console.log(`PINATA_API_KEY: ${PINATA_API_KEY}`);
+const PINATA_API_SECRET = process.env.REACT_APP_API_KEY_SECRET;
 
 export const _doThis = async (todo = null, prompt = true) => {
   const isMobile = require('is-mobile')();
@@ -59,12 +59,18 @@ export const showAddress = _address => {
 };
 
 export const parseIpfs = uriStr => {
-  const uri = new URL(uriStr);
+  console.log(`uriStr: ${uriStr}`);
   let url;
-  if (uri.protocol === 'ipfs:')
-    url = ipfsExplorer + uri.hostname + uri.pathname;
-  else url = uriStr;
-
+  try {
+    const uri = new URL(uriStr);
+    console.log(`uri: ${JSON.stringify(uri, null, 4)}`);
+    if (uri.protocol === 'ipfs:')
+      url = ipfsExplorer + uri.hostname + uri.pathname;
+    else if (uri.protocol === 'http:' || uri.protocol === 'https:')
+      url = uriStr;
+  } catch (e) {
+    url = ipfsExplorer + uriStr;
+  }
   return url;
 };
 
