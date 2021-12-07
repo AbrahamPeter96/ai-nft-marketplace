@@ -273,7 +273,7 @@ export default function Album() {
                 value={selectedFile}
                 onChange={e => {
                   // for testing only
-                  1 && uploadNft(setLoading, e.target.files[0]);
+                  0 && uploadNft(setLoading, e.target.files[0]);
                   0 && setSelectedFile(e.target.files[0]);
                 }}
               />
