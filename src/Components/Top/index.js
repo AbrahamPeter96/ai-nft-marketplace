@@ -51,7 +51,7 @@ export default function Album() {
   // const nftIds = [1, 2, 3, 4, 5];
 
   useEffect(() => {
-    getNftCollectionName(urlNft).then(setNftCollectionName);
+    0 && getNftCollectionName(urlNft).then(setNftCollectionName);
   }, []);
   return (
     <ThemeProvider theme={theme}>
