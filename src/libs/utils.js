@@ -8,7 +8,6 @@ import {
 } from './smart-contracts.js';
 import MetaMaskOnboarding from '@metamask/onboarding';
 
-import * as IPFS from 'ipfs-core';
 import pinataSDK from '@pinata/sdk';
 
 const msg_mobile = 'Please use MetaMask App!';
@@ -97,28 +96,11 @@ export const loadImgURL = async (
   }
 };
 
-export const uploadIpfsFile = async content => {
+
+
+export const uploadIpfsText = async (ipfs,text) => {
   // ipfs get connection
-  const ipfs = await IPFS.create();
-
-  // ipfs upload file
-  const { cid } = await ipfs.add({ content });
-  const hash = cid + '';
-
-  // pinata login
-  const pinata = pinataSDK(PINATA_API_KEY, PINATA_API_SECRET);
-  await pinata.testAuthentication();
-
-  // pinata pin file
-  await pinata.pinByHash(hash);
-
-  return hash;
-};
-
-export const uploadIpfsText = async text => {
-  // ipfs get connection
-  const ipfs = await IPFS.create();
-
+  
   // ipfs upload file
   const { cid } = await ipfs.add(text);
   const hash = cid + '';

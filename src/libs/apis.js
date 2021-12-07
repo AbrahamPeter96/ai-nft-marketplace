@@ -17,6 +17,7 @@ import {
   zeroAddr,
   _doThis,
 } from './utils.js';
+import * as IPFS from 'ipfs-core';
 const { isAddress, toWei } = pkg;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> WRITE CONTRACT
@@ -581,13 +582,21 @@ export const harvestNft = async (setLoading, nftContract) => {
 };
 export const uploadNft = async (setLoading, image) => {
   setLoading(true);
+
+  const ipfs = await IPFS.create();
+
+  const imgHash = await uploadIpfsText(ipfs, image);
+  console.log(`imgHash: ${imgHash}`);
+  const metadata = JSON.stringify({ image: `ipfs://${imgHash}/` }, null, 4);
+  console.log(`metadata: ${metadata}`);
+  const metadataHash = await uploadIpfsText(ipfs, metadata);
+  console.log(`metadataHash: ${metadataHash}`);
+
+  console.log(`hash: ${imgHash}`);
   _doThis(async (account, web3) => {
     const contract = getContractArt({ web3 });
 
-    const hash = await uploadIpfsText(image);
-    console.log(`hash: ${hash}`);
-
-    const method = contract.methods.mint(`ipfs://${hash}/`);
+    const method = contract.methods.mint(metadataHash);
     let options = {
       from: account,
       gas: '0',

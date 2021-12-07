@@ -219,7 +219,7 @@ export default function Album() {
     0 && approveStakingContract(setLoading, urlNft);
     
     // read apis
-    1 && getNftOwner(urlNft, urlTokenId);
+    0 && getNftOwner(urlNft, urlTokenId);
 
     const fun1 = async () => {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
@@ -273,7 +273,7 @@ export default function Album() {
                 value={selectedFile}
                 onChange={e => {
                   // for testing only
-                  0 && uploadNft(setLoading, e.target.files[0]);
+                  1 && uploadNft(setLoading, e.target.files[0]);
                   0 && setSelectedFile(e.target.files[0]);
                 }}
               />
