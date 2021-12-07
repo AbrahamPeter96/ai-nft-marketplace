@@ -17,7 +17,8 @@ import Web3 from 'web3';
 
 export const requiredChainId = '0x61';
 export const requiredChainIdName = 'BSC Testnet';
-export const ipfsExplorer = 'https://ipfs.io/ipfs/';
+export const ipfsExplorer = 'https://gateway.pinata.cloud/ipfs/';
+export const ipfsExplorer2 = 'https://ipfs.io/ipfs/';
 
 export const defaultWeb3 = new Web3(
   'https://data-seed-prebsc-2-s2.binance.org:8545'

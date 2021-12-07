@@ -59,18 +59,17 @@ export const showAddress = _address => {
 };
 
 export const parseIpfs = uriStr => {
-  console.log(`uriStr: ${uriStr}`);
   let url;
   try {
     const uri = new URL(uriStr);
-    console.log(`uri: ${JSON.stringify(uri, null, 4)}`);
     if (uri.protocol === 'ipfs:')
-      url = ipfsExplorer + uri.hostname + uri.pathname;
+      url = ipfsExplorer + uri.hostname + uri.pathname.replace('//', '');
     else if (uri.protocol === 'http:' || uri.protocol === 'https:')
       url = uriStr;
   } catch (e) {
     url = ipfsExplorer + uriStr;
   }
+  console.log(`url: ${url}`);
   return url;
 };
 
