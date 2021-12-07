@@ -638,7 +638,7 @@ export const uploadNft = async (setLoading, image) => {
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> READ CONTRACT
 export const getNftImageUrl = async (nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    //alert('Invalid NFT Address');
     return;
   }
   const nft = getContractNft({ address: nftContract });
@@ -650,7 +650,7 @@ export const getNftImageUrl = async (nftContract, tokenId) => {
 
 export const getNftCollectionName = async nftContract => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    //alert('Invalid NFT Address');
     return;
   }
   const nft = getContractNft({ address: nftContract });
