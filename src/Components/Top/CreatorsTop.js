@@ -56,15 +56,16 @@ export default function Album() {
         {/* <AppBar position="relative" color="transparent"> */}
         <Navbar expand="lg">
           <Container>
-            <Navbar.Brand href={link}>
-              {" "}
-              <img
-                src={logo}
-                width="70"
-                height="70"
-                className="d-inline-block align-top"
-                alt="React Bootstrap logo"
-              />
+            <Navbar.Brand >
+            <Link to="/Collections">
+                <img
+                  src={logo}
+                  width="70"
+                  height="70"
+                  className="d-inline-block align-top"
+                  alt="React Bootstrap logo"
+                />
+              </Link>
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
