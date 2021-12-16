@@ -11,5 +11,7 @@ import Detailed from "./Detailed"
 import SignIn from "./SignIn"
 import SignUp from "./SignUp"
 import Wallet from "./Wallet"
+import CollectionsItems from "./CollectionItems"
+import CreateNFT from "./CreateNFT"
 
-export { Creators, Collections, Aboutus, Testimonials,Buy,Bid,Sell,Detail,SignIn,SignUp,Detailed,MoreDetail,Wallet };
+export { Creators, Collections, Aboutus, Testimonials,Buy,Bid,Sell,Detail,SignIn,SignUp,Detailed,MoreDetail,Wallet,CollectionsItems ,CreateNFT};

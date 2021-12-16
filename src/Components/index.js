@@ -10,8 +10,11 @@ import AboutMain from "./Main/AboutMain"
 import TestimonialsMain from "./Main/TestimonialsMain"
 import TestimonialsTop from "./Top/TestimonialsTop"
 import AboutTop from "./Top/AboutTop"
+import ItemsTop from "./Top/ItemsTop"
 import MoreDetailMain from "./Main/MoreDetailMain"
 import WalletMain from "./Main/WalletMain"
+import ItemsMain from "./Main/ItemsMain"
+import CreateNftMain from "./Main/CreateNftMain"
 
 export {
     Main,
@@ -27,5 +30,8 @@ export {
     DetailsTop,
     DetailedMain,
     MoreDetailMain,
-    WalletMain
+    WalletMain,
+    ItemsMain,
+    ItemsTop,
+    CreateNftMain
 }

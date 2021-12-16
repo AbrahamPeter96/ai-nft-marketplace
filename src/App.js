@@ -5,6 +5,7 @@ import {
   Switch,
   Route,
   Redirect,
+  useLocation
 } from "react-router-dom";
 import {
   Creators,
@@ -19,12 +20,24 @@ import {
   SignIn,
   SignUp,
   MoreDetail,
-  Wallet
+  Wallet,
+  CollectionsItems,
+  CreateNFT
 } from "./Pages";
+// import "./packages/react-router-dom/examples/Animation/styles.css";
+import {
+  TransitionGroup,
+  CSSTransition
+} from "react-transition-group";
 
 function App() {
   return (
     <div className="App">
+        <TransitionGroup>
+          <CSSTransition
+            classNames="fade"
+            timeout={300}
+          >
       <Router>
         <Switch>
           <Route exact path="/">
@@ -33,10 +46,19 @@ function App() {
           <Route path="/Collections">
             <Collections />
           </Route>
+          <Route path="/Collection">
+            <CollectionsItems />
+          </Route>
+          <Route path="/Collection/*">
+            <CollectionsItems />
+          </Route>
           <Route path="/Creators">
             <Creators />
           </Route>
           <Route path="/Detail">
+            <Detail />
+          </Route>
+          <Route path="/Detail/*">
             <Detail />
           </Route>
           <Route path="/MoreDetail">
@@ -50,6 +72,9 @@ function App() {
           </Route>
           <Route path="/Testimonials">
             <Testimonials />
+          </Route>
+          <Route path="/CreateNFT">
+            <CreateNFT />
           </Route>
           <Route path="/Signin">
             <SignIn />
@@ -71,6 +96,8 @@ function App() {
           </Route>
         </Switch>
       </Router>
+      </CSSTransition>
+        </TransitionGroup>
     </div>
   );
 }

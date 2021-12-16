@@ -89,6 +89,11 @@ export default function Album() {
                     </Link>
                   </Nav.Link>
                   <Nav.Link style={{ color: "white" }}>
+                    <Link to="/CreateNFT" style={{ color: "white" }}>
+                      CreateNFT
+                    </Link>
+                  </Nav.Link>
+                  <Nav.Link style={{ color: "white" }}>
                     <Link to="/Aboutus" style={{ color: "white" }}>
                       About us
                     </Link>

@@ -4,7 +4,9 @@
   text-align: center;
   background-color: #282c34 !important;
 }
-
+body{
+  background-color: #282c34 !important;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -15,6 +17,16 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
+}
+
 
 .App-header {
   background-color: #3d434e;

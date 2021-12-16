@@ -41,16 +41,6 @@ import {
   uploadNft,
 } from '../../libs/apis';
 import { urlNft, urlTokenId } from '../../libs/utils';
-import {nftCollections} from "../../collections"
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams,
-  useRouteMatch
-} from "react-router-dom";
-
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -200,7 +190,7 @@ function ActionSliderCard({ img, title, des }) {
 //     </Card>
 //   );
 // }
-
+      
 export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState('Loading...');
   const [nftImageUrl, setNftImageUrl] = useState('Loading...');
@@ -234,21 +224,18 @@ export default function Album() {
     const fun1 = async () => {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[1], '8');
+      const url = await getNftImageUrl(urlNft, urlTokenId);
       setNftImageUrl(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
       setImageObj(img);
     };
 
-    // getNftCollectionName(urlNft).then(setNftCollectionName);
-    getNftCollectionName(nftCollections[1]).then(setNftCollectionName);
+    getNftCollectionName(urlNft).then(setNftCollectionName);
     getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
 
     fun1();
   }, []);
-  let { path, url } = useRouteMatch();
   return (
     <ThemeProvider theme={theme}>
       <main>
@@ -281,7 +268,7 @@ export default function Album() {
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem text of the printing and typesetting industry
               </Typography>
-              <input
+              {/* <input
                 type='file'
                 value={selectedFile}
                 onChange={e => {
@@ -289,7 +276,7 @@ export default function Album() {
                   0 && uploadNft(setLoading, e.target.files[0]);
                   0 && setSelectedFile(e.target.files[0]);
                 }}
-              />
+              /> */}
               <br />
               <Typography
                 gutterBottom
@@ -367,6 +354,7 @@ export default function Album() {
                     borderRadius: '20px',
                     color: 'white',
                   }}
+                  
                 >
                   Bid {false && loading /* just to remove warnings*/}
                 </Button>
@@ -411,14 +399,6 @@ export default function Album() {
       <br />
       <br />
       <br />
-      {/* <Switch>
-        <Route exact path={path}>
-          <h3>Please select a topic.</h3>
-        </Route>
-        <Route path={`${path}/:nftId`}>
-          <Album />
-        </Route>
-      </Switch> */}
     </ThemeProvider>
   );
 }

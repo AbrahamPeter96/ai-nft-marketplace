@@ -109,6 +109,11 @@ export default function Album() {
                     </Link>
                   </Nav.Link>
                   <Nav.Link style={{ color: "white" }}>
+                    <Link to="/CreateNFT" style={{ color: "white" }}>
+                      CreateNFT
+                    </Link>
+                  </Nav.Link>
+                  <Nav.Link style={{ color: "white" }}>
                     <Link to="/Aboutus" style={{ color: "white" }}>
                       About us
                     </Link>
@@ -149,6 +154,7 @@ export default function Album() {
                   fontWeight="bolder"
                 >
                   {nftCollectionName}
+                  <br/>
                 </Typography>
                 {/* <Typography variant="p" align="center" color="white" paragraph>
                   you have your nft´ s in your porfolioo 2.

@@ -77,7 +77,7 @@ function ActionAreaCard({ img, title, des }) {
   );
 }
 
-export default function Album() {
+export default function Items() {
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
 
   const [nftImageUrl, setNftImageUrl] = useState("Loading...");
@@ -178,7 +178,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[0], "8");
+      const url = await getNftImageUrl(urlNft, "0");
       setNftImageUrl(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -189,7 +189,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[1], "8");
+      const url = await getNftImageUrl(urlNft, "1");
       setNftImageUrlOne(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -200,7 +200,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[2], "0");
+      const url = await getNftImageUrl(urlNft, "2");
       setNftImageUrlTwo(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -211,7 +211,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[3], "2");
+      const url = await getNftImageUrl(urlNft, "3");
       setNftImageUrlThree(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -222,7 +222,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[4], "8");
+      const url = await getNftImageUrl(urlNft, "4");
       setNftImageUrlFor(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -233,7 +233,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[5], "8");
+      const url = await getNftImageUrl(urlNft, "5");
       setNftImageUrlfiv(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -244,7 +244,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[6], "8");
+      const url = await getNftImageUrl(urlNft, "6");
       setNftImageUrlSix(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -255,7 +255,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[7], "8");
+      const url = await getNftImageUrl(urlNft, "7");
       setNftImageUrlSeven(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -266,7 +266,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[8], "8");
+      const url = await getNftImageUrl(urlNft, "8");
       setNftImageUrlEeight(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -276,7 +276,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[9], "8");
+      const url = await getNftImageUrl(urlNft, "9");
       setNftImageUrlNine(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -284,24 +284,24 @@ export default function Album() {
     };
 
     // getNftCollectionName(urlNft).then(setNftCollectionName);
-    getNftCollectionName(nftCollections[0]).then(setNftCollectionName);
-    getNftCollectionName(nftCollections[1]).then(setNftCollectionNameOne);
+    getNftCollectionName(urlNft).then(setNftCollectionName);
+    getNftCollectionName(urlNft).then(setNftCollectionNameOne);
 
-    getNftCollectionName(nftCollections[2]).then(setNftCollectionNameTwo);
+    getNftCollectionName(urlNft).then(setNftCollectionNameTwo);
 
-    getNftCollectionName(nftCollections[3]).then(setNftCollectionNameThree);
+    getNftCollectionName(urlNft).then(setNftCollectionNameThree);
 
-    getNftCollectionName(nftCollections[4]).then(setNftCollectionNameFor);
+    getNftCollectionName(urlNft).then(setNftCollectionNameFor);
 
-    getNftCollectionName(nftCollections[5]).then(setNftCollectionNamefiv);
+    getNftCollectionName(urlNft).then(setNftCollectionNamefiv);
 
-    getNftCollectionName(nftCollections[6]).then(setNftCollectionNameSix);
+    getNftCollectionName(urlNft).then(setNftCollectionNameSix);
 
-    getNftCollectionName(nftCollections[7]).then(setNftCollectionNameSeven);
+    getNftCollectionName(urlNft).then(setNftCollectionNameSeven);
 
-    getNftCollectionName(nftCollections[8]).then(setNftCollectionNameEeight);
+    getNftCollectionName(urlNft).then(setNftCollectionNameEeight);
 
-    getNftCollectionName(nftCollections[9]).then(setNftCollectionNameNine);
+    getNftCollectionName(urlNft).then(setNftCollectionNameNine);
 
     getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
 
@@ -336,19 +336,16 @@ export default function Album() {
             setNftUrl(nft) */}
           {/* // <div key={i}> */}
           <Col>
-            <Link to="/Collection/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4">
+            <Link to={`/detail/${urlNft}/0`}>
               <ActionAreaCard img={imageObj} title={nftCollectionName} />
             </Link>
-            {/* <Link to="/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8">
-            <ActionAreaCard img={imageObj} title={nftCollectionName} />
-            </Link> */}
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
               {nftCollectionName}
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link to={`/detail/${urlNft}/1`}>
               <ActionAreaCard img={imageObjOne} title={nftCollectionNameOne} />
             </Link>
             <br />
@@ -357,7 +354,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x4296701BCf33a196E0A01e26dde1FeA71FFaf289">
+            <Link to={`/detail/${urlNft}/2`}>
               <ActionAreaCard img={imageObjTwo} title={nftCollectionNameTwo} />
             </Link>
             <br />
@@ -366,19 +363,19 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-          <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
-            <ActionAreaCard
-              img={imageObjThree}
-              title={nftCollectionNameThree}
-            />
- </Link>
+            <Link to={`/detail/${urlNft}/3`}>
+              <ActionAreaCard
+                img={imageObjThree}
+                title={nftCollectionNameThree}
+              />
+            </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
               {nftCollectionNameThree}
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link to={`/detail/${urlNft}/4`}>
               <ActionAreaCard img={imageObjFor} title={nftCollectionNameFor} />
             </Link>
             <br />
@@ -387,7 +384,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link to={`/detail/${urlNft}/5`}>
               <ActionAreaCard img={imageObjfiv} title={nftCollectionNamefiv} />
             </Link>
             <br />
@@ -396,7 +393,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link to={`/detail/${urlNft}/6`}>
               <ActionAreaCard img={imageObjSix} title={nftCollectionNameSix} />
             </Link>
             <br />
@@ -405,7 +402,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link to={`/detail/${urlNft}/7`}>
               <ActionAreaCard
                 img={imageObjSeven}
                 title={nftCollectionNameSeven}
@@ -417,7 +414,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link to={`/detail/${urlNft}/8`}>
               <ActionAreaCard
                 img={imageObjEeight}
                 title={nftCollectionNameEeight}
@@ -429,7 +426,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link to={`/detail/${urlNft}/9`}>
               <ActionAreaCard
                 img={imageObjNine}
                 title={nftCollectionNameNine}
@@ -440,166 +437,7 @@ export default function Album() {
               {nftCollectionNameNine}
             </Typography>
           </Col>
-          {/* </div> */}
-          {/* })} */}
-
-          {/* <Col>
-            <ActionAreaCard img={three} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={one} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={two} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-
-          <Col>
-            <ActionAreaCard img={two} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={one} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={three} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-
-          <Col>
-            <ActionAreaCard img={one} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={three} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={two} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-
-          <Col>
-            <ActionAreaCard img={three} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={two} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={one} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col> */}
         </Row>
-
-        {/* 
-        <Container
-          sx={{ py: 7, alignItems: "center", justifyContent: "center" }}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid
-              container
-              spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
-            >
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={three} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white" style>
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={two} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={one} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={two} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={one} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={three} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={one} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={three} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={two} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-            </Grid>
-          </Box>
-        </Container>
-    */}
       </main>
       <br />
       <br />
