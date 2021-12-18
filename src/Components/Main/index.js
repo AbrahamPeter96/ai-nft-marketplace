@@ -1,3 +1,4 @@
+// /* eslint-disable-line no-unused-vars */
 import React, { useState, useEffect } from "react";
 // import AppBar from "@mui/material/AppBar";
 // import Button from "@mui/material/Button";
@@ -20,11 +21,8 @@ import { Link } from "react-router-dom";
 // import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import one from "../../Images/1.png";
-import two from "../../Images/2.png";
-import three from "../../Images/3.png";
 import { nftCollections } from "../../collections";
 import {
-  approveMarketplaceContract,
   approveStakingContract,
   buyNft,
   createNftAuction,
@@ -34,7 +32,6 @@ import {
   getNftOwner,
   harvestNft,
   makeBid,
-  sellNft,
   stakeNft,
   takeHighestBid,
   unstakeNft,
@@ -80,14 +77,14 @@ function ActionAreaCard({ img, title, des }) {
 export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
 
-  const [nftImageUrl, setNftImageUrl] = useState("Loading...");
+  const [nftImageUrl, setNftImageUrl] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObj, setImageObj] = useState("Loading...");
 
   const [nftCollectionNameOne, setNftCollectionNameOne] =
     useState("Loading...");
 
-  const [nftImageUrlOne, setNftImageUrlOne] = useState("Loading...");
+  const [nftImageUrlOne, setNftImageUrlOne] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjOne, setImageObjOne] = useState("Loading...");
 
@@ -200,7 +197,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[2], "0");
+      const url = await getNftImageUrl(nftCollections[2], "8");
       setNftImageUrlTwo(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
@@ -211,11 +208,11 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(nftCollections[3], "2");
+      const url = await getNftImageUrl(nftCollections[3], "8");
       setNftImageUrlThree(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
-      setNftImageUrlThree(img);
+      setImageObjThree(img);
     };
 
     const fun5 = async () => {
@@ -336,7 +333,10 @@ export default function Album() {
             setNftUrl(nft) */}
           {/* // <div key={i}> */}
           <Col>
-            <Link to="/Collection/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4">
+            <Link 
+            to={`/Collection/${nftCollections[0]}`}
+            // to="/Collection/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4"
+            >
               <ActionAreaCard img={imageObj} title={nftCollectionName} />
             </Link>
             {/* <Link to="/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8">
@@ -348,7 +348,9 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link 
+            to={`/Collection/${nftCollections[1]}`}
+            >
               <ActionAreaCard img={imageObjOne} title={nftCollectionNameOne} />
             </Link>
             <br />
@@ -357,7 +359,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x4296701BCf33a196E0A01e26dde1FeA71FFaf289">
+            <Link  to={`/Collection/${nftCollections[2]}`}>
               <ActionAreaCard img={imageObjTwo} title={nftCollectionNameTwo} />
             </Link>
             <br />
@@ -366,7 +368,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-          <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+          <Link   to={`/Collection/${nftCollections[3]}`}>
             <ActionAreaCard
               img={imageObjThree}
               title={nftCollectionNameThree}
@@ -378,7 +380,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link   to={`/Collection/${nftCollections[4]}`}>
               <ActionAreaCard img={imageObjFor} title={nftCollectionNameFor} />
             </Link>
             <br />
@@ -387,7 +389,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link   to={`/Collection/${nftCollections[5]}`}>
               <ActionAreaCard img={imageObjfiv} title={nftCollectionNamefiv} />
             </Link>
             <br />
@@ -396,7 +398,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link   to={`/Collection/${nftCollections[6]}`}>
               <ActionAreaCard img={imageObjSix} title={nftCollectionNameSix} />
             </Link>
             <br />
@@ -405,7 +407,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link   to={`/Collection/${nftCollections[7]}`}>
               <ActionAreaCard
                 img={imageObjSeven}
                 title={nftCollectionNameSeven}
@@ -417,7 +419,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link  to={`/Collection/${nftCollections[8]}`}>
               <ActionAreaCard
                 img={imageObjEeight}
                 title={nftCollectionNameEeight}
@@ -429,7 +431,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link to="/Collection/0x00cfa114386922f33b666FCC31655660B27Da652">
+            <Link  to={`/Collection/${nftCollections[9]}`}>
               <ActionAreaCard
                 img={imageObjNine}
                 title={nftCollectionNameNine}

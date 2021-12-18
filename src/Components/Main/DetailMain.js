@@ -198,7 +198,7 @@ export default function Album() {
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [loading, setLoading] = useState(false);
   // show loader on isLoading
-  const [selectedFile, setSelectedFile] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     setLoading(false); // for remove warnings
@@ -223,7 +223,7 @@ export default function Album() {
 
     const fun1 = async () => {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
+     
       const url = await getNftImageUrl(urlNft, urlTokenId);
       setNftImageUrl(url);
       const laser = await fetch(url);
@@ -266,7 +266,7 @@ export default function Album() {
                 component='div'
               >
                 Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem text of the printing and typesetting industry
+                industry. Lorem text of the printing and typesetting industry {nftImageUrl}
               </Typography>
               {/* <input
                 type='file'

@@ -1,3 +1,4 @@
+/* eslint-disable-next-line */
 import React, { useState, useEffect } from "react";
 // import AppBar from "@mui/material/AppBar";
 // import Button from "@mui/material/Button";
@@ -20,11 +21,7 @@ import { Link } from "react-router-dom";
 // import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import one from "../../Images/1.png";
-import two from "../../Images/2.png";
-import three from "../../Images/3.png";
-import { nftCollections } from "../../collections";
 import {
-  approveMarketplaceContract,
   approveStakingContract,
   buyNft,
   createNftAuction,
@@ -34,7 +31,6 @@ import {
   getNftOwner,
   harvestNft,
   makeBid,
-  sellNft,
   stakeNft,
   takeHighestBid,
   unstakeNft,
@@ -80,78 +76,79 @@ function ActionAreaCard({ img, title, des }) {
 export default function Items() {
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
 
-  const [nftImageUrl, setNftImageUrl] = useState("Loading...");
+  const [nftImageUrl, setNftImageUrl] = useState("Loading..."); 
+  
 
   const [imageObj, setImageObj] = useState("Loading...");
 
   const [nftCollectionNameOne, setNftCollectionNameOne] =
     useState("Loading...");
 
-  const [nftImageUrlOne, setNftImageUrlOne] = useState("Loading...");
+  const [nftImageUrlOne, setNftImageUrlOne] = useState("Loading...");// eslint-disable-next-line
 
   const [imageObjOne, setImageObjOne] = useState("Loading...");
 
   const [nftCollectionNameTwo, setNftCollectionNameTwo] =
     useState("Loading...");
 
-  const [nftImageUrlTwo, setNftImageUrlTwo] = useState("Loading...");
+  const [nftImageUrlTwo, setNftImageUrlTwo] = useState("Loading...");// eslint-disable-next-line
 
   const [imageObjTwo, setImageObjTwo] = useState("Loading...");
 
   const [nftCollectionNameThree, setNftCollectionNameThree] =
     useState("Loading...");
 
-  const [nftImageUrlThree, setNftImageUrlThree] = useState("Loading...");
+  const [nftImageUrlThree, setNftImageUrlThree] = useState("Loading...");// eslint-disable-next-line
 
   const [imageObjThree, setImageObjThree] = useState("Loading...");
 
   const [nftCollectionNameFor, setNftCollectionNameFor] =
     useState("Loading...");
 
-  const [nftImageUrlFor, setNftImageUrlFor] = useState("Loading...");
+  const [nftImageUrlFor, setNftImageUrlFor] = useState("Loading...");// eslint-disable-next-line
 
   const [imageObjFor, setImageObjFor] = useState("Loading...");
 
   const [nftCollectionNamefiv, setNftCollectionNamefiv] =
     useState("Loading...");
 
-  const [nftImageUrlfiv, setNftImageUrlfiv] = useState("Loading...");
+  const [nftImageUrlfiv, setNftImageUrlfiv] = useState("Loading...");// eslint-disable-next-line
 
   const [imageObjfiv, setImageObjfiv] = useState("Loading...");
 
   const [nftCollectionNameSix, setNftCollectionNameSix] =
     useState("Loading...");
 
-  const [nftImageUrlSix, setNftImageUrlSix] = useState("Loading...");
+  const [nftImageUrlSix, setNftImageUrlSix] = useState("Loading...");// eslint-disable-next-line
 
   const [imageObjSix, setImageObjSix] = useState("Loading...");
 
   const [nftCollectionNameSeven, setNftCollectionNameSeven] =
     useState("Loading...");
 
-  const [nftImageUrlSeven, setNftImageUrlSeven] = useState("Loading...");
+  const [nftImageUrlSeven, setNftImageUrlSeven] = useState("Loading...");// eslint-disable-next-line
 
   const [imageObjSeven, setImageObjSeven] = useState("Loading...");
 
   const [nftCollectionNameEeight, setNftCollectionNameEeight] =
     useState("Loading...");
 
-  const [nftImageUrlEeight, setNftImageUrlEeight] = useState("Loading...");
+  const [nftImageUrlEeight, setNftImageUrlEeight] = useState("Loading...");// eslint-disable-next-line
 
   const [imageObjEeight, setImageObjEeight] = useState("Loading...");
 
   const [nftCollectionNameNine, setNftCollectionNameNine] =
     useState("Loading...");
 
-  const [nftImageUrlNine, setNftImageUrlNine] = useState("Loading...");
+  const [nftImageUrlNine, setNftImageUrlNine] = useState("Loading...");// eslint-disable-next-line
 
   const [imageObjNine, setImageObjNine] = useState("Loading...");
 
-  const [isApprovedForAll, setIsApprovedForAll] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isApprovedForAll, setIsApprovedForAll] = useState(false);// eslint-disable-next-line
+  const [loading, setLoading] = useState(false);// eslint-disable-next-line
   // show loader on isLoading
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [nftUrl, setNftUrl] = useState(null);
+  // const [selectedFile, setSelectedFile] = useState(null);
+  // const [nftUrl, setNftUrl] = useState(null);
 
   useEffect(() => {
     setLoading(false); // for remove warnings
@@ -215,7 +212,7 @@ export default function Items() {
       setNftImageUrlThree(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
-      setNftImageUrlThree(img);
+      setImageObjThree(img);
     };
 
     const fun5 = async () => {
@@ -336,7 +333,7 @@ export default function Items() {
             setNftUrl(nft) */}
           {/* // <div key={i}> */}
           <Col>
-            <Link to={`/detail/${urlNft}/0`}>
+            <Link to={`/detail/${urlNft}/1`} target="_blank">
               <ActionAreaCard img={imageObj} title={nftCollectionName} />
             </Link>
             <br />
@@ -345,7 +342,7 @@ export default function Items() {
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/1`}>
+            <Link to={`/detail/${urlNft}/2`} target="_blank">
               <ActionAreaCard img={imageObjOne} title={nftCollectionNameOne} />
             </Link>
             <br />
@@ -354,7 +351,7 @@ export default function Items() {
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/2`}>
+            <Link to={`/detail/${urlNft}/3`} target="_blank">
               <ActionAreaCard img={imageObjTwo} title={nftCollectionNameTwo} />
             </Link>
             <br />
@@ -363,7 +360,7 @@ export default function Items() {
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/3`}>
+            <Link to={`/detail/${urlNft}/4`} target="_blank">
               <ActionAreaCard
                 img={imageObjThree}
                 title={nftCollectionNameThree}
@@ -375,7 +372,7 @@ export default function Items() {
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/4`}>
+            <Link to={`/detail/${urlNft}/5`} target="_blank">
               <ActionAreaCard img={imageObjFor} title={nftCollectionNameFor} />
             </Link>
             <br />
@@ -384,7 +381,7 @@ export default function Items() {
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/5`}>
+            <Link to={`/detail/${urlNft}/6`} target="_blank">
               <ActionAreaCard img={imageObjfiv} title={nftCollectionNamefiv} />
             </Link>
             <br />
@@ -393,7 +390,7 @@ export default function Items() {
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/6`}>
+            <Link to={`/detail/${urlNft}/7`} target="_blank">
               <ActionAreaCard img={imageObjSix} title={nftCollectionNameSix} />
             </Link>
             <br />
@@ -402,7 +399,7 @@ export default function Items() {
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/7`}>
+            <Link to={`/detail/${urlNft}/8`} target="_blank">
               <ActionAreaCard
                 img={imageObjSeven}
                 title={nftCollectionNameSeven}
@@ -414,7 +411,7 @@ export default function Items() {
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/8`}>
+            <Link to={`/detail/${urlNft}/9`} target="_blank">
               <ActionAreaCard
                 img={imageObjEeight}
                 title={nftCollectionNameEeight}
@@ -426,7 +423,7 @@ export default function Items() {
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/9`}>
+            <Link to={`/detail/${urlNft}/10`} target="_blank">
               <ActionAreaCard
                 img={imageObjNine}
                 title={nftCollectionNameNine}

@@ -5,7 +5,6 @@ import {
   Switch,
   Route,
   Redirect,
-  useLocation
 } from "react-router-dom";
 import {
   Creators,
@@ -24,7 +23,6 @@ import {
   CollectionsItems,
   CreateNFT
 } from "./Pages";
-// import "./packages/react-router-dom/examples/Animation/styles.css";
 import {
   TransitionGroup,
   CSSTransition
