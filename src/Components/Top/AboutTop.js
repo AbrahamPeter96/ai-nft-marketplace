@@ -1,21 +1,8 @@
 import * as React from "react";
-// import AppBar from "@mui/material/AppBar";
-// import Button from "@mui/material/Button";
-// import CameraIcon from "@mui/icons-material/PhotoCamera";
-// import Card from "@mui/material/Card";
-// import CardActions from "@mui/material/CardActions";
-// import CardContent from "@mui/material/CardContent";
-// import CardMedia from "@mui/material/CardMedia";
 import CssBaseline from "@mui/material/CssBaseline";
-// import Grid from "@mui/material/Grid";
-// import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-// import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-// import Container from "@mui/material/Container";
-import { Nav, Navbar, Container,
-  //  NavDropdown
- } from "react-bootstrap";
+import { Nav, Navbar, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "./.././../Images/newlogo.png";
 import top from "./.././../Images/top.jpg";
@@ -41,7 +28,6 @@ const menu = (
 );
 
 export default function Album() {
-  const link = window.location.hostname;
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -53,11 +39,10 @@ export default function Album() {
           backgroundSize: "cover",
         }}
       >
-        {/* <AppBar position="relative" color="transparent"> */}
         <Navbar expand="lg">
           <Container>
             <Navbar.Brand>
-            <Link to="/Collections">
+              <Link to="/Collections">
                 <img
                   src={logo}
                   width="70"
@@ -110,13 +95,9 @@ export default function Album() {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        {/* </AppBar> */}
         <main>
-          {/* Hero unit */}
-
           <Box
             sx={{
-              // bgcolor: "background.paper",
               pt: 18,
               pb: 6,
             }}

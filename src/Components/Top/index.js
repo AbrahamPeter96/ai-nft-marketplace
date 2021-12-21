@@ -1,24 +1,8 @@
 import { useEffect, useState } from "react";
-// import AppBar from "@mui/material/AppBar";
-// import Button from "@mui/material/Button";
-// import CameraIcon from "@mui/icons-material/PhotoCamera";
-// import Card from "@mui/material/Card";
-// import CardActions from "@mui/material/CardActions";
-// import CardContent from "@mui/material/CardContent";
-// import CardMedia from "@mui/material/CardMedia";
 import CssBaseline from "@mui/material/CssBaseline";
-// import Grid from "@mui/material/Grid";
-// import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-// import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-// import Container from "@mui/material/Container";
-import {
-  Nav,
-  Navbar,
-  Container,
-  //  NavDropdown
-} from "react-bootstrap";
+import { Nav, Navbar, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "./.././../Images/newlogo.png";
 import top from "./.././../Images/top.jpg";
@@ -28,7 +12,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getNftCollectionName } from "../../libs/apis";
 import { urlNft } from "../../libs/utils";
 import { usePromiseTracker } from "react-promise-tracker";
- import { trackPromise } from 'react-promise-tracker'
 
 const theme = createTheme();
 
@@ -47,22 +30,17 @@ const menu = (
   </Menu>
 );
 
- const LoadingIndicator = props => {
+const LoadingIndicator = (props) => {
   const { promiseInProgress } = usePromiseTracker();
 
-   return (
-    promiseInProgress && 
-    <h1>Hey some async call in progress ! </h1>
-  );  
- }
+  return promiseInProgress && <h1>Hey some async call in progress ! </h1>;
+};
 
 export default function Album() {
-  // const link = window.location.hostname;
   const [nftCollectionName, setNftCollectionName] = useState("Azimuth");
-  // const nftIds = [1, 2, 3, 4, 5];
 
   useEffect(() => {
-    0 &&  getNftCollectionName(urlNft).then((name=>console.log("Name: ",name)))
+    0 && getNftCollectionName(urlNft).then(setNftCollectionName);
   }, []);
   return (
     <ThemeProvider theme={theme}>
@@ -75,7 +53,6 @@ export default function Album() {
           backgroundSize: "cover",
         }}
       >
-        {/* <AppBar position="relative" color="transparent"> */}
         <Navbar expand="lg">
           <Container>
             <Navbar.Brand>
@@ -132,13 +109,9 @@ export default function Album() {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        {/* </AppBar> */}
         <main>
-          {/* Hero unit */}
-
           <Box
             sx={{
-              // bgcolor: "background.paper",
               pt: 18,
               pb: 6,
             }}
@@ -154,17 +127,14 @@ export default function Album() {
                   fontWeight="bolder"
                 >
                   {nftCollectionName}
-                  <br/>
+                  <br />
                 </Typography>
-                {/* <Typography variant="p" align="center" color="white" paragraph>
-                  you have your nft´ s in your porfolioo 2.
-                </Typography> */}
               </Container>
             </Container>
           </Box>
         </main>
       </div>
-      <LoadingIndicator/>
+      <LoadingIndicator />
     </ThemeProvider>
   );
 }

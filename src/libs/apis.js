@@ -23,7 +23,7 @@ const { isAddress, toWei } = pkg;
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> WRITE CONTRACT
 export const sellNft = async (setLoading, nftContract, tokenId, price) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
   if (price === null || price === undefined) {
@@ -84,7 +84,7 @@ export const sellNft = async (setLoading, nftContract, tokenId, price) => {
 
 export const approveMarketplaceContract = async (setLoading, nftContract) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
   setLoading(true);
@@ -141,7 +141,7 @@ struct MarketItem {
 // its itemId not tokenId
 export const buyNft = async (setLoading, nftContract, itemId) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
   if (itemId === null || itemId === undefined) {
@@ -205,7 +205,7 @@ export const createNftAuction = async (
   minPrice,
 ) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
 
@@ -268,7 +268,7 @@ export const createNftAuction = async (
 
 export const takeHighestBid = async (setLoading, nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
 
@@ -317,7 +317,7 @@ export const takeHighestBid = async (setLoading, nftContract, tokenId) => {
 
 export const makeBid = async (setLoading, nftContract, tokenId, bidPrice) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
 
@@ -377,7 +377,7 @@ export const makeBid = async (setLoading, nftContract, tokenId, bidPrice) => {
 
 export const approveStakingContract = async (setLoading, nftContract) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
   setLoading(true);
@@ -422,7 +422,7 @@ export const approveStakingContract = async (setLoading, nftContract) => {
 
 export const stakeNft = async (setLoading, nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
 
@@ -476,7 +476,7 @@ export const stakeNft = async (setLoading, nftContract, tokenId) => {
 
 export const unstakeNft = async (setLoading, nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
 
@@ -530,7 +530,7 @@ export const unstakeNft = async (setLoading, nftContract, tokenId) => {
 
 export const harvestNft = async (setLoading, nftContract) => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
 
@@ -660,7 +660,7 @@ export const getNftCollectionName = async nftContract => {
 
 export const getIsApprovedForAll = async nftContract => {
   if (!isAddress(nftContract)) {
-    alert('Invalid NFT Address');
+    // alert('Invalid NFT Address');
     return;
   }
   return _doThis(

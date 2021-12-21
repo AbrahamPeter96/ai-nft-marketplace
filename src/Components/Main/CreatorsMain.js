@@ -1,31 +1,16 @@
 import * as React from "react";
-// import AppBar from "@mui/material/AppBar";
-// import Button from "@mui/material/Button";
-// import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea, } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 import { Row, Col } from "react-bootstrap";
-import {Image} from "antd"
-// import CssBaseline from "@mui/material/CssBaseline";
-// import Grid from "@mui/material/Grid";
-// import Stack from "@mui/material/Stack"; 
-// import Box from "@mui/material/Box";
-// import Toolbar from "@mui/material/Toolbar";
+import { Image } from "antd";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import Paper from "@mui/material/Paper";
-// import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import one from "../../Images/1.png";
-// import two from "../../Images/2.png";
-// import three from "../../Images/3.png";
-
-// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -56,12 +41,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
   },
 }));
-
-// const SmallAvatar = styled(Avatar)(({ theme }) => ({
-//   width: 22,
-//   height: 22,
-//   border: `2px solid ${theme.palette.background.paper}`,
-// }));
 
 function ActionAreaCard({ img, title, des }) {
   return (
@@ -112,12 +91,6 @@ function ImgMediaCard({ img, avatar, name }) {
         height="280"
         image={img}
       />
-      {/* <Image
-         src={img}
-         width="180"
-         height="380"
-          fluid
-              /> */}
     </Card>
   );
 }
@@ -125,7 +98,6 @@ function ImgMediaCard({ img, avatar, name }) {
 export default function Album() {
   return (
     <ThemeProvider theme={theme}>
-      {/*  <CssBaseline /> */}
       <br />
       <br />
       <br />
@@ -184,7 +156,7 @@ export default function Album() {
               color="#61fbda"
               fontWeight="bolder"
             >
-             SHARE YOUR ARTWORK
+              SHARE YOUR ARTWORK
             </Typography>
             <Typography gutterBottom variant="p" component="div" color="white">
               share from wherever you´re making
@@ -203,7 +175,7 @@ export default function Album() {
               color="#61fbda"
               fontWeight="bolder"
             >
-             GET NFT´S LABELED
+              GET NFT´S LABELED
             </Typography>
             <Typography gutterBottom variant="p" component="div" color="white">
               your artwork is uniquely labeled.
@@ -317,8 +289,7 @@ export default function Album() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0aqzWHipXRZtD3a338XEKjvz7i7D0bi_31A&usqp=CAU"
                   />
                 </StyledBadge>
-                &nbsp;
-                Burak
+                &nbsp; Burak
               </Typography>
             </Col>
 
@@ -346,8 +317,7 @@ export default function Album() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn65EoPaaxyC01XxO0kKNXtVgQUkFYMSj9LA&usqp=CAU"
                   />
                 </StyledBadge>
-                &nbsp;
-                Burak
+                &nbsp; Burak
               </Typography>
             </Col>
             <Col>
@@ -374,8 +344,7 @@ export default function Album() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBwgu1A5zgPSvfE83nurkuzNEoXs9DMNr8Ww&usqp=CAU"
                   />
                 </StyledBadge>
-                &nbsp;
-                Burak
+                &nbsp; Burak
               </Typography>
             </Col>
 
@@ -403,8 +372,7 @@ export default function Album() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLIySS0D_jSgSTjCJKVIC5rZUjYoBMM1POLA&usqp=CAU"
                   />
                 </StyledBadge>
-                &nbsp;
-                Burak
+                &nbsp; Burak
               </Typography>
             </Col>
             <Col>
@@ -431,8 +399,7 @@ export default function Album() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2lm1EFIkwNTV3p8QTDZDfHt5La3nTQsZhnw&usqp=CAU"
                   />
                 </StyledBadge>
-                &nbsp;
-                Burak
+                &nbsp; Burak
               </Typography>
             </Col>
             <Col>
@@ -459,8 +426,7 @@ export default function Album() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoJmrvWaNmVk6aIb88bOXyUbarMlIbprpdCw&usqp=CAU"
                   />
                 </StyledBadge>
-                &nbsp;
-                Burak
+                &nbsp; Burak
               </Typography>
             </Col>
 
@@ -488,8 +454,7 @@ export default function Album() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3i_qZtrjSgoPCyIOywhlX8MKOzRIaQbKU0A&usqp=CAU"
                   />
                 </StyledBadge>
-                &nbsp;
-                Burak
+                &nbsp; Burak
               </Typography>
             </Col>
 
@@ -506,7 +471,6 @@ export default function Album() {
                 variant="h6"
                 component="div"
                 color="white"
-
               >
                 <StyledBadge
                   overlap="circular"
@@ -518,8 +482,7 @@ export default function Album() {
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEUEDMmzFKbCzk3V64z4m5BgXRTJvMKHhXXg&usqp=CAU"
                   />
                 </StyledBadge>
-                &nbsp;
-                Burak
+                &nbsp; Burak
               </Typography>
             </Col>
           </Row>

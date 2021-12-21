@@ -1,24 +1,12 @@
 /* eslint-disable-next-line */
 import React, { useState, useEffect } from "react";
-// import AppBar from "@mui/material/AppBar";
-// import Button from "@mui/material/Button";
-// import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import { Row, Col } from "react-bootstrap";
-// import CssBaseline from "@mui/material/CssBaseline";
-// import Grid from "@mui/material/Grid";
-// import Stack from "@mui/material/Stack";
-// import Box from "@mui/material/Box";
-// import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-// import Container from "@mui/material/Container";
-// import { styled } from "@mui/material/styles";
-// import Paper from "@mui/material/Paper";
-// import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import one from "../../Images/1.png";
 import {
@@ -37,8 +25,6 @@ import {
   uploadNft,
 } from "../../libs/apis";
 import { urlNft, urlTokenId } from "../../libs/utils";
-
-// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
@@ -61,9 +47,6 @@ function ActionAreaCard({ img, title, des }) {
           alt="green iguana"
         />
         <CardContent>
-          {/* <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography> */}
           <Typography variant="body2" color="text.secondary">
             {des}
           </Typography>
@@ -76,80 +59,88 @@ function ActionAreaCard({ img, title, des }) {
 export default function Items() {
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
 
-  const [nftImageUrl, setNftImageUrl] = useState("Loading..."); 
-  
+  const [nftImageUrl, setNftImageUrl] = useState("Loading...");
 
   const [imageObj, setImageObj] = useState("Loading...");
 
   const [nftCollectionNameOne, setNftCollectionNameOne] =
     useState("Loading...");
 
-  const [nftImageUrlOne, setNftImageUrlOne] = useState("Loading...");// eslint-disable-next-line
+  const [nftImageUrlOne, setNftImageUrlOne] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjOne, setImageObjOne] = useState("Loading...");
 
   const [nftCollectionNameTwo, setNftCollectionNameTwo] =
     useState("Loading...");
 
-  const [nftImageUrlTwo, setNftImageUrlTwo] = useState("Loading...");// eslint-disable-next-line
+  const [nftImageUrlTwo, setNftImageUrlTwo] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjTwo, setImageObjTwo] = useState("Loading...");
 
   const [nftCollectionNameThree, setNftCollectionNameThree] =
     useState("Loading...");
 
-  const [nftImageUrlThree, setNftImageUrlThree] = useState("Loading...");// eslint-disable-next-line
+  const [nftImageUrlThree, setNftImageUrlThree] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjThree, setImageObjThree] = useState("Loading...");
 
   const [nftCollectionNameFor, setNftCollectionNameFor] =
     useState("Loading...");
 
-  const [nftImageUrlFor, setNftImageUrlFor] = useState("Loading...");// eslint-disable-next-line
+  const [nftImageUrlFor, setNftImageUrlFor] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjFor, setImageObjFor] = useState("Loading...");
 
   const [nftCollectionNamefiv, setNftCollectionNamefiv] =
     useState("Loading...");
 
-  const [nftImageUrlfiv, setNftImageUrlfiv] = useState("Loading...");// eslint-disable-next-line
+  const [nftImageUrlfiv, setNftImageUrlfiv] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjfiv, setImageObjfiv] = useState("Loading...");
 
   const [nftCollectionNameSix, setNftCollectionNameSix] =
     useState("Loading...");
 
-  const [nftImageUrlSix, setNftImageUrlSix] = useState("Loading...");// eslint-disable-next-line
+  const [nftImageUrlSix, setNftImageUrlSix] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjSix, setImageObjSix] = useState("Loading...");
 
   const [nftCollectionNameSeven, setNftCollectionNameSeven] =
     useState("Loading...");
 
-  const [nftImageUrlSeven, setNftImageUrlSeven] = useState("Loading...");// eslint-disable-next-line
+  const [nftImageUrlSeven, setNftImageUrlSeven] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjSeven, setImageObjSeven] = useState("Loading...");
 
   const [nftCollectionNameEeight, setNftCollectionNameEeight] =
     useState("Loading...");
 
-  const [nftImageUrlEeight, setNftImageUrlEeight] = useState("Loading...");// eslint-disable-next-line
+  const [nftImageUrlEeight, setNftImageUrlEeight] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjEeight, setImageObjEeight] = useState("Loading...");
 
   const [nftCollectionNameNine, setNftCollectionNameNine] =
     useState("Loading...");
 
-  const [nftImageUrlNine, setNftImageUrlNine] = useState("Loading...");// eslint-disable-next-line
+  const [nftImageUrlNine, setNftImageUrlNine] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjNine, setImageObjNine] = useState("Loading...");
 
-  const [isApprovedForAll, setIsApprovedForAll] = useState(false);// eslint-disable-next-line
-  const [loading, setLoading] = useState(false);// eslint-disable-next-line
-  // show loader on isLoading
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const [nftUrl, setNftUrl] = useState(null);
-
+  const [isApprovedForAll, setIsApprovedForAll] = useState(false); // eslint-disable-next-line
+  const [loading, setLoading] = useState(false); // eslint-disable-next-line
+  console.log({
+    isApprovedForAll,
+    nftImageUrlNine,
+    nftImageUrlfiv,
+    nftImageUrlFor,
+    nftImageUrlEeight,
+    nftImageUrl,
+    nftImageUrlOne,
+    nftImageUrlTwo,
+    nftImageUrlSeven,
+    nftImageUrlSix,
+    nftImageUrlThree,
+  });
   useEffect(() => {
     setLoading(false); // for remove warnings
     // test apis
@@ -315,7 +306,6 @@ export default function Items() {
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      {/*  <CssBaseline /> */}
       <br />
       <br />
       <br />
@@ -329,9 +319,6 @@ export default function Items() {
         }}
       >
         <Row xs={1} md={2} lg={3} className="g-2">
-          {/* {nftCollections.map((nft,i)=>{
-            setNftUrl(nft) */}
-          {/* // <div key={i}> */}
           <Col>
             <Link to={`/detail/${urlNft}/1`} target="_blank">
               <ActionAreaCard img={imageObj} title={nftCollectionName} />

@@ -1,24 +1,11 @@
-// /* eslint-disable-line no-unused-vars */
 import React, { useState, useEffect } from "react";
-// import AppBar from "@mui/material/AppBar";
-// import Button from "@mui/material/Button";
-// import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 import { Row, Col } from "react-bootstrap";
-// import CssBaseline from "@mui/material/CssBaseline";
-// import Grid from "@mui/material/Grid";
-// import Stack from "@mui/material/Stack";
-// import Box from "@mui/material/Box";
-// import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-// import Container from "@mui/material/Container";
-// import { styled } from "@mui/material/styles";
-// import Paper from "@mui/material/Paper";
-// import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import one from "../../Images/1.png";
 import { nftCollections } from "../../collections";
@@ -38,8 +25,6 @@ import {
   uploadNft,
 } from "../../libs/apis";
 import { urlNft, urlTokenId } from "../../libs/utils";
-
-// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const theme = createTheme();
 
@@ -62,9 +47,6 @@ function ActionAreaCard({ img, title, des }) {
           alt="green iguana"
         />
         <CardContent>
-          {/* <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography> */}
           <Typography variant="body2" color="text.secondary">
             {des}
           </Typography>
@@ -146,9 +128,20 @@ export default function Album() {
 
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [loading, setLoading] = useState(false);
-  // show loader on isLoading
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [nftUrl, setNftUrl] = useState(null);
+  console.log({
+    isApprovedForAll,
+    nftImageUrlNine,
+    nftImageUrlfiv,
+    nftImageUrlFor,
+    nftImageUrlEeight,
+    nftImageUrl,
+    nftImageUrlOne,
+    nftImageUrlTwo,
+    nftImageUrlSeven,
+    nftImageUrlSix,
+    nftImageUrlThree,
+    loading,
+  });
 
   useEffect(() => {
     setLoading(false); // for remove warnings
@@ -329,28 +322,17 @@ export default function Album() {
         }}
       >
         <Row xs={1} md={2} lg={3} className="g-2">
-          {/* {nftCollections.map((nft,i)=>{
-            setNftUrl(nft) */}
-          {/* // <div key={i}> */}
           <Col>
-            <Link 
-            to={`/Collection/${nftCollections[0]}`}
-            // to="/Collection/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4"
-            >
+            <Link to={`/Collection/${nftCollections[0]}`} target="_blank">
               <ActionAreaCard img={imageObj} title={nftCollectionName} />
             </Link>
-            {/* <Link to="/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8">
-            <ActionAreaCard img={imageObj} title={nftCollectionName} />
-            </Link> */}
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
               {nftCollectionName}
             </Typography>
           </Col>
           <Col>
-            <Link 
-            to={`/Collection/${nftCollections[1]}`}
-            >
+            <Link to={`/Collection/${nftCollections[1]}`} target="_blank">
               <ActionAreaCard img={imageObjOne} title={nftCollectionNameOne} />
             </Link>
             <br />
@@ -359,7 +341,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link  to={`/Collection/${nftCollections[2]}`}>
+            <Link to={`/Collection/${nftCollections[2]}`} target="_blank">
               <ActionAreaCard img={imageObjTwo} title={nftCollectionNameTwo} />
             </Link>
             <br />
@@ -368,19 +350,19 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-          <Link   to={`/Collection/${nftCollections[3]}`}>
-            <ActionAreaCard
-              img={imageObjThree}
-              title={nftCollectionNameThree}
-            />
- </Link>
+            <Link to={`/Collection/${nftCollections[3]}`} target="_blank">
+              <ActionAreaCard
+                img={imageObjThree}
+                title={nftCollectionNameThree}
+              />
+            </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
               {nftCollectionNameThree}
             </Typography>
           </Col>
           <Col>
-            <Link   to={`/Collection/${nftCollections[4]}`}>
+            <Link to={`/Collection/${nftCollections[4]}`} target="_blank">
               <ActionAreaCard img={imageObjFor} title={nftCollectionNameFor} />
             </Link>
             <br />
@@ -389,7 +371,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link   to={`/Collection/${nftCollections[5]}`}>
+            <Link to={`/Collection/${nftCollections[5]}`} target="_blank">
               <ActionAreaCard img={imageObjfiv} title={nftCollectionNamefiv} />
             </Link>
             <br />
@@ -398,7 +380,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link   to={`/Collection/${nftCollections[6]}`}>
+            <Link to={`/Collection/${nftCollections[6]}`} target="_blank">
               <ActionAreaCard img={imageObjSix} title={nftCollectionNameSix} />
             </Link>
             <br />
@@ -407,7 +389,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link   to={`/Collection/${nftCollections[7]}`}>
+            <Link to={`/Collection/${nftCollections[7]}`} target="_blank">
               <ActionAreaCard
                 img={imageObjSeven}
                 title={nftCollectionNameSeven}
@@ -419,7 +401,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link  to={`/Collection/${nftCollections[8]}`}>
+            <Link to={`/Collection/${nftCollections[8]}`} target="_blank">
               <ActionAreaCard
                 img={imageObjEeight}
                 title={nftCollectionNameEeight}
@@ -431,7 +413,7 @@ export default function Album() {
             </Typography>
           </Col>
           <Col>
-            <Link  to={`/Collection/${nftCollections[9]}`}>
+            <Link to={`/Collection/${nftCollections[9]}`} target="_blank">
               <ActionAreaCard
                 img={imageObjNine}
                 title={nftCollectionNameNine}
@@ -442,166 +424,7 @@ export default function Album() {
               {nftCollectionNameNine}
             </Typography>
           </Col>
-          {/* </div> */}
-          {/* })} */}
-
-          {/* <Col>
-            <ActionAreaCard img={three} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={one} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={two} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-
-          <Col>
-            <ActionAreaCard img={two} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={one} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={three} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-
-          <Col>
-            <ActionAreaCard img={one} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={three} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={two} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-
-          <Col>
-            <ActionAreaCard img={three} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={two} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col>
-          <Col>
-            <ActionAreaCard img={one} title="001 ELLAN KARA" />
-            <br />
-            <Typography gutterBottom variant="h6" component="div" color="white">
-              001 ELLAN KARA
-            </Typography>
-          </Col> */}
         </Row>
-
-        {/* 
-        <Container
-          sx={{ py: 7, alignItems: "center", justifyContent: "center" }}
-        >
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid
-              container
-              spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
-            >
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={three} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white" style>
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={two} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={one} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={two} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={one} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={three} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={one} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={three} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-              <Grid item xs={3} sm={4} md={4}>
-                <ActionAreaCard img={two} title="001 ELLAN KARA" />
-                <Typography gutterBottom variant="h5" component="div" color="white">
-                  001 ELLAN KARA
-                </Typography>
-              </Grid>
-            </Grid>
-          </Box>
-        </Container>
-    */}
       </main>
       <br />
       <br />
