@@ -97,7 +97,7 @@ function ActionAreaCard({ img, title, des }) {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="340"
+          height="350"
           image={img}
           alt="green iguana"
         />
@@ -151,7 +151,7 @@ export default function Album() {
   const [imageObj, setImageObj] = useState("Loading...");
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  console.log(nftImageUrl)
   useEffect(() => {
     setLoading(false); // for remove warnings
     // test apis
@@ -174,13 +174,14 @@ export default function Album() {
     0 && getNftOwner(urlNft, urlTokenId);
 
     const fun1 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
+       uploadNft(setLoading, await (await fetch(one)).blob());
 
       const url = await getNftImageUrl(urlNft, urlTokenId);
       setNftImageUrl(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
       setImageObj(img);
+      
     };
 
     getNftCollectionName(urlNft).then(setNftCollectionName);
@@ -208,7 +209,7 @@ export default function Album() {
                 fontWeight="bolder"
                 textAlign="left"
               >
-                {nftCollectionName}
+                {nftCollectionName} &nbsp;#{urlTokenId}
               </Typography>
               <Typography
                 textAlign="left"
@@ -219,7 +220,7 @@ export default function Album() {
               >
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem text of the printing and typesetting industry{" "}
-                {nftImageUrl}
+               
               </Typography>
               {/* <input
                 type='file'
@@ -230,7 +231,6 @@ export default function Album() {
                   0 && setSelectedFile(e.target.files[0]);
                 }}
               /> */}
-              <br />
               <Typography
                 gutterBottom
                 variant="h6"
@@ -250,8 +250,6 @@ export default function Album() {
                 </StyledBadge>
                 &nbsp; Burak
               </Typography>
-              <br />
-              <br />
               <Typography
                 gutterBottom
                 variant="h3"
@@ -261,7 +259,6 @@ export default function Album() {
                 textAlign="left"
               >
                 {/* {nftImageUrl} */}
-                <br />
                 {!isApprovedForAll && (
                   <Button
                     style={{
@@ -278,6 +275,7 @@ export default function Album() {
                     Approve
                   </Button>
                 )}
+               
                 &nbsp;
                 <Button
                   style={{
@@ -309,6 +307,75 @@ export default function Album() {
                   }}
                 >
                   Bid {false && loading /* just to remove warnings*/}
+                </Button>
+              </Typography>
+              {!isApprovedForAll && (
+                   <Typography
+                   gutterBottom
+                   variant="h3"
+                   component="div"
+                   color="#fff"
+                   fontWeight="bolder"
+                   textAlign="left"
+                 >
+                       <Button
+                       style={{
+                         backgroundColor: "#00e8c9",
+                         width: 120,
+                         height: 40,
+                         borderRadius: "20px",
+                         color: "white",
+                       }}
+                     >
+                       Buy NFT {false && loading /* just to remove warnings*/}
+                     </Button>
+                   </Typography>
+                )}
+              <Typography
+                gutterBottom
+                variant="h3"
+                component="div"
+                color="#fff"
+                fontWeight="bolder"
+                textAlign="left"
+              >
+                {/* {nftImageUrl} */}
+                {!isApprovedForAll && (
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                  >
+                    Stake
+                  </Button>
+                )}
+                &nbsp;
+                <Button
+                  style={{
+                    backgroundColor: "#00e8c9",
+                    width: 120,
+                    height: 40,
+                    borderRadius: "20px",
+                    color: "white",
+                  }}
+                >
+                  UnStake
+                </Button>
+                &nbsp;
+                <Button
+                  style={{
+                    backgroundColor: "#00e8c9",
+                    width: 120,
+                    height: 40,
+                    borderRadius: "20px",
+                    color: "white",
+                  }}
+                >
+                  Harvest {false && loading /* just to remove warnings*/}
                 </Button>
               </Typography>
             </Col>

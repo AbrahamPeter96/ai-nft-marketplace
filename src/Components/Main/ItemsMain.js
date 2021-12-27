@@ -10,21 +10,12 @@ import { Link } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import one from "../../Images/1.png";
 import {
-  approveStakingContract,
-  buyNft,
-  createNftAuction,
   getIsApprovedForAll,
   getNftCollectionName,
   getNftImageUrl,
-  getNftOwner,
-  harvestNft,
-  makeBid,
-  stakeNft,
-  takeHighestBid,
-  unstakeNft,
   uploadNft,
 } from "../../libs/apis";
-import { urlNft, urlTokenId } from "../../libs/utils";
+import { urlNft } from "../../libs/utils";
 
 const theme = createTheme();
 
@@ -57,11 +48,8 @@ function ActionAreaCard({ img, title, des }) {
 }
 
 export default function Items() {
-  const [nftCollectionName, setNftCollectionName] = useState("Loading...");
 
-  const [nftImageUrl, setNftImageUrl] = useState("Loading...");
 
-  const [imageObj, setImageObj] = useState("Loading...");
 
   const [nftCollectionNameOne, setNftCollectionNameOne] =
     useState("Loading...");
@@ -134,7 +122,6 @@ export default function Items() {
     nftImageUrlfiv,
     nftImageUrlFor,
     nftImageUrlEeight,
-    nftImageUrl,
     nftImageUrlOne,
     nftImageUrlTwo,
     nftImageUrlSeven,
@@ -143,38 +130,10 @@ export default function Items() {
   });
   useEffect(() => {
     setLoading(false); // for remove warnings
-    // test apis
-    0 && buyNft(setLoading, urlNft, urlTokenId, "0.1"); // 0.1 BNB
 
-    // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
-    0 && createNftAuction(setLoading, urlNft, urlTokenId, "0.1");
-
-    // working
-    // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
-    0 && takeHighestBid(setLoading, urlNft, urlTokenId);
-
-    0 && makeBid(setLoading, urlNft, urlTokenId, "0.1");
-    0 && stakeNft(setLoading, urlNft, urlTokenId);
-    0 && unstakeNft(setLoading, urlNft, urlTokenId);
-    0 && harvestNft(setLoading, urlNft);
-    0 && approveStakingContract(setLoading, urlNft);
-
-    // read apis
-    0 && getNftOwner(urlNft, urlTokenId);
-
-    const fun1 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "0");
-      setNftImageUrl(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObj(img);
-    };
 
     const fun2 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
+     uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
       const url = await getNftImageUrl(urlNft, "1");
@@ -272,7 +231,7 @@ export default function Items() {
     };
 
     // getNftCollectionName(urlNft).then(setNftCollectionName);
-    getNftCollectionName(urlNft).then(setNftCollectionName);
+    // getNftCollectionName(urlNft).then(setNftCollectionName);
     getNftCollectionName(urlNft).then(setNftCollectionNameOne);
 
     getNftCollectionName(urlNft).then(setNftCollectionNameTwo);
@@ -293,7 +252,6 @@ export default function Items() {
 
     getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
 
-    fun1();
     fun2();
     fun3();
     fun4();
@@ -319,7 +277,7 @@ export default function Items() {
         }}
       >
         <Row xs={1} md={2} lg={3} className="g-2">
-          <Col>
+          {/* <Col>
             <Link to={`/detail/${urlNft}/1`} target="_blank">
               <ActionAreaCard img={imageObj} title={nftCollectionName} />
             </Link>
@@ -327,27 +285,27 @@ export default function Items() {
             <Typography gutterBottom variant="h6" component="div" color="white">
               {nftCollectionName}
             </Typography>
-          </Col>
+          </Col> */}
           <Col>
-            <Link to={`/detail/${urlNft}/2`} target="_blank">
+            <Link to={`/detail/${urlNft}/1`} target="_blank">
               <ActionAreaCard img={imageObjOne} title={nftCollectionNameOne} />
             </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
-              {nftCollectionNameOne}
+              {nftCollectionNameOne} #1
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/3`} target="_blank">
+            <Link to={`/detail/${urlNft}/2`} target="_blank">
               <ActionAreaCard img={imageObjTwo} title={nftCollectionNameTwo} />
             </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
-              {nftCollectionNameTwo}
+              {nftCollectionNameTwo} #2
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/4`} target="_blank">
+            <Link to={`/detail/${urlNft}/3`} target="_blank">
               <ActionAreaCard
                 img={imageObjThree}
                 title={nftCollectionNameThree}
@@ -355,38 +313,38 @@ export default function Items() {
             </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
-              {nftCollectionNameThree}
+              {nftCollectionNameThree} #3
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/5`} target="_blank">
+            <Link to={`/detail/${urlNft}/4`} target="_blank">
               <ActionAreaCard img={imageObjFor} title={nftCollectionNameFor} />
             </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
-              {nftCollectionNameFor}
+              {nftCollectionNameFor} #4
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/6`} target="_blank">
+            <Link to={`/detail/${urlNft}/5`} target="_blank">
               <ActionAreaCard img={imageObjfiv} title={nftCollectionNamefiv} />
             </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
-              {nftCollectionNamefiv}
+              {nftCollectionNamefiv} #5
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/7`} target="_blank">
+            <Link to={`/detail/${urlNft}/6`} target="_blank">
               <ActionAreaCard img={imageObjSix} title={nftCollectionNameSix} />
             </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
-              {nftCollectionNameSix}
+              {nftCollectionNameSix} #6
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/8`} target="_blank">
+            <Link to={`/detail/${urlNft}/7`} target="_blank">
               <ActionAreaCard
                 img={imageObjSeven}
                 title={nftCollectionNameSeven}
@@ -394,11 +352,11 @@ export default function Items() {
             </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
-              {nftCollectionNameSeven}
+              {nftCollectionNameSeven} #7
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/9`} target="_blank">
+            <Link to={`/detail/${urlNft}/8`} target="_blank">
               <ActionAreaCard
                 img={imageObjEeight}
                 title={nftCollectionNameEeight}
@@ -406,11 +364,11 @@ export default function Items() {
             </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
-              {nftCollectionNameEeight}
+              {nftCollectionNameEeight} #8
             </Typography>
           </Col>
           <Col>
-            <Link to={`/detail/${urlNft}/10`} target="_blank">
+            <Link to={`/detail/${urlNft}/9`} target="_blank">
               <ActionAreaCard
                 img={imageObjNine}
                 title={nftCollectionNameNine}
@@ -418,7 +376,7 @@ export default function Items() {
             </Link>
             <br />
             <Typography gutterBottom variant="h6" component="div" color="white">
-              {nftCollectionNameNine}
+              {nftCollectionNameNine} #9
             </Typography>
           </Col>
         </Row>

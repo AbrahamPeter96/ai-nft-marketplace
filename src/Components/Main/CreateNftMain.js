@@ -11,7 +11,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Input, Button } from "antd";
 import { Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { uploadNft } from "../../libs/apis";
+// import { uploadNft } from "../../libs/apis";
 
 const theme = createTheme();
 
@@ -37,12 +37,12 @@ export default function CreateNftMain() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-console
-    console.log(name, link);
-    uploadNft(false, file)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch(console.log);
+    console.log(name, link,file);
+    // uploadNft(false, file)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch(console.log);
   };
   return (
     <div style={{ backgroundColor: "#282c34", color: "#fff" }}>
