@@ -174,7 +174,7 @@ export default function Album() {
     0 && getNftOwner(urlNft, urlTokenId);
 
     const fun1 = async () => {
-       uploadNft(setLoading, await (await fetch(one)).blob());
+       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       const url = await getNftImageUrl(urlNft, urlTokenId);
       setNftImageUrl(url);
