@@ -133,7 +133,7 @@ export default function Items() {
 
 
     const fun2 = async () => {
-     uploadNft(setLoading, await (await fetch(one)).blob());
+     0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       // const url = await getNftImageUrl(urlNft, urlTokenId);
       const url = await getNftImageUrl(urlNft, "1");
