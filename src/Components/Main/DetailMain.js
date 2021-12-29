@@ -155,7 +155,7 @@ export default function Album() {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(null);
 
-  console.log(nftImageUrl)
+  console.log(nftImageUrl);
   useEffect(() => {
     setLoading(false); // for remove warnings
     // test apis
@@ -176,18 +176,17 @@ export default function Album() {
 
     // read apis
     0 && getNftOwner(urlNft, urlTokenId);
-    
+
     0 && getNftPriceForSale(urlNft, urlTokenId);
 
     const fun1 = async () => {
-       0 && uploadNft(setLoading, await (await fetch(one)).blob());
+      0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       const url = await getNftImageUrl(urlNft, urlTokenId);
       setNftImageUrl(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
       setImageObj(img);
-      
     };
 
     getNftCollectionName(urlNft).then(setNftCollectionName);
@@ -226,7 +225,6 @@ export default function Album() {
                 component="div"
               >
                 {price && `Price ${fromWei(price)} BNB`}
-               
               </Typography>
               {/* <input
                 type='file'
@@ -281,7 +279,6 @@ export default function Album() {
                     Approve
                   </Button>
                 )}
-               
                 &nbsp;
                 <Button
                   style={{
@@ -293,10 +290,12 @@ export default function Album() {
                   }}
                   onClick={() => {
                     sellNft(
-                      () => {},
+                      () => {
+                        getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
+                      },
                       urlNft,
                       urlTokenId,
-                      prompt("Please enter NFT price in BNB", "0.1")
+                      prompt("Please enter NFT price in BNB", "0.1"),
                     );
                   }}
                 >
@@ -315,28 +314,33 @@ export default function Album() {
                   Bid {false && loading /* just to remove warnings*/}
                 </Button>
               </Typography>
-              {!isApprovedForAll && (
-                   <Typography
-                   gutterBottom
-                   variant="h3"
-                   component="div"
-                   color="#fff"
-                   fontWeight="bolder"
-                   textAlign="left"
-                 >
-                       <Button
-                       style={{
-                         backgroundColor: "#00e8c9",
-                         width: 120,
-                         height: 40,
-                         borderRadius: "20px",
-                         color: "white",
-                       }}
-                     >
-                       Buy NFT {false && loading /* just to remove warnings*/}
-                     </Button>
-                   </Typography>
-                )}
+              { 
+                <Typography
+                  gutterBottom
+                  variant="h3"
+                  component="div"
+                  color="#fff"
+                  fontWeight="bolder"
+                  textAlign="left"
+                >
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      buyNft((m) => {
+                        getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
+                      }, urlNft, urlTokenId)
+                    }}
+                  >
+                    Buy NFT {false && loading /* just to remove warnings*/}
+                  </Button>
+                </Typography>
+              }
               <Typography
                 gutterBottom
                 variant="h3"

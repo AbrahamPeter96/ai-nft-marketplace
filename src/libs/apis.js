@@ -12,7 +12,6 @@ import {
 import {
   maxUint256,
   parseIpfs,
-  priceAt,
   uploadIpfsText,
   zeroAddr,
   _doThis,
@@ -139,7 +138,9 @@ struct MarketItem {
   }
  */
 // its itemId not tokenId
-export const buyNft = async (setLoading, nftContract, itemId) => {
+export const buyNft = async (setLoading, nftContract, tokenId) => {
+  const [itemId, itemPrice] = await getItemIdFromTokenId(nftContract, tokenId)
+
   if (!isAddress(nftContract)) {
     // alert('Invalid NFT Address');
     return;
@@ -148,7 +149,7 @@ export const buyNft = async (setLoading, nftContract, itemId) => {
     return;
   }
 
-  const price = (await getNftItemsForSale())[itemId][priceAt];
+  
 
   setLoading(true);
   _doThis(async (account, web3) => {
@@ -162,7 +163,7 @@ export const buyNft = async (setLoading, nftContract, itemId) => {
     let options = {
       from: account,
       gas: '0',
-      value: price,
+      value: itemPrice,
     };
     try {
       const estimateGas = Math.trunc(
@@ -636,6 +637,23 @@ export const uploadNft = async (setLoading, image) => {
   });
 };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> READ CONTRACT
 export const getNftImageUrl = async (nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
@@ -729,3 +747,20 @@ export const getNftOwner = async (nftContract, tokenId) => {
   // console.log(`res: ${res}`);
   return res;
 };
+
+// utils
+const getItemIdFromTokenId  = async (nftContract, tokenId) => {
+  let items = await getNftItemsForSale();
+  items = items.filter(
+    (item) => item.tokenId === tokenId && item.nftContract === nftContract,
+  );
+  
+  let answer = null;
+  let price = null;
+  try {
+    answer = items[0].itemId;
+    price = items[0].price;
+  } catch (e) {}
+
+  return [answer, price];
+}
