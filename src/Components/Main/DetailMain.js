@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { fromWei } from "web3-utils";
 import one from "../../Images/1.png";
 import two from "../../Images/2.png";
 import three from "../../Images/3.png";
@@ -24,6 +25,7 @@ import {
   getNftCollectionName,
   getNftImageUrl,
   getNftOwner,
+  getNftPriceForSale,
   harvestNft,
   makeBid,
   sellNft,
@@ -151,6 +153,8 @@ export default function Album() {
   const [imageObj, setImageObj] = useState("Loading...");
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [price, setPrice] = useState(null);
+
   console.log(nftImageUrl)
   useEffect(() => {
     setLoading(false); // for remove warnings
@@ -172,6 +176,8 @@ export default function Album() {
 
     // read apis
     0 && getNftOwner(urlNft, urlTokenId);
+    
+    0 && getNftPriceForSale(urlNft, urlTokenId);
 
     const fun1 = async () => {
        0 && uploadNft(setLoading, await (await fetch(one)).blob());
@@ -186,6 +192,7 @@ export default function Album() {
 
     getNftCollectionName(urlNft).then(setNftCollectionName);
     getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
+    getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
 
     fun1();
   }, []);
@@ -218,8 +225,7 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem text of the printing and typesetting industry{" "}
+                {price && `Price ${fromWei(price)} BNB`}
                
               </Typography>
               {/* <input
@@ -294,7 +300,7 @@ export default function Album() {
                     );
                   }}
                 >
-                  Sell
+                  List to Sell
                 </Button>
                 &nbsp;
                 <Button

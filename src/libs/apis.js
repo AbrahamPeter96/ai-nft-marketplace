@@ -580,6 +580,7 @@ export const harvestNft = async (setLoading, nftContract) => {
     }
   });
 };
+
 export const uploadNft = async (setLoading, image) => {
   setLoading(true);
 
@@ -684,11 +685,43 @@ struct MarketItem {
  */
 
 // screen: items for sale
+/*
+items
+
+0: "1"
+1: "0x00cfa114386922f33b666FCC31655660B27Da652"
+2: "1"
+3: "0xc18E78C0F67A09ee43007579018b2Db091116B4C"
+4: "0x0000000000000000000000000000000000000000"
+5: "100000000000000000"
+6: false
+itemId: "1"
+nftContract: "0x00cfa114386922f33b666FCC31655660B27Da652"
+owner: "0x0000000000000000000000000000000000000000"
+price: "100000000000000000"
+seller: "0xc18E78C0F67A09ee43007579018b2Db091116B4C"
+sold: false
+tokenId: "1"  
+*/
 export const getNftItemsForSale = async () => {
   const nft = getContractMarketplace({});
   const items = await nft.methods.fetchMarketItems().call();
   return items;
 };
+
+export const getNftPriceForSale = async (nftContract, tokenId) => {
+  let items = await getNftItemsForSale();
+  items = items.filter(
+    (item) => item.tokenId === tokenId && item.nftContract === nftContract,
+  );
+  let price = null;
+
+  try {
+    price = items[0].price;
+  } catch (e) {}
+
+  return price;
+}
 
 export const getNftOwner = async (nftContract, tokenId) => {
   const nft = getContractNft({ address: nftContract });
