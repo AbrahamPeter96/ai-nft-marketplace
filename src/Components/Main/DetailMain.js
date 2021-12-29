@@ -22,6 +22,7 @@ import {
   buyNft,
   createNftAuction,
   getIsApprovedForAll,
+  getIsApprovedForAllStaking,
   getNftCollectionName,
   getNftImageUrl,
   getNftOwner,
@@ -151,7 +152,8 @@ export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
   const [nftImageUrl, setNftImageUrl] = useState("Loading...");
   const [imageObj, setImageObj] = useState("Loading...");
-  const [isApprovedForAll, setIsApprovedForAll] = useState(false);
+  const [isApprovedForAll, setIsApprovedForAll] = useState(false); // buy sell bid contract
+  const [isApprovedForAllStaking, setIsApprovedForAllStaking] = useState(false);
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(null);
 
@@ -273,7 +275,9 @@ export default function Album() {
                       color: "white",
                     }}
                     onClick={() => {
-                      approveMarketplaceContract(() => {}, urlNft);
+                      approveMarketplaceContract(() => {
+                        getIsApprovedForAll(urlNft).then(setIsApprovedForAll); // (done &&) later
+                      }, urlNft);
                     }}
                   >
                     Approve
@@ -314,7 +318,7 @@ export default function Album() {
                   Bid {false && loading /* just to remove warnings*/}
                 </Button>
               </Typography>
-              { 
+              {
                 <Typography
                   gutterBottom
                   variant="h3"
@@ -332,12 +336,21 @@ export default function Album() {
                       color: "white",
                     }}
                     onClick={() => {
-                      buyNft((m) => {
-                        getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
-                      }, urlNft, urlTokenId)
+                      buyNft(
+                        (m) => {
+                          getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
+                        },
+                        urlNft,
+                        urlTokenId,
+                      );
                     }}
                   >
-                    Buy NFT {false && loading /* just to remove warnings*/}
+                    Buy NFT{" "}
+                    {
+                      false &&
+                        loading &&
+                        isApprovedForAllStaking /* just to remove warnings*/
+                    }
                   </Button>
                 </Typography>
               }
@@ -350,7 +363,7 @@ export default function Album() {
                 textAlign="left"
               >
                 {/* {nftImageUrl} */}
-                {!isApprovedForAll && (
+                {
                   <Button
                     style={{
                       backgroundColor: "#00e8c9",
@@ -359,10 +372,27 @@ export default function Album() {
                       borderRadius: "20px",
                       color: "white",
                     }}
+                    onClick={() => {
+                      approveStakingContract(() => {
+                        getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                      }, urlNft);
+                    }}
                   >
-                    Stake
+                    Approve
                   </Button>
-                )}
+                }
+                &nbsp;
+                <Button
+                  style={{
+                    backgroundColor: "#00e8c9",
+                    width: 120,
+                    height: 40,
+                    borderRadius: "20px",
+                    color: "white",
+                  }}
+                >
+                  Stake
+                </Button>
                 &nbsp;
                 <Button
                   style={{

@@ -149,7 +149,7 @@ export const buyNft = async (setLoading, nftContract, tokenId) => {
     return;
   }
 
-  
+
 
   setLoading(true);
   _doThis(async (account, web3) => {
@@ -686,6 +686,19 @@ export const getIsApprovedForAll = async nftContract => {
     async account =>
       await getContractNft({ address: nftContract })
         .methods.isApprovedForAll(account, marketplaceAddress)
+        .call(),
+  );
+};
+
+export const getIsApprovedForAllStaking = async nftContract => {
+  if (!isAddress(nftContract)) {
+    // alert('Invalid NFT Address');
+    return;
+  }
+  return _doThis(
+    async account =>
+      await getContractNft({ address: nftContract })
+        .methods.isApprovedForAll(account, nftStakingAddress)
         .call(),
   );
 };
