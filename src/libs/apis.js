@@ -825,6 +825,11 @@ export const getNftStakeReward = async (nftContract) => {
   return reward;
 }
 
+
+export const getUserAddr = async () => {
+  return await _doThis(async (account) => account);
+};
+
 // utils
 const getItemIdFromTokenId  = async (nftContract, tokenId) => {
   let items = await getNftItemsForSale();

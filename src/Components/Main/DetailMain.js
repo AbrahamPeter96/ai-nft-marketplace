@@ -29,6 +29,7 @@ import {
   getNftOwner,
   getNftPriceForSale,
   getNftStakeReward,
+  getUserAddr,
   harvestNft,
   makeBid,
   sellNft,
@@ -37,7 +38,7 @@ import {
   unstakeNft,
   uploadNft,
 } from "../../libs/apis";
-import { urlNft, urlTokenId } from "../../libs/utils";
+import { displayAddr, urlNft, urlTokenId } from "../../libs/utils";
 
 const responsive = {
   superLargeDesktop: {
@@ -152,13 +153,17 @@ function ActionSliderCard({ img, title, des }) {
 
 export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
-  const [nftImageUrl, setNftImageUrl] = useState("Loading...");
+  // const [nftImageUrl, setNftImageUrl] = useState("Loading...");
   const [imageObj, setImageObj] = useState("Loading...");
   const [nftStakeReward, setNftStakeReward] = useState();
   const [isApprovedForAll, setIsApprovedForAll] = useState(false); // buy sell bid contract
   const [isApprovedForAllStaking, setIsApprovedForAllStaking] = useState(false);
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(null);
+
+  // view related, to clear concept
+  const [userAddr, setUserAddr] = useState();
+  const [nftOwner, setNftOwner] = useState();
 
   // console.log(nftImageUrl);
   useEffect(() => {
@@ -190,7 +195,7 @@ export default function Album() {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       const url = await getNftImageUrl(urlNft, urlTokenId);
-      setNftImageUrl(url);
+      // setNftImageUrl(url);
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
       setImageObj(img);
@@ -200,6 +205,9 @@ export default function Album() {
     getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
     getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
     getNftStakeReward(urlNft).then(setNftStakeReward);
+
+    getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+    getUserAddr().then(setUserAddr);
 
     setInterval(() => {
       getNftStakeReward(urlNft).then(setNftStakeReward);
@@ -237,8 +245,24 @@ export default function Album() {
                 component="div"
               >
                 {price && `Price ${fromWei(price)} BNB`}
-
+              </Typography>
+              <Typography
+                textAlign="left"
+                color="#ccc"
+                gutterBottom
+                variant="p"
+                component="div"
+              >
                 {nftStakeReward && `Reward ${fromWei(nftStakeReward)} AZI`}
+              </Typography>
+              <Typography
+                textAlign="left"
+                color="#ccc"
+                gutterBottom
+                variant="p"
+                component="div"
+              >
+                {nftOwner && `Owner ${displayAddr(nftOwner, userAddr)}`}
               </Typography>
               {/* <input
                 type='file'
@@ -421,7 +445,8 @@ export default function Album() {
                     {
                       false &&
                         loading &&
-                        isApprovedForAllStaking /* just to remove warnings*/
+                        isApprovedForAllStaking &&
+                        isApprovedForAll /* just to remove warnings*/
                     }
                   </Button>
                 </Typography>

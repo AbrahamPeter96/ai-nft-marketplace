@@ -2,13 +2,17 @@ import Web3 from 'web3';
 // import { Toast, Alert } from "react-bootstrap";
 import detectEthereumProvider from '@metamask/detect-provider';
 import {
+  bidingAddress,
   ipfsExplorer,
+  marketplaceAddress,
+  nftStakingAddress,
   requiredChainId,
   requiredChainIdName,
 } from './smart-contracts.js';
 import MetaMaskOnboarding from '@metamask/onboarding';
 
 import pinataSDK from '@pinata/sdk';
+import { toChecksumAddress } from "web3-utils";
 
 const msg_mobile = 'Please use MetaMask App!';
 const msg_desk = 'Please intall MetaMask Wallet extension';
@@ -142,3 +146,24 @@ export const [
 export const zeroAddr = '0x0000000000000000000000000000000000000000';
 export const maxUint256 =
   '115792089237316195423570985008687907853269984665640564039457584007913129639935';
+
+export const displayAddr = (addr, user) => {
+  let res = "";
+  switch (toChecksumAddress(addr)) {
+    case toChecksumAddress(user):
+      res = "You";
+      break;
+    case toChecksumAddress(marketplaceAddress):
+      res = "Marketplace Contract";
+      break;
+    case toChecksumAddress(nftStakingAddress):
+      res = "Staking Contract";
+      break;
+    case toChecksumAddress(bidingAddress):
+      res = "Biding Contract";
+      break;
+    default:
+      res = addr;
+  }
+  return res;
+};
