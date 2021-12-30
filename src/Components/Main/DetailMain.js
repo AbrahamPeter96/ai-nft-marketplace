@@ -27,6 +27,7 @@ import {
   getNftImageUrl,
   getNftOwner,
   getNftPriceForSale,
+  getNftStakeReward,
   harvestNft,
   makeBid,
   sellNft,
@@ -152,6 +153,7 @@ export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
   const [nftImageUrl, setNftImageUrl] = useState("Loading...");
   const [imageObj, setImageObj] = useState("Loading...");
+  const [nftStakeReward, setNftStakeReward] = useState();
   const [isApprovedForAll, setIsApprovedForAll] = useState(false); // buy sell bid contract
   const [isApprovedForAllStaking, setIsApprovedForAllStaking] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -181,6 +183,8 @@ export default function Album() {
 
     0 && getNftPriceForSale(urlNft, urlTokenId);
 
+    0 && getNftStakeReward(urlNft);
+
     const fun1 = async () => {
       0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
@@ -194,6 +198,11 @@ export default function Album() {
     getNftCollectionName(urlNft).then(setNftCollectionName);
     getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
     getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
+    getNftStakeReward(urlNft).then(setNftStakeReward);
+
+    setInterval(() => {
+      getNftStakeReward(urlNft).then(setNftStakeReward);
+    }, 1000);
 
     fun1();
   }, []);
@@ -227,6 +236,8 @@ export default function Album() {
                 component="div"
               >
                 {price && `Price ${fromWei(price)} BNB`}
+
+                {nftStakeReward && `Reward ${fromWei(nftStakeReward)} AZI`}
               </Typography>
               {/* <input
                 type='file'
@@ -374,7 +385,9 @@ export default function Album() {
                     }}
                     onClick={() => {
                       approveStakingContract(() => {
-                        getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                        getIsApprovedForAllStaking(urlNft).then(
+                          setIsApprovedForAllStaking,
+                        );
                       }, urlNft);
                     }}
                   >
@@ -389,6 +402,15 @@ export default function Album() {
                     height: 40,
                     borderRadius: "20px",
                     color: "white",
+                  }}
+                  onClick={() => {
+                    stakeNft(
+                      () => {
+                        // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                      },
+                      urlNft,
+                      urlTokenId,
+                    );
                   }}
                 >
                   Stake

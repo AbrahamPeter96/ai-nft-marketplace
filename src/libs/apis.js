@@ -429,14 +429,14 @@ export const stakeNft = async (setLoading, nftContract, tokenId) => {
 
   setLoading(true);
   _doThis(async (account, web3) => {
-    const nftBiding = getContractNftStaking({ web3 });
-    const pid = await nftBiding.methods.getPidOfToken(nftContract).call();
+    const contract = getContractNftStaking({ web3 });
+    const pid = await contract.methods.getPidOfToken(nftContract).call();
     console.log(`pid: ${pid}`);
     if (pid === maxUint256) {
       alert('Staking not available for this Nft collection');
       return;
     }
-    const method = nftBiding.methods.deposit(pid, tokenId);
+    const method = contract.methods.deposit(pid, tokenId);
     let options = {
       from: account,
       gas: '0',
@@ -760,6 +760,24 @@ export const getNftOwner = async (nftContract, tokenId) => {
   // console.log(`res: ${res}`);
   return res;
 };
+
+// get reward 
+export const getNftStakeReward = async (nftContract) => {
+  const contract = getContractNftStaking({});
+  const pid = await contract.methods.getPidOfToken(nftContract).call();
+
+  if (pid === maxUint256) {
+    alert('Staking not available for this Nft collection');
+    return;
+  }
+  
+  const reward = await _doThis(
+    async account =>
+      await contract.methods.pendingRewardToken(pid, account).call(),
+  );
+  console.log({reward});
+  return reward;
+}
 
 // utils
 const getItemIdFromTokenId  = async (nftContract, tokenId) => {
