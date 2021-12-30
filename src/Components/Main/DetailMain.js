@@ -276,8 +276,8 @@ export default function Album() {
                 fontWeight="bolder"
                 textAlign="left"
               >
-                {/* {nftImageUrl} */}
-                {!isApprovedForAll && (
+                {/* !isApprovedForAll && */}
+                {
                   <Button
                     style={{
                       backgroundColor: "#00e8c9",
@@ -292,9 +292,9 @@ export default function Album() {
                       }, urlNft);
                     }}
                   >
-                    Approve
+                    Approve Marketplace
                   </Button>
-                )}
+                }
                 &nbsp;
                 <Button
                   style={{
@@ -452,7 +452,7 @@ export default function Album() {
                       }, urlNft);
                     }}
                   >
-                    Approve
+                    Approve Staking
                   </Button>
                 }
                 &nbsp;
