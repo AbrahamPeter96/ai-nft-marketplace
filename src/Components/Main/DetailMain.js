@@ -17,6 +17,7 @@ import one from "../../Images/1.png";
 import two from "../../Images/2.png";
 import three from "../../Images/3.png";
 import {
+  approveBidingContract,
   approveMarketplaceContract,
   approveStakingContract,
   buyNft,
@@ -304,6 +305,23 @@ export default function Album() {
                     color: "white",
                   }}
                   onClick={() => {
+                    approveBidingContract(() => {
+                      // getIsApprovedForAll(urlNft).then(setIsApprovedForAll); // (done &&) later
+                    }, urlNft);
+                  }}
+                >
+                  Approve Bid
+                </Button>
+                &nbsp;
+                <Button
+                  style={{
+                    backgroundColor: "#00e8c9",
+                    width: 120,
+                    height: 40,
+                    borderRadius: "20px",
+                    color: "white",
+                  }}
+                  onClick={() => {
                     sellNft(
                       () => {
                         getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
@@ -325,8 +343,51 @@ export default function Album() {
                     borderRadius: "20px",
                     color: "white",
                   }}
+                  onClick={() => {
+                    makeBid(
+                      setLoading,
+                      urlNft,
+                      urlTokenId,
+                      prompt("Please enter NFT price in BNB", "0.1"),
+                    );
+                  }}
                 >
                   Bid {false && loading /* just to remove warnings*/}
+                </Button>
+                &nbsp;
+                <Button
+                  style={{
+                    backgroundColor: "#00e8c9",
+                    width: 120,
+                    height: 40,
+                    borderRadius: "20px",
+                    color: "white",
+                  }}
+                  onClick={() => {
+                    takeHighestBid(setLoading, urlNft, urlTokenId);
+                  }}
+                >
+                  Accept Bid{" "}
+                </Button>
+                &nbsp;
+                <Button
+                  style={{
+                    backgroundColor: "#00e8c9",
+                    width: 120,
+                    height: 40,
+                    borderRadius: "20px",
+                    color: "white",
+                  }}
+                  onClick={() => {
+                    createNftAuction(
+                      setLoading,
+                      urlNft,
+                      urlTokenId,
+                      prompt("Please enter min BID price in BNB", "0.1"),
+                    );
+                  }}
+                >
+                  Put for Bids
                 </Button>
               </Typography>
               {

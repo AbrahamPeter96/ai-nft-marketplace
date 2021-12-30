@@ -1,6 +1,7 @@
 import axios from 'axios';
 import pkg from 'web3-utils';
 import {
+  bidingAddress,
   getContractArt,
   getContractBiding,
   getContractMarketplace,
@@ -90,6 +91,50 @@ export const approveMarketplaceContract = async (setLoading, nftContract) => {
   _doThis(async (account, web3) => {
     const nft = getContractNft({ web3, address: nftContract });
     const method = nft.methods.setApprovalForAll(marketplaceAddress, true);
+    let options = {
+      from: account,
+      gas: '0',
+    };
+    try {
+      const estimateGas = Math.trunc(await method.estimateGas(options));
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
+
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
+      alert(msg);
+      return;
+    }
+
+    try {
+      await method.send(options).on('confirmation', i => {
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
+};
+export const approveBidingContract = async (setLoading, nftContract) => {
+  if (!isAddress(nftContract)) {
+    // alert('Invalid NFT Address');
+    return;
+  }
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    const nft = getContractNft({ web3, address: nftContract });
+    const method = nft.methods.setApprovalForAll(bidingAddress, true);
     let options = {
       from: account,
       gas: '0',
