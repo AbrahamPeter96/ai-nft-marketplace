@@ -436,6 +436,9 @@ export default function Album() {
                     borderRadius: "20px",
                     color: "white",
                   }}
+                  onClick={() => {
+                    harvestNft(setLoading, urlNft);
+                  }}
                 >
                   Harvest {false && loading /* just to remove warnings*/}
                 </Button>
