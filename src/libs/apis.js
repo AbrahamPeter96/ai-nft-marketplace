@@ -830,6 +830,14 @@ export const getUserAddr = async () => {
   return await _doThis(async (account) => account);
 };
 
+/* bidIncreasePercentage uint32, auctionBidPeriod uint32, auctionEnd uint64, minPrice uint128, buyNowPrice uint128, nftHighestBid uint128, nftHighestBidder address, nftSeller address, whitelistedBuyer address, nftRecipient address, ERC20Token address */
+export const getAuction = async (nftContract, tokenId) => {
+  const contract = getContractBiding({ });
+  const res = await contract.methods.nftContractAuctions(nftContract, tokenId).call();
+  console.log('res ', res);
+  return res;
+}
+
 // utils
 const getItemIdFromTokenId  = async (nftContract, tokenId) => {
   let items = await getNftItemsForSale();
@@ -846,3 +854,4 @@ const getItemIdFromTokenId  = async (nftContract, tokenId) => {
 
   return [answer, price];
 }
+

@@ -22,6 +22,7 @@ import {
   approveStakingContract,
   buyNft,
   createNftAuction,
+  getAuction,
   getIsApprovedForAll,
   getIsApprovedForAllStaking,
   getNftCollectionName,
@@ -165,6 +166,8 @@ export default function Album() {
   const [userAddr, setUserAddr] = useState();
   const [nftOwner, setNftOwner] = useState();
 
+  const [auction, setAuction] = useState();
+
   // console.log(nftImageUrl);
   useEffect(() => {
     setLoading(false); // for remove warnings
@@ -208,6 +211,8 @@ export default function Album() {
 
     getNftOwner(urlNft, urlTokenId).then(setNftOwner);
     getUserAddr().then(setUserAddr);
+
+    getAuction(urlNft, urlTokenId).then(setAuction);
 
     setInterval(() => {
       getNftStakeReward(urlNft).then(setNftStakeReward);
@@ -254,6 +259,15 @@ export default function Album() {
                 component="div"
               >
                 {nftStakeReward && `Reward ${fromWei(nftStakeReward)} AZI`}
+              </Typography>
+              <Typography
+                textAlign="left"
+                color="#ccc"
+                gutterBottom
+                variant="p"
+                component="div"
+              >
+                {auction && `Highest Bid ${fromWei(auction.nftHighestBid)} BNB`}
               </Typography>
               <Typography
                 textAlign="left"
