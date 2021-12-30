@@ -159,7 +159,7 @@ export default function Album() {
   const [loading, setLoading] = useState(false);
   const [price, setPrice] = useState(null);
 
-  console.log(nftImageUrl);
+  // console.log(nftImageUrl);
   useEffect(() => {
     setLoading(false); // for remove warnings
     // test apis
@@ -423,6 +423,15 @@ export default function Album() {
                     height: 40,
                     borderRadius: "20px",
                     color: "white",
+                  }}
+                  onClick={() => {
+                    unstakeNft(
+                      () => {
+                        // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                      },
+                      urlNft,
+                      urlTokenId,
+                    );
                   }}
                 >
                   UnStake

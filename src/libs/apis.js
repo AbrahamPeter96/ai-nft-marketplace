@@ -775,7 +775,7 @@ export const getNftStakeReward = async (nftContract) => {
     async account =>
       await contract.methods.pendingRewardToken(pid, account).call(),
   );
-  console.log({reward});
+  // console.log({reward});
   return reward;
 }
 
