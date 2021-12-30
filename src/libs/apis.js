@@ -146,6 +146,7 @@ export const buyNft = async (setLoading, nftContract, tokenId) => {
     return;
   }
   if (itemId === null || itemId === undefined) {
+    alert('Not listed for sale');
     return;
   }
 
