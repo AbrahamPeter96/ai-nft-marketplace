@@ -13,6 +13,7 @@ import MetaMaskOnboarding from '@metamask/onboarding';
 
 import pinataSDK from '@pinata/sdk';
 import { toChecksumAddress } from "web3-utils";
+import is_mobile from 'is-mobile';
 
 const msg_mobile = 'Please use MetaMask App!';
 const msg_desk = 'Please intall MetaMask Wallet extension';
@@ -25,7 +26,7 @@ console.log(`PINATA_API_KEY: ${PINATA_API_KEY}`);
 const PINATA_API_SECRET = "f8635865638103477cf33964d57a23264bb29b16e7a2bcaf2ae31fe269d27398";
 
 export const _doThis = async (todo = null, prompt = true) => {
-  const isMobile = require('is-mobile')();
+  const isMobile = is_mobile();
 
   if (prompt && !MetaMaskOnboarding.isMetaMaskInstalled()) {
     if (isMobile) {

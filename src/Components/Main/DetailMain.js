@@ -349,6 +349,7 @@ export default function Album() {
                     sellNft(
                       () => {
                         getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
+                        getNftOwner(urlNft, urlTokenId).then(setNftOwner);
                       },
                       urlNft,
                       urlTokenId,
@@ -404,7 +405,9 @@ export default function Album() {
                   }}
                   onClick={() => {
                     createNftAuction(
-                      setLoading,
+                      () => {
+                        getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                      },
                       urlNft,
                       urlTokenId,
                       prompt("Please enter min BID price in BNB", "0.1"),
@@ -493,6 +496,7 @@ export default function Album() {
                     stakeNft(
                       () => {
                         // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                        getNftOwner(urlNft, urlTokenId).then(setNftOwner);
                       },
                       urlNft,
                       urlTokenId,
@@ -514,6 +518,7 @@ export default function Album() {
                     unstakeNft(
                       () => {
                         // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                        getNftOwner(urlNft, urlTokenId).then(setNftOwner);
                       },
                       urlNft,
                       urlTokenId,
