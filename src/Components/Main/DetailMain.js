@@ -262,7 +262,7 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                {nftOwner && `Owner ${displayAddr(nftOwner, userAddr)}`}
+                {nftOwner && `Owned by ${displayAddr(nftOwner, userAddr)}`}
               </Typography>
               {/* <input
                 type='file'
