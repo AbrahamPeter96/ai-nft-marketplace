@@ -429,6 +429,7 @@ export default function Album() {
                         getIsApprovedForAllStaking(urlNft).then(
                           setIsApprovedForAllStaking,
                         );
+                        
                       }, urlNft);
                     }}
                   >
