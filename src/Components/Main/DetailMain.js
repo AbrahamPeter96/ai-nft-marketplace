@@ -286,89 +286,88 @@ export default function Album() {
                 fontWeight="bolder"
                 textAlign="left"
               >
-                <Button
-                  style={{
-                    backgroundColor: "#00e8c9",
-                    width: 120,
-                    height: 40,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
-                  onClick={() => {
-                    approveBidingContract(() => {
-                      // getIsApprovedForAll(urlNft).then(setIsApprovedForAll); // (done &&) later
-                    }, urlNft);
-                  }}
-                >
-                  Approve Bid
-                </Button>
+                {!isApprovedForAll && (
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      approveBidingContract(() => {
+                        // getIsApprovedForAll(urlNft).then(setIsApprovedForAll); // (done &&) later
+                      }, urlNft);
+                    }}
+                  >
+                    Approve Bid
+                  </Button>
+                )}
+                {isApprovedForAll && (
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      listToSell(
+                        () => {
+                          getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                        },
+                        urlNft,
+                        urlTokenId,
+                        prompt("Please enter price in BNB", "0.1"),
+                      );
+                    }}
+                  >
+                    List to Sell
+                  </Button>
+                )}
                 &nbsp;
-                <Button
-                  style={{
-                    backgroundColor: "#00e8c9",
-                    width: 120,
-                    height: 40,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
-                  onClick={() => {
-                    listToSell(
-                      () => {
-                        getNftOwner(urlNft, urlTokenId).then(setNftOwner);
-                      },
-                      urlNft,
-                      urlTokenId,
-                      prompt("Please enter price in BNB", "0.1"),
-                    );
-                  }}
-                >
-                  List to Sell
-                </Button>
+                {isApprovedForAll && (
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      makeBid(
+                        setLoading,
+                        urlNft,
+                        urlTokenId,
+                        prompt("Please enter NFT price in BNB", "0.1"),
+                      );
+                    }}
+                  >
+                    Bid {false && loading /* just to remove warnings*/}
+                  </Button>
+                )}
                 &nbsp;
-                <Button
-                  style={{
-                    backgroundColor: "#00e8c9",
-                    width: 120,
-                    height: 40,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
-                  onClick={() => {
-                    makeBid(
-                      setLoading,
-                      urlNft,
-                      urlTokenId,
-                      prompt("Please enter NFT price in BNB", "0.1"),
-                    );
-                  }}
-                >
-                  Bid {false && loading /* just to remove warnings*/}
-                </Button>
+                {isApprovedForAll && (
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      takeHighestBid(setLoading, urlNft, urlTokenId);
+                    }}
+                  >
+                    Accept Bid{" "}
+                  </Button>
+                )}
                 &nbsp;
-                <Button
-                  style={{
-                    backgroundColor: "#00e8c9",
-                    width: 120,
-                    height: 40,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
-                  onClick={() => {
-                    takeHighestBid(setLoading, urlNft, urlTokenId);
-                  }}
-                >
-                  Accept Bid{" "}
-                </Button>
-              </Typography>
-              {
-                <Typography
-                  gutterBottom
-                  variant="h3"
-                  component="div"
-                  color="#fff"
-                  fontWeight="bolder"
-                  textAlign="left"
-                >
+                {isApprovedForAll && (
                   <Button
                     style={{
                       backgroundColor: "#00e8c9",
@@ -383,8 +382,9 @@ export default function Album() {
                   >
                     Buy NFT
                   </Button>
-                </Typography>
-              }
+                )}
+              </Typography>
+
               <Typography
                 gutterBottom
                 variant="h6"
