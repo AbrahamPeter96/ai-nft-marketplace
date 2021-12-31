@@ -33,6 +33,8 @@ import {
   uploadNft,
 } from "../../libs/apis";
 import { urlNft, urlTokenId } from "../../libs/utils";
+import { LoadingButton } from "@mui/lab";
+import { CircularProgress } from "@mui/material";
 
 const responsive = {
   superLargeDesktop: {
@@ -151,7 +153,7 @@ export default function Album() {
   const [imageObj, setImageObj] = useState("Loading...");
   const [isApprovedForAll, setIsApprovedForAll] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log(nftImageUrl)
+  console.log(nftImageUrl);
   useEffect(() => {
     setLoading(false); // for remove warnings
     // test apis
@@ -174,6 +176,7 @@ export default function Album() {
     0 && getNftOwner(urlNft, urlTokenId);
 
     const fun1 = async () => {
+      uploadNft(setLoading, await (await fetch(one)).blob());
        0 && uploadNft(setLoading, await (await fetch(one)).blob());
 
       const url = await getNftImageUrl(urlNft, urlTokenId);
@@ -181,7 +184,6 @@ export default function Album() {
       const laser = await fetch(url);
       const img = URL.createObjectURL(await laser.blob());
       setImageObj(img);
-      
     };
 
     getNftCollectionName(urlNft).then(setNftCollectionName);
@@ -220,7 +222,6 @@ export default function Album() {
               >
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem text of the printing and typesetting industry{" "}
-               
               </Typography>
               {/* <input
                 type='file'
@@ -275,7 +276,6 @@ export default function Album() {
                     Approve
                   </Button>
                 )}
-               
                 &nbsp;
                 <Button
                   style={{
@@ -297,7 +297,7 @@ export default function Album() {
                   Sell
                 </Button>
                 &nbsp;
-                <Button
+                <LoadingButton
                   style={{
                     backgroundColor: "#00e8c9",
                     width: 120,
@@ -305,32 +305,58 @@ export default function Album() {
                     borderRadius: "20px",
                     color: "white",
                   }}
+                  loading={loading}
+                  loadingIndicator={
+                    <CircularProgress color="inherit" size={18} />
+                  }
+                  onClick={() => {
+                    makeBid(
+                      () => {},
+                      urlNft,
+                      urlTokenId,
+                      prompt("Please enter NFT price in BNB", "0.1"),
+                      setTimeout(setLoading(true), 2000)
+                    );
+                  }}
                 >
-                  Bid {false && loading /* just to remove warnings*/}
-                </Button>
+                  Bid
+                </LoadingButton>
               </Typography>
               {!isApprovedForAll && (
-                   <Typography
-                   gutterBottom
-                   variant="h3"
-                   component="div"
-                   color="#fff"
-                   fontWeight="bolder"
-                   textAlign="left"
-                 >
-                       <Button
-                       style={{
-                         backgroundColor: "#00e8c9",
-                         width: 120,
-                         height: 40,
-                         borderRadius: "20px",
-                         color: "white",
-                       }}
-                     >
-                       Buy NFT {false && loading /* just to remove warnings*/}
-                     </Button>
-                   </Typography>
-                )}
+                <Typography
+                  gutterBottom
+                  variant="h3"
+                  component="div"
+                  color="#fff"
+                  fontWeight="bolder"
+                  textAlign="left"
+                >
+                  <LoadingButton
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    loading={loading}
+                    loadingIndicator={
+                      <CircularProgress color="inherit" size={18} />
+                    }
+                    onClick={() => {
+                      buyNft(
+                        () => {},
+                        urlNft,
+                        urlTokenId,
+                        prompt("Please enter NFT price in BNB", "0.1"),
+                        setTimeout(setLoading(true), 2000)
+                      );
+                    }}
+                  >
+                    Buy NFT
+                  </LoadingButton>
+                </Typography>
+              )}
               <Typography
                 gutterBottom
                 variant="h3"
@@ -341,7 +367,7 @@ export default function Album() {
               >
                 {/* {nftImageUrl} */}
                 {!isApprovedForAll && (
-                  <Button
+                  <LoadingButton
                     style={{
                       backgroundColor: "#00e8c9",
                       width: 120,
@@ -349,24 +375,46 @@ export default function Album() {
                       borderRadius: "20px",
                       color: "white",
                     }}
+                    loading={loading}
+                    loadingIndicator={
+                      <CircularProgress color="inherit" size={18} />
+                    }
+                    onClick={() => {
+                      stakeNft(
+                        urlNft,
+                        urlTokenId,
+                        setTimeout(setLoading(true), 2000)
+                      );
+                    }}
                   >
                     Stake
-                  </Button>
+                  </LoadingButton>
                 )}
                 &nbsp;
-                <Button
+                <LoadingButton
                   style={{
                     backgroundColor: "#00e8c9",
                     width: 120,
                     height: 40,
                     borderRadius: "20px",
                     color: "white",
+                  }}
+                  loading={loading}
+                  loadingIndicator={
+                    <CircularProgress color="inherit" size={18} />
+                  }
+                  onClick={() => {
+                    unstakeNft(
+                      urlNft,
+                      urlTokenId,
+                      setTimeout(setLoading(true), 2000)
+                    );
                   }}
                 >
                   UnStake
-                </Button>
+                </LoadingButton>
                 &nbsp;
-                <Button
+                <LoadingButton
                   style={{
                     backgroundColor: "#00e8c9",
                     width: 120,
@@ -374,9 +422,16 @@ export default function Album() {
                     borderRadius: "20px",
                     color: "white",
                   }}
+                  loading={loading}
+                  loadingIndicator={
+                    <CircularProgress color="inherit" size={18} />
+                  }
+                  onClick={() => {
+                    harvestNft(urlNft, setTimeout(setLoading(true), 2000));
+                  }}
                 >
-                  Harvest {false && loading /* just to remove warnings*/}
-                </Button>
+                  Harvest
+                </LoadingButton>
               </Typography>
             </Col>
           </Row>
