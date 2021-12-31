@@ -20,7 +20,8 @@ import {
   approveBidingContract,
   approveStakingContract,
   buyNft,
-  createNftAuction, getAuction,
+  createNftAuction,
+  getAuction,
   getIsApprovedForAll,
   getIsApprovedForAllStaking,
   getNftCollectionName,
@@ -30,10 +31,11 @@ import {
   getUserAddr,
   harvestNft,
   listToSell,
-  makeBid, stakeNft,
+  makeBid,
+  stakeNft,
   takeHighestBid,
   unstakeNft,
-  uploadNft
+  uploadNft,
 } from "../../libs/apis";
 import { displayAddr, urlNft, urlTokenId } from "../../libs/utils";
 
@@ -185,7 +187,6 @@ export default function Album() {
     // read apis
     0 && getNftOwner(urlNft, urlTokenId);
 
-
     0 && getNftStakeReward(urlNft);
 
     const fun1 = async () => {
@@ -253,15 +254,7 @@ export default function Album() {
               >
                 {auction && `Buy Now Price ${fromWei(auction.buyNowPrice)} BNB`}
               </Typography>
-              <Typography
-                textAlign="left"
-                color="#ccc"
-                gutterBottom
-                variant="p"
-                component="div"
-              >
-                {nftStakeReward && `Reward ${fromWei(nftStakeReward)} AZI`}
-              </Typography>
+
               <Typography
                 textAlign="left"
                 color="#ccc"
@@ -316,8 +309,6 @@ export default function Album() {
                 fontWeight="bolder"
                 textAlign="left"
               >
-                
-                
                 <Button
                   style={{
                     backgroundColor: "#00e8c9",
@@ -352,7 +343,7 @@ export default function Album() {
                       urlTokenId,
                       prompt("Please enter price in BNB", "0.1"),
                     );
-                }}
+                  }}
                 >
                   List to Sell
                 </Button>
@@ -391,7 +382,6 @@ export default function Album() {
                 >
                   Accept Bid{" "}
                 </Button>
-          
               </Typography>
               {
                 <Typography
@@ -411,11 +401,7 @@ export default function Album() {
                       color: "white",
                     }}
                     onClick={() => {
-                      buyNft(
-                        () => {},
-                        urlNft,
-                        urlTokenId,
-                      );
+                      buyNft(() => {}, urlNft, urlTokenId);
                     }}
                   >
                     Buy NFT
@@ -430,33 +416,51 @@ export default function Album() {
               }
               <Typography
                 gutterBottom
+                variant="h6"
+                component="div"
+                color="#fff"
+                
+                textAlign="left"
+              >
+                Staking
+              </Typography>
+
+               <Typography
+                textAlign="left"
+                color="#ccc"
+                gutterBottom
+                variant="p"
+                component="div"
+              >
+                {nftStakeReward && fromWei(nftStakeReward) !== "0" && `Reward ${fromWei(nftStakeReward)} AZI`}
+              </Typography>
+
+              <Typography
+                gutterBottom
                 variant="h3"
                 component="div"
                 color="#fff"
                 fontWeight="bolder"
                 textAlign="left"
               >
-                {/* {nftImageUrl} */}
-                {
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      approveStakingContract(() => {
-                        getIsApprovedForAllStaking(urlNft).then(
-                          setIsApprovedForAllStaking,
-                        );
-                      }, urlNft);
-                    }}
-                  >
-                    Approve Staking
-                  </Button>
-                }
+                <Button
+                  style={{
+                    backgroundColor: "#00e8c9",
+                    width: 120,
+                    height: 40,
+                    borderRadius: "20px",
+                    color: "white",
+                  }}
+                  onClick={() => {
+                    approveStakingContract(() => {
+                      getIsApprovedForAllStaking(urlNft).then(
+                        setIsApprovedForAllStaking,
+                      );
+                    }, urlNft);
+                  }}
+                >
+                  Approve
+                </Button>
                 &nbsp;
                 <Button
                   style={{
