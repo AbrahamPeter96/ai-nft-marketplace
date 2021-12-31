@@ -313,6 +313,79 @@ export const createNftAuction = async (
   });
 };
 
+// list item for sale in biding contract
+export const createNftSale = async (
+  setLoading,
+  nftContract,
+  tokenId,
+  price,
+) => {
+  if (!isAddress(nftContract)) {
+    // alert('Invalid NFT Address');
+    return;
+  }
+  if (price === null || price === undefined) {
+    return;
+  }
+
+  price = toWei(price);
+
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    const nftBiding = getContractBiding({ web3 });
+
+    const method = nftBiding.methods.createSale(
+      nftContract,
+      tokenId,
+      zeroAddr,
+      price, // buyNowPrice_, https://github.com/muneebzubairkhan/nft-auction
+      zeroAddr,
+      [account], // feeRecipients_
+      [10000], // _feePercentages 100.00%
+    );
+    let options = {
+      from: account,
+      gas: '0',
+      value: 0,
+    };
+    try {
+      const estimateGas = Math.trunc(await method.estimateGas(options));
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
+      let msg;
+      try {
+        msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
+      } catch (eii) {
+      }
+
+      if (!msg) {
+        msg = 'Insufficient funds or some data error, ' + e.message;
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
+      alert(msg);
+      return;
+    }
+
+    try {
+      await method.send(options).on('confirmation', i => {
+        //here
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
+};
+
+
 export const takeHighestBid = async (setLoading, nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
     // alert('Invalid NFT Address');

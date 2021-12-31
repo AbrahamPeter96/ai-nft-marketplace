@@ -22,6 +22,7 @@ import {
   approveStakingContract,
   buyNft,
   createNftAuction,
+  createNftSale,
   getAuction,
   getIsApprovedForAll,
   getIsApprovedForAllStaking,
@@ -249,7 +250,7 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                {price && `Price ${fromWei(price)} BNB`}
+                {auction && `Price ${fromWei(auction.buyNowPrice)} BNB`}
               </Typography>
               <Typography
                 textAlign="left"
@@ -360,7 +361,7 @@ export default function Album() {
                     color: "white",
                   }}
                   onClick={() => {
-                    sellNft(
+                    createNftSale(
                       () => {
                         getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
                         getNftOwner(urlNft, urlTokenId).then(setNftOwner);
