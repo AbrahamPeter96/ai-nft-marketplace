@@ -424,11 +424,12 @@ export default function Album() {
                       borderRadius: "20px",
                       color: "white",
                     }}
+                    
                     onClick={() => {
                       approveStakingContract(() => {
                         getIsApprovedForAllStaking(urlNft).then(
                           setIsApprovedForAllStaking,
-                        );
+                        ); 
                       }, urlNft);
                     }}
                   >
