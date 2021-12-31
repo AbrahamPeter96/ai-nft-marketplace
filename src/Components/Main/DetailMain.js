@@ -20,12 +20,11 @@ import {
   approveBidingContract,
   approveStakingContract,
   buyNft,
-  createNftAuction,
   getAuction,
   getIsApprovedForAll,
   getIsApprovedForAllStaking,
   getNftCollectionName,
-  getNftImageUrl,
+  getNftImage,
   getNftOwner,
   getNftStakeReward,
   getUserAddr,
@@ -35,7 +34,6 @@ import {
   stakeNft,
   takeHighestBid,
   unstakeNft,
-  uploadNft,
 } from "../../libs/apis";
 import { displayAddr, urlNft, urlTokenId } from "../../libs/utils";
 
@@ -151,68 +149,47 @@ function ActionSliderCard({ img, title, des }) {
 }
 
 export default function Album() {
+  const [loading, setLoading] = useState(false);
+
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
-  // const [nftImageUrl, setNftImageUrl] = useState("Loading...");
   const [imageObj, setImageObj] = useState("Loading...");
+
   const [nftStakeReward, setNftStakeReward] = useState();
+
   const [isApprovedForAll, setIsApprovedForAll] = useState(false); // buy sell bid contract
   const [isApprovedForAllStaking, setIsApprovedForAllStaking] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   // view related, to clear concept
   const [userAddr, setUserAddr] = useState();
   const [nftOwner, setNftOwner] = useState();
 
+  // it contains many things
   const [auction, setAuction] = useState();
 
-  // console.log(nftImageUrl);
+  console.log("aoa");
+
+  // refresh reward every second
+  setInterval(() => {
+    getNftStakeReward(urlNft).then(setNftStakeReward);
+  }, 1000);
+
+  // load data on startup
   useEffect(() => {
-    setLoading(false); // for remove warnings
-    // test apis
-    0 && buyNft(setLoading, urlNft, urlTokenId, "0.1"); // 0.1 BNB
+    setLoading(false); // for removing warnings
 
-    // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
-    0 && createNftAuction(setLoading, urlNft, urlTokenId, "0.1");
-
-    // working
-    // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
-    0 && takeHighestBid(setLoading, urlNft, urlTokenId);
-
-    0 && makeBid(setLoading, urlNft, urlTokenId, "0.1");
-    0 && stakeNft(setLoading, urlNft, urlTokenId);
-    0 && unstakeNft(setLoading, urlNft, urlTokenId);
-    0 && harvestNft(setLoading, urlNft);
-    0 && approveStakingContract(setLoading, urlNft);
-
-    // read apis
-    0 && getNftOwner(urlNft, urlTokenId);
-
-    0 && getNftStakeReward(urlNft);
-
-    const fun1 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      const url = await getNftImageUrl(urlNft, urlTokenId);
-      // setNftImageUrl(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObj(img);
-    };
+    getNftImage(urlNft, urlTokenId).then(setImageObj);
 
     getNftCollectionName(urlNft).then(setNftCollectionName);
+
     getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
+    getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+
     getNftStakeReward(urlNft).then(setNftStakeReward);
 
     getNftOwner(urlNft, urlTokenId).then(setNftOwner);
     getUserAddr().then(setUserAddr);
 
     getAuction(urlNft, urlTokenId).then(setAuction);
-
-    setInterval(() => {
-      getNftStakeReward(urlNft).then(setNftStakeReward);
-    }, 1000);
-
-    fun1();
   }, []);
   return (
     <ThemeProvider theme={theme}>
@@ -405,12 +382,6 @@ export default function Album() {
                     }}
                   >
                     Buy NFT
-                    {
-                      false &&
-                        loading &&
-                        isApprovedForAllStaking &&
-                        isApprovedForAll /* just to remove warnings*/
-                    }
                   </Button>
                 </Typography>
               }
@@ -419,20 +390,21 @@ export default function Album() {
                 variant="h6"
                 component="div"
                 color="#fff"
-                
                 textAlign="left"
               >
                 Staking
               </Typography>
 
-               <Typography
+              <Typography
                 textAlign="left"
                 color="#ccc"
                 gutterBottom
                 variant="p"
                 component="div"
               >
-                {nftStakeReward && fromWei(nftStakeReward) !== "0" && `Reward ${fromWei(nftStakeReward)} AZI`}
+                {nftStakeReward &&
+                  fromWei(nftStakeReward) !== "0" &&
+                  `Reward ${fromWei(nftStakeReward)} AZI`}
               </Typography>
 
               <Typography
@@ -515,10 +487,10 @@ export default function Album() {
                     color: "white",
                   }}
                   onClick={() => {
-                    harvestNft(setLoading, urlNft);
+                    harvestNft(() => {}, urlNft);
                   }}
                 >
-                  Harvest {false && loading /* just to remove warnings*/}
+                  Harvest
                 </Button>
               </Typography>
             </Col>
@@ -564,3 +536,34 @@ export default function Album() {
     </ThemeProvider>
   );
 }
+
+/*
+// Test all apis on front end, pure functions are better
+useEffect(() => {
+    setLoading(false); // for remove warnings
+    // test apis
+    0 && buyNft(setLoading, urlNft, urlTokenId, "0.1"); // 0.1 BNB
+
+    // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
+    0 && createNftAuction(setLoading, urlNft, urlTokenId, "0.1");
+
+    // working
+    // http://localhost:3000/detail/0x16951a59f9d62a2ff70fbe7fccfc0dfb1d61acc4/8
+    0 && takeHighestBid(setLoading, urlNft, urlTokenId);
+
+    0 && makeBid(setLoading, urlNft, urlTokenId, "0.1");
+    0 && stakeNft(setLoading, urlNft, urlTokenId);
+    0 && unstakeNft(setLoading, urlNft, urlTokenId);
+    0 && harvestNft(setLoading, urlNft);
+    0 && approveStakingContract(setLoading, urlNft);
+
+    // read apis
+    0 && getNftOwner(urlNft, urlTokenId);
+
+    0 && getNftStakeReward(urlNft);
+
+      0 && uploadNft(setLoading, await (await fetch(one)).blob());
+
+},[]);
+
+*/

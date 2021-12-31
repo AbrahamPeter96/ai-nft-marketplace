@@ -698,6 +698,13 @@ export const getAuction = async (nftContract, tokenId) => {
   return res;
 }
 
+export const getNftImage = async (nftContract, tokenId) => {
+  const url = await getNftImageUrl(nftContract, tokenId);
+  const laser = await fetch(url);
+  const img = URL.createObjectURL(await laser.blob());
+  return img;
+};
+
 // extra
 export const createNftAuction = async (
   setLoading,
