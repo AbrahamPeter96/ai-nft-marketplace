@@ -406,7 +406,8 @@ export default function Album() {
                   fromWei(nftStakeReward) !== "0" &&
                   `Reward ${fromWei(nftStakeReward)} AZI`}
               </Typography>
-
+   
+              
               <Typography
                 gutterBottom
                 variant="h3"
