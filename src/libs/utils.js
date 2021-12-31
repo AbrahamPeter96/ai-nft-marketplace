@@ -21,7 +21,6 @@ const deepLink = 'https://metamask.app.link/dapp/cheekylionclub.com/';
 const msg_chain = `Please switch network to ${requiredChainIdName}!`;
 
 const PINATA_API_KEY = "bba8cceb58cf3bf02e49";
-console.log(`PINATA_API_KEY: ${PINATA_API_KEY}`);
 const PINATA_API_SECRET = "f8635865638103477cf33964d57a23264bb29b16e7a2bcaf2ae31fe269d27398";
 
 export const _doThis = async (todo = null, prompt = true) => {
