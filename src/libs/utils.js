@@ -4,7 +4,6 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import {
   bidingAddress,
   ipfsExplorer,
-  marketplaceAddress,
   nftStakingAddress,
   requiredChainId,
   requiredChainIdName,
@@ -39,6 +38,8 @@ export const _doThis = async (todo = null, prompt = true) => {
   const ethereum = await detectEthereumProvider();
 
   if (ethereum && (prompt || (await ethereum.isConnected()))) {
+    ethereum.on('accountsChanged',() => window.location.reload())
+
     const [account] = await ethereum.request({
       method: 'eth_requestAccounts',
     });
@@ -153,9 +154,6 @@ export const displayAddr = (addr, user) => {
   switch (toChecksumAddress(addr)) {
     case toChecksumAddress(user):
       res = "You";
-      break;
-    case toChecksumAddress(marketplaceAddress):
-      res = "Marketplace Contract";
       break;
     case toChecksumAddress(nftStakingAddress):
       res = "Staking Contract";

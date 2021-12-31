@@ -1,12 +1,12 @@
 import { CardActionArea } from "@mui/material";
-import Avatar from "@mui/material/Avatar";
-import Badge from "@mui/material/Badge";
+// import Avatar from "@mui/material/Avatar";
+// import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Container from "@mui/material/Container";
-import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles"; // {styled}
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
@@ -18,27 +18,22 @@ import two from "../../Images/2.png";
 import three from "../../Images/3.png";
 import {
   approveBidingContract,
-  approveMarketplaceContract,
   approveStakingContract,
   buyNft,
-  createNftAuction,
-  createNftSale,
-  getAuction,
+  createNftAuction, getAuction,
   getIsApprovedForAll,
   getIsApprovedForAllStaking,
   getNftCollectionName,
   getNftImageUrl,
   getNftOwner,
-  getNftPriceForSale,
   getNftStakeReward,
   getUserAddr,
   harvestNft,
-  makeBid,
-  sellNft,
-  stakeNft,
+  listToSell,
+  makeBid, stakeNft,
   takeHighestBid,
   unstakeNft,
-  uploadNft,
+  uploadNft
 } from "../../libs/apis";
 import { displayAddr, urlNft, urlTokenId } from "../../libs/utils";
 
@@ -62,34 +57,34 @@ const responsive = {
 };
 
 const theme = createTheme();
-const StyledBadge = styled(Badge)(({ theme }) => ({
-  "& .MuiBadge-badge": {
-    backgroundColor: "#44b700",
-    color: "#44b700",
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    "&::after": {
-      position: "absolute",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      borderRadius: "50%",
-      animation: "ripple 1.2s infinite ease-in-out",
-      border: "1px solid currentColor",
-      content: '""',
-    },
-  },
-  "@keyframes ripple": {
-    "0%": {
-      transform: "scale(.8)",
-      opacity: 1,
-    },
-    "100%": {
-      transform: "scale(2.4)",
-      opacity: 0,
-    },
-  },
-}));
+// const StyledBadge = styled(Badge)(({ theme }) => ({
+//   "& .MuiBadge-badge": {
+//     backgroundColor: "#44b700",
+//     color: "#44b700",
+//     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+//     "&::after": {
+//       position: "absolute",
+//       top: 0,
+//       left: 0,
+//       width: "100%",
+//       height: "100%",
+//       borderRadius: "50%",
+//       animation: "ripple 1.2s infinite ease-in-out",
+//       border: "1px solid currentColor",
+//       content: '""',
+//     },
+//   },
+//   "@keyframes ripple": {
+//     "0%": {
+//       transform: "scale(.8)",
+//       opacity: 1,
+//     },
+//     "100%": {
+//       transform: "scale(2.4)",
+//       opacity: 0,
+//     },
+//   },
+// }));
 
 function ActionAreaCard({ img, title, des }) {
   return (
@@ -161,7 +156,6 @@ export default function Album() {
   const [isApprovedForAll, setIsApprovedForAll] = useState(false); // buy sell bid contract
   const [isApprovedForAllStaking, setIsApprovedForAllStaking] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [price, setPrice] = useState(null);
 
   // view related, to clear concept
   const [userAddr, setUserAddr] = useState();
@@ -191,7 +185,6 @@ export default function Album() {
     // read apis
     0 && getNftOwner(urlNft, urlTokenId);
 
-    0 && getNftPriceForSale(urlNft, urlTokenId);
 
     0 && getNftStakeReward(urlNft);
 
@@ -207,7 +200,6 @@ export default function Album() {
 
     getNftCollectionName(urlNft).then(setNftCollectionName);
     getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
-    getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
     getNftStakeReward(urlNft).then(setNftStakeReward);
 
     getNftOwner(urlNft, urlTokenId).then(setNftOwner);
@@ -250,7 +242,16 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                {auction && `Price ${fromWei(auction.buyNowPrice)} BNB`}
+                {auction && `Min Price ${fromWei(auction.minPrice)} BNB`}
+              </Typography>
+              <Typography
+                textAlign="left"
+                color="#ccc"
+                gutterBottom
+                variant="p"
+                component="div"
+              >
+                {auction && `Buy Now Price ${fromWei(auction.buyNowPrice)} BNB`}
               </Typography>
               <Typography
                 textAlign="left"
@@ -288,7 +289,7 @@ export default function Album() {
                   0 && setSelectedFile(e.target.files[0]);
                 }}
               /> */}
-              <Typography
+              {/* <Typography
                 gutterBottom
                 variant="h6"
                 component="div"
@@ -306,7 +307,7 @@ export default function Album() {
                   />
                 </StyledBadge>
                 &nbsp; Burak
-              </Typography>
+              </Typography> */}
               <Typography
                 gutterBottom
                 variant="h3"
@@ -315,26 +316,8 @@ export default function Album() {
                 fontWeight="bolder"
                 textAlign="left"
               >
-                {/* !isApprovedForAll && */}
-                {
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      approveMarketplaceContract(() => {
-                        getIsApprovedForAll(urlNft).then(setIsApprovedForAll); // (done &&) later
-                      }, urlNft);
-                    }}
-                  >
-                    Approve Marketplace
-                  </Button>
-                }
-                &nbsp;
+                
+                
                 <Button
                   style={{
                     backgroundColor: "#00e8c9",
@@ -361,16 +344,15 @@ export default function Album() {
                     color: "white",
                   }}
                   onClick={() => {
-                    createNftSale(
+                    listToSell(
                       () => {
-                        getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
                         getNftOwner(urlNft, urlTokenId).then(setNftOwner);
                       },
                       urlNft,
                       urlTokenId,
-                      prompt("Please enter NFT price in BNB", "0.1"),
+                      prompt("Please enter price in BNB", "0.1"),
                     );
-                  }}
+                }}
                 >
                   List to Sell
                 </Button>
@@ -409,28 +391,7 @@ export default function Album() {
                 >
                   Accept Bid{" "}
                 </Button>
-                &nbsp;
-                <Button
-                  style={{
-                    backgroundColor: "#00e8c9",
-                    width: 120,
-                    height: 40,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
-                  onClick={() => {
-                    createNftAuction(
-                      () => {
-                        getNftOwner(urlNft, urlTokenId).then(setNftOwner);
-                      },
-                      urlNft,
-                      urlTokenId,
-                      prompt("Please enter min BID price in BNB", "0.1"),
-                    );
-                  }}
-                >
-                  Put for Bids
-                </Button>
+          
               </Typography>
               {
                 <Typography
@@ -451,15 +412,13 @@ export default function Album() {
                     }}
                     onClick={() => {
                       buyNft(
-                        (m) => {
-                          getNftPriceForSale(urlNft, urlTokenId).then(setPrice);
-                        },
+                        () => {},
                         urlNft,
                         urlTokenId,
                       );
                     }}
                   >
-                    Buy NFT{" "}
+                    Buy NFT
                     {
                       false &&
                         loading &&

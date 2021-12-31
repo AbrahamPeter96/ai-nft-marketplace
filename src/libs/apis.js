@@ -4,10 +4,8 @@ import {
   bidingAddress,
   getContractArt,
   getContractBiding,
-  getContractMarketplace,
   getContractNft,
   getContractNftStaking,
-  marketplaceAddress,
   nftStakingAddress,
 } from './smart-contracts.js';
 import {
@@ -21,111 +19,6 @@ import * as IPFS from 'ipfs-core';
 const { isAddress, toWei } = pkg;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> WRITE CONTRACT
-export const sellNft = async (setLoading, nftContract, tokenId, price) => {
-  if (!isAddress(nftContract)) {
-    // alert('Invalid NFT Address');
-    return;
-  }
-  if (price === null || price === undefined) {
-    return;
-  }
-  price = toWei(price);
-
-  setLoading(true);
-  _doThis(async (account, web3) => {
-    const nftmarketPlace = getContractMarketplace({ web3 });
-    const listingPrice = await nftmarketPlace.methods.getListingPrice().call();
-
-    const createMarketItem = nftmarketPlace.methods.createMarketItem(
-      nftContract,
-      tokenId,
-      price,
-    );
-    console.log(`listingPrice: ${listingPrice}`);
-    let options = {
-      from: account,
-      gas: '0',
-      value: listingPrice,
-    };
-    try {
-      const estimateGas = Math.trunc(
-        await createMarketItem.estimateGas(options),
-      );
-      options = {
-        ...options,
-        gas: '' + estimateGas,
-      };
-    } catch (e) {
-      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
-
-      if (!msg) {
-        msg = 'Insufficient funds or some data error';
-      } else {
-        msg = msg.split('reverted:')[1];
-      }
-      alert(msg);
-      return;
-    }
-
-    try {
-      await createMarketItem.send(options).on('confirmation', i => {
-        //here
-        if (i === 0) {
-          setLoading(false);
-          alert('done');
-        }
-      });
-    } catch (e) {
-      setLoading(false);
-      alert(e.message);
-    }
-  });
-};
-
-export const approveMarketplaceContract = async (setLoading, nftContract) => {
-  if (!isAddress(nftContract)) {
-    // alert('Invalid NFT Address');
-    return;
-  }
-  setLoading(true);
-  _doThis(async (account, web3) => {
-    const nft = getContractNft({ web3, address: nftContract });
-    const method = nft.methods.setApprovalForAll(marketplaceAddress, true);
-    let options = {
-      from: account,
-      gas: '0',
-    };
-    try {
-      const estimateGas = Math.trunc(await method.estimateGas(options));
-      options = {
-        ...options,
-        gas: '' + estimateGas,
-      };
-    } catch (e) {
-      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
-
-      if (!msg) {
-        msg = 'Insufficient funds or some data error';
-      } else {
-        msg = msg.split('reverted:')[1];
-      }
-      alert(msg);
-      return;
-    }
-
-    try {
-      await method.send(options).on('confirmation', i => {
-        if (i === 0) {
-          setLoading(false);
-          alert('done');
-        }
-      });
-    } catch (e) {
-      setLoading(false);
-      alert(e.message);
-    }
-  });
-};
 export const approveBidingContract = async (setLoading, nftContract) => {
   if (!isAddress(nftContract)) {
     // alert('Invalid NFT Address');
@@ -171,114 +64,18 @@ export const approveBidingContract = async (setLoading, nftContract) => {
   });
 };
 
-/*
-struct MarketItem {
-    0 uint itemId; <<<<<<<<<<<<<<
-    1 address nftContract;
-    2 uint256 tokenId; 
-    3 address payable seller;
-    4 address payable owner;
-    5 uint256 price;
-    6 bool sold;
-  }
- */
-// its itemId not tokenId
-export const buyNft = async (setLoading, nftContract, tokenId) => {
-  const [itemId, itemPrice] = await getItemIdFromTokenId(nftContract, tokenId)
-
+export const approveStakingContract = async (setLoading, nftContract) => {
   if (!isAddress(nftContract)) {
     // alert('Invalid NFT Address');
     return;
   }
-  if (itemId === null || itemId === undefined) {
-    alert('Not listed for sale');
-    return;
-  }
-
-
-
   setLoading(true);
   _doThis(async (account, web3) => {
-    const nftmarketPlace = getContractMarketplace({ web3 });
-
-    const createMarketItem = nftmarketPlace.methods.createMarketSale(
-      nftContract,
-      itemId,
-    );
-
+    const nft = getContractNft({ web3, address: nftContract });
+    const method = nft.methods.setApprovalForAll(nftStakingAddress, true);
     let options = {
       from: account,
       gas: '0',
-      value: itemPrice,
-    };
-    try {
-      const estimateGas = Math.trunc(
-        await createMarketItem.estimateGas(options),
-      );
-      options = {
-        ...options,
-        gas: '' + estimateGas,
-      };
-    } catch (e) {
-      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
-
-      if (!msg) {
-        msg = 'Insufficient funds or some data error';
-      } else {
-        msg = msg.split('reverted:')[1];
-      }
-      alert(msg);
-      return;
-    }
-
-    try {
-      await createMarketItem.send(options).on('confirmation', i => {
-        if (i === 0) {
-          setLoading(false);
-          alert('done');
-        }
-      });
-    } catch (e) {
-      setLoading(false);
-      alert(e.message);
-    }
-  });
-};
-
-export const createNftAuction = async (
-  setLoading,
-  nftContract,
-  tokenId,
-  minPrice,
-) => {
-  if (!isAddress(nftContract)) {
-    // alert('Invalid NFT Address');
-    return;
-  }
-
-  if (minPrice === null || minPrice === undefined) {
-    return;
-  }
-
-  minPrice = toWei(minPrice);
-
-  setLoading(true);
-  _doThis(async (account, web3) => {
-    const nftBiding = getContractBiding({ web3 });
-
-    const method = nftBiding.methods.createDefaultNftAuction(
-      nftContract,
-      tokenId,
-      zeroAddr,
-      minPrice,
-      0, // buyNowPrice_, https://github.com/muneebzubairkhan/nft-auction
-      [account], // feeRecipients_
-      [10000], // _feePercentages 100.00%
-    );
-    let options = {
-      from: account,
-      gas: '0',
-      value: 0,
     };
     try {
       const estimateGas = Math.trunc(await method.estimateGas(options));
@@ -300,7 +97,6 @@ export const createNftAuction = async (
 
     try {
       await method.send(options).on('confirmation', i => {
-        //here
         if (i === 0) {
           setLoading(false);
           alert('done');
@@ -313,8 +109,7 @@ export const createNftAuction = async (
   });
 };
 
-// list item for sale in biding contract
-export const createNftSale = async (
+export const listToSell = async (
   setLoading,
   nftContract,
   tokenId,
@@ -384,7 +179,6 @@ export const createNftSale = async (
     }
   });
 };
-
 
 export const takeHighestBid = async (setLoading, nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
@@ -495,18 +289,28 @@ export const makeBid = async (setLoading, nftContract, tokenId, bidPrice) => {
   });
 };
 
-export const approveStakingContract = async (setLoading, nftContract) => {
+export const buyNft = async (setLoading, nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
     // alert('Invalid NFT Address');
     return;
   }
+
   setLoading(true);
   _doThis(async (account, web3) => {
-    const nft = getContractNft({ web3, address: nftContract });
-    const method = nft.methods.setApprovalForAll(nftStakingAddress, true);
+    const nftBiding = getContractBiding({ web3 });
+
+    const method = nftBiding.methods.makeBid(
+      nftContract,
+      tokenId,
+      '0x0000000000000000000000000000000000000000',
+      0,
+    );
+    const buyNowPrice = (await getAuction(nftContract, tokenId)).buyNowPrice;
+
     let options = {
       from: account,
       gas: '0',
+      value: buyNowPrice,
     };
     try {
       const estimateGas = Math.trunc(await method.estimateGas(options));
@@ -528,6 +332,7 @@ export const approveStakingContract = async (setLoading, nftContract) => {
 
     try {
       await method.send(options).on('confirmation', i => {
+        //here
         if (i === 0) {
           setLoading(false);
           alert('done');
@@ -539,6 +344,7 @@ export const approveStakingContract = async (setLoading, nftContract) => {
     }
   });
 };
+
 
 export const stakeNft = async (setLoading, nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
@@ -804,7 +610,7 @@ export const getIsApprovedForAll = async nftContract => {
   return _doThis(
     async account =>
       await getContractNft({ address: nftContract })
-        .methods.isApprovedForAll(account, marketplaceAddress)
+        .methods.isApprovedForAll(account, bidingAddress)
         .call(),
   );
 };
@@ -853,25 +659,6 @@ seller: "0xc18E78C0F67A09ee43007579018b2Db091116B4C"
 sold: false
 tokenId: "1"  
 */
-export const getNftItemsForSale = async () => {
-  const nft = getContractMarketplace({});
-  const items = await nft.methods.fetchMarketItems().call();
-  return items;
-};
-
-export const getNftPriceForSale = async (nftContract, tokenId) => {
-  let items = await getNftItemsForSale();
-  items = items.filter(
-    (item) => item.tokenId === tokenId && item.nftContract === nftContract,
-  );
-  let price = null;
-
-  try {
-    price = items[0].price;
-  } catch (e) {}
-
-  return price;
-}
 
 export const getNftOwner = async (nftContract, tokenId) => {
   const nft = getContractNft({ address: nftContract });
@@ -911,20 +698,71 @@ export const getAuction = async (nftContract, tokenId) => {
   return res;
 }
 
-// utils
-const getItemIdFromTokenId  = async (nftContract, tokenId) => {
-  let items = await getNftItemsForSale();
-  items = items.filter(
-    (item) => item.tokenId === tokenId && item.nftContract === nftContract,
-  );
-  
-  let answer = null;
-  let price = null;
-  try {
-    answer = items[0].itemId;
-    price = items[0].price;
-  } catch (e) {}
+// extra
+export const createNftAuction = async (
+  setLoading,
+  nftContract,
+  tokenId,
+  minPrice,
+) => {
+  if (!isAddress(nftContract)) {
+    // alert('Invalid NFT Address');
+    return;
+  }
 
-  return [answer, price];
-}
+  if (minPrice === null || minPrice === undefined) {
+    return;
+  }
 
+  minPrice = toWei(minPrice);
+
+  setLoading(true);
+  _doThis(async (account, web3) => {
+    const nftBiding = getContractBiding({ web3 });
+
+    const method = nftBiding.methods.createDefaultNftAuction(
+      nftContract,
+      tokenId,
+      zeroAddr,
+      minPrice,
+      0, // buyNowPrice_, https://github.com/muneebzubairkhan/nft-auction
+      [account], // feeRecipients_
+      [10000], // _feePercentages 100.00%
+    );
+    let options = {
+      from: account,
+      gas: '0',
+      value: 0,
+    };
+    try {
+      const estimateGas = Math.trunc(await method.estimateGas(options));
+      options = {
+        ...options,
+        gas: '' + estimateGas,
+      };
+    } catch (e) {
+      let msg = JSON.parse(e.message.split('\n').splice(1).join('\n')).message;
+
+      if (!msg) {
+        msg = 'Insufficient funds or some data error';
+      } else {
+        msg = msg.split('reverted:')[1];
+      }
+      alert(msg);
+      return;
+    }
+
+    try {
+      await method.send(options).on('confirmation', i => {
+        //here
+        if (i === 0) {
+          setLoading(false);
+          alert('done');
+        }
+      });
+    } catch (e) {
+      setLoading(false);
+      alert(e.message);
+    }
+  });
+};
