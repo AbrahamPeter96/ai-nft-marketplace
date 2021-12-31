@@ -1,2 +1,2 @@
-[build]
-    CI= npm run build
+[build] 
+  CI= npm run build
