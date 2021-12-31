@@ -415,83 +415,90 @@ export default function Album() {
                 fontWeight="bolder"
                 textAlign="left"
               >
-                <Button
-                  style={{
-                    backgroundColor: "#00e8c9",
-                    width: 120,
-                    height: 40,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
-                  onClick={() => {
-                    approveStakingContract(() => {
-                      getIsApprovedForAllStaking(urlNft).then(
-                        setIsApprovedForAllStaking,
+                {!isApprovedForAllStaking && (
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      approveStakingContract(() => {
+                        getIsApprovedForAllStaking(urlNft).then(
+                          setIsApprovedForAllStaking,
+                        );
+                      }, urlNft);
+                    }}
+                  >
+                    Approve
+                  </Button>
+                )}
+                {isApprovedForAllStaking && (
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      stakeNft(
+                        () => {
+                          // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                          getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                        },
+                        urlNft,
+                        urlTokenId,
                       );
-                    }, urlNft);
-                  }}
-                >
-                  Approve
-                </Button>
+                    }}
+                  >
+                    Stake
+                  </Button>
+                )}
                 &nbsp;
-                <Button
-                  style={{
-                    backgroundColor: "#00e8c9",
-                    width: 120,
-                    height: 40,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
-                  onClick={() => {
-                    stakeNft(
-                      () => {
-                        // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
-                        getNftOwner(urlNft, urlTokenId).then(setNftOwner);
-                      },
-                      urlNft,
-                      urlTokenId,
-                    );
-                  }}
-                >
-                  Stake
-                </Button>
+                {isApprovedForAllStaking && (
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      unstakeNft(
+                        () => {
+                          // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                          getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                        },
+                        urlNft,
+                        urlTokenId,
+                      );
+                    }}
+                  >
+                    UnStake
+                  </Button>
+                )}
                 &nbsp;
-                <Button
-                  style={{
-                    backgroundColor: "#00e8c9",
-                    width: 120,
-                    height: 40,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
-                  onClick={() => {
-                    unstakeNft(
-                      () => {
-                        // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
-                        getNftOwner(urlNft, urlTokenId).then(setNftOwner);
-                      },
-                      urlNft,
-                      urlTokenId,
-                    );
-                  }}
-                >
-                  UnStake
-                </Button>
-                &nbsp;
-                <Button
-                  style={{
-                    backgroundColor: "#00e8c9",
-                    width: 120,
-                    height: 40,
-                    borderRadius: "20px",
-                    color: "white",
-                  }}
-                  onClick={() => {
-                    harvestNft(() => {}, urlNft);
-                  }}
-                >
-                  Harvest
-                </Button>
+                {isApprovedForAllStaking && (
+                  <Button
+                    style={{
+                      backgroundColor: "#00e8c9",
+                      width: 120,
+                      height: 40,
+                      borderRadius: "20px",
+                      color: "white",
+                    }}
+                    onClick={() => {
+                      harvestNft(() => {}, urlNft);
+                    }}
+                  >
+                    Harvest
+                  </Button>
+                )}
               </Typography>
             </Col>
           </Row>
