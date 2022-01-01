@@ -38,6 +38,7 @@ export default function CreateNftMain() {
     },
   };
   const handleSubmit = (event) => {
+    console.log(name,link,file,props)
     event.preventDefault();
     // eslint-disable-next-line no-console
     // console.log(name, link,file);
