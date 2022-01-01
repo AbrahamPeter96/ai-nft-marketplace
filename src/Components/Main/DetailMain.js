@@ -220,7 +220,7 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                {auction && `Min Price ${fromWei(auction.minPrice)} BNB`}
+                {auction && fromWei(auction.minPrice) !== "0" && `Min Price ${fromWei(auction.minPrice)} BNB`}
               </Typography>
               <Typography
                 textAlign="left"
@@ -229,7 +229,7 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                {auction && `Buy Now Price ${fromWei(auction.buyNowPrice)} BNB`}
+                {auction && fromWei(auction.buyNowPrice) !== "0" && `Buy Now Price ${fromWei(auction.buyNowPrice)} BNB`}
               </Typography>
 
               <Typography
@@ -239,7 +239,7 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                {auction && `Highest Bid ${fromWei(auction.nftHighestBid)} BNB`}
+                {auction && fromWei(auction.nftHighestBid) !== "0" && `Highest Bid ${fromWei(auction.nftHighestBid)} BNB`}
               </Typography>
               <Typography
                 textAlign="left"
@@ -280,6 +280,15 @@ export default function Album() {
               </Typography> */}
               <Typography
                 gutterBottom
+                variant="h6"
+                component="div"
+                color="#fff"
+                textAlign="left"
+              >
+                Buy / Sell / Bid
+              </Typography>
+              <Typography
+                gutterBottom
                 variant="h3"
                 component="div"
                 color="#fff"
@@ -301,7 +310,7 @@ export default function Album() {
                       }, urlNft);
                     }}
                   >
-                    Approve Bid
+                    Approve
                   </Button>
                 )}
                 {isApprovedForAll && (
