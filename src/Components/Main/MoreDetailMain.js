@@ -79,12 +79,7 @@ function ActionAreaCard({ img, title, des }) {
       }}
     >
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image={img}
-          alt="green iguana"
-        />
+        <CardMedia component="img" height="240" image={img} alt="Azimuth" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div"></Typography>
           <Typography variant="body2" color="text.secondary">
@@ -108,12 +103,7 @@ function ActionSliderCard({ img, title, des }) {
       }}
     >
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image={img}
-          alt="green iguana"
-        />
+        <CardMedia component="img" height="240" image={img} alt="Azimuth" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {title}

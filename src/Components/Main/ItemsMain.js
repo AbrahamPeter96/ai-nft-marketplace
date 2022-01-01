@@ -8,10 +8,7 @@ import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {
-  getNftCollectionName,
-  getNftImage
-} from "../../libs/apis";
+import { getNftCollectionName, getNftImage } from "../../libs/apis";
 import { urlNft } from "../../libs/utils";
 
 const theme = createTheme();
@@ -28,12 +25,7 @@ function ActionAreaCard({ img, title, des }) {
       }}
     >
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image={img}
-          alt="green iguana"
-        />
+        <CardMedia component="img" height="240" image={img} alt="Azimuth" />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
             {des}
@@ -45,7 +37,6 @@ function ActionAreaCard({ img, title, des }) {
 }
 
 export default function Items() {
-
   const [nftCollectionNameOne, setNftCollectionNameOne] =
     useState("Loading...");
 
@@ -94,16 +85,15 @@ export default function Items() {
   useEffect(() => {
     // getNftImage(urlNft, urlTokenId).then(setImageObj);
 
-    getNftImage(urlNft, "1").then(setImageObjOne)
-    getNftImage(urlNft, "2").then(setImageObjTwo)
-    getNftImage(urlNft, "3").then(setImageObjThree)
-    getNftImage(urlNft, "4").then(setImageObjFor)
-    getNftImage(urlNft, "5").then(setImageObjfiv)
-    getNftImage(urlNft, "6").then(setImageObjSix)
-    getNftImage(urlNft, "7").then(setImageObjSeven)
-    getNftImage(urlNft, "8").then(setImageObjEeight)
-    getNftImage(urlNft, "9").then(setImageObjNine)
-
+    getNftImage(urlNft, "1").then(setImageObjOne);
+    getNftImage(urlNft, "2").then(setImageObjTwo);
+    getNftImage(urlNft, "3").then(setImageObjThree);
+    getNftImage(urlNft, "4").then(setImageObjFor);
+    getNftImage(urlNft, "5").then(setImageObjfiv);
+    getNftImage(urlNft, "6").then(setImageObjSix);
+    getNftImage(urlNft, "7").then(setImageObjSeven);
+    getNftImage(urlNft, "8").then(setImageObjEeight);
+    getNftImage(urlNft, "9").then(setImageObjNine);
 
     // getNftCollectionName(urlNft).then(setNftCollectionName);
     getNftCollectionName(urlNft).then(setNftCollectionNameOne);
@@ -115,7 +105,6 @@ export default function Items() {
     getNftCollectionName(urlNft).then(setNftCollectionNameSeven);
     getNftCollectionName(urlNft).then(setNftCollectionNameEeight);
     getNftCollectionName(urlNft).then(setNftCollectionNameNine);
-
   }, []);
   return (
     <ThemeProvider theme={theme}>

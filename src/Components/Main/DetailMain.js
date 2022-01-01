@@ -98,12 +98,7 @@ function ActionAreaCard({ img, title, des }) {
       }}
     >
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="350"
-          image={img}
-          alt="green iguana"
-        />
+        <CardMedia component="img" height="350" image={img} alt="Azimuth" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {/* {title} */}
@@ -133,7 +128,7 @@ function ActionAreaCard({ img, title, des }) {
 //           component="img"
 //           height="240"
 //           image={img}
-//           alt="green iguana"
+//           alt="Azimuth"
 //         />
 //         <CardContent>
 //           <Typography gutterBottom variant="h5" component="div">
@@ -443,7 +438,7 @@ export default function Album() {
                 </Typography>
               )}
 
-              {nftStakeReward !== null && (
+              {isOwnerSignedIn() && nftStakeReward !== null && (
                 <Typography
                   gutterBottom
                   variant="h3"
@@ -472,7 +467,7 @@ export default function Album() {
                       Approve
                     </Button>
                   )}
-                  {isApprovedForAllStaking && (
+                  {isOwnerSignedIn() && isApprovedForAllStaking && (
                     <Button
                       style={{
                         backgroundColor: "#00e8c9",
@@ -496,7 +491,7 @@ export default function Album() {
                     </Button>
                   )}
                   &nbsp;
-                  {isApprovedForAllStaking && (
+                  {isOwnerSignedIn() && isApprovedForAllStaking && (
                     <Button
                       style={{
                         backgroundColor: "#00e8c9",
@@ -520,7 +515,7 @@ export default function Album() {
                     </Button>
                   )}
                   &nbsp;
-                  {isApprovedForAllStaking && (
+                  {isOwnerSignedIn() && isApprovedForAllStaking && (
                     <Button
                       style={{
                         backgroundColor: "#00e8c9",

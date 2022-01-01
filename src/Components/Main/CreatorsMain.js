@@ -54,12 +54,7 @@ function ActionAreaCard({ img, title, des }) {
       }}
     >
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image={img}
-          alt="green iguana"
-        />
+        <CardMedia component="img" height="240" image={img} alt="Azimuth" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {/* {title} */}
@@ -86,7 +81,7 @@ function ImgMediaCard({ img, avatar, name }) {
     >
       <CardMedia
         component={"img"}
-        alt="green iguana"
+        alt="Azimuth"
         width="180"
         height="280"
         image={img}
