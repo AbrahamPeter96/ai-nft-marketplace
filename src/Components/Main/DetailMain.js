@@ -377,25 +377,27 @@ export default function Album() {
                     <>&nbsp;</>
                   </>
                 )}
-                {isOwnerSignedIn() && (
-                  <>
-                    <Button
-                      style={{
-                        backgroundColor: "#00e8c9",
-                        width: 120,
-                        height: 40,
-                        borderRadius: "20px",
-                        color: "white",
-                      }}
-                      onClick={() => {
-                        takeHighestBid(setLoading, urlNft, urlTokenId);
-                      }}
-                    >
-                      Accept Bid
-                    </Button>
-                    <>&nbsp;</>
-                  </>
-                )}
+                {isOwnerSignedIn() &&
+                  auction &&
+                  fromWei(auction.nftHighestBid) !== "0" && (
+                    <>
+                      <Button
+                        style={{
+                          backgroundColor: "#00e8c9",
+                          width: 120,
+                          height: 40,
+                          borderRadius: "20px",
+                          color: "white",
+                        }}
+                        onClick={() => {
+                          takeHighestBid(setLoading, urlNft, urlTokenId);
+                        }}
+                      >
+                        Accept Bid
+                      </Button>
+                      <>&nbsp;</>
+                    </>
+                  )}
 
                 {isApprovedForAll && (
                   <Button
@@ -450,7 +452,7 @@ export default function Album() {
                   fontWeight="bolder"
                   textAlign="left"
                 >
-                  {!isApprovedForAllStaking && isOwnerSignedIn() &&(
+                  {!isApprovedForAllStaking && isOwnerSignedIn() && (
                     <Button
                       style={{
                         backgroundColor: "#00e8c9",
