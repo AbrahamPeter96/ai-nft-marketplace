@@ -8,10 +8,13 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Input, Button } from "antd";
-import { Upload } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-// import { uploadNft } from "../../libs/apis";
+import { Input,
+  //  Button
+   } from "antd";
+// import { Upload } from "antd";
+// import { UploadOutlined } from "@ant-design/icons";
+import ImageUploading from 'react-images-uploading';
+import { uploadNft } from "../../libs/apis";
 
 const theme = createTheme();
 
@@ -37,13 +40,23 @@ export default function CreateNftMain() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-console
-    console.log(name, link,file);
-    // uploadNft(false, file)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch(console.log);
+    // console.log(name, link,file);
+   
   };
+  const [images, setImages] = React.useState([]);
+  const maxNumber = 69;
+
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setImages(imageList);
+    uploadNft(()=>{}, images[0])
+    .then((res) => {
+      console.log(res);
+    })
+    .catch(console.log);
+  };
+
   return (
     <div style={{ backgroundColor: "#282c34", color: "#fff" }}>
       <ThemeProvider theme={theme}>
@@ -78,9 +91,49 @@ export default function CreateNftMain() {
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                  <Upload {...props}>
+                  {/* <Upload {...props}>
                     <Button icon={<UploadOutlined />}>Upload Image</Button>
-                  </Upload>
+                  </Upload> */}
+                        <ImageUploading
+        multiple={false}
+        value={images}
+        onChange={onChange}
+        maxNumber={maxNumber}
+        dataURLKey="data_url"
+      >
+        {({
+          imageList,
+          onImageUpload,
+          onImageRemoveAll,
+          onImageUpdate,
+          onImageRemove,
+          isDragging,
+          dragProps,
+        }) => (
+          // write your building UI
+          <div className="upload__image-wrapper">
+            <button
+              style={isDragging ? { color: 'red' } : undefined}
+              onClick={onImageUpload}
+              {...dragProps}
+            >
+              Click or Drop here
+            </button>
+            &nbsp;
+            <button onClick={onImageRemoveAll}>Remove all images</button>
+            {imageList.map((image, index) => (
+              <div key={index} className="image-item">
+                <img src={image['data_url']} alt="" width="100" />
+                <div className="image-item__btn-wrapper">
+                  <button onClick={() => onImageUpdate(index)}>Update</button>
+                  <button onClick={() => onImageRemove(index)}>Remove</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </ImageUploading>
+
                 </Grid>
               </Grid>
               <MButton

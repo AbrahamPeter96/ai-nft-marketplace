@@ -191,6 +191,7 @@ export default function Album() {
 
     fun1();
   }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <main>
@@ -306,8 +307,9 @@ export default function Album() {
                     color: "white",
                   }}
                   loading={loading}
+                  loadingPosition="end"
                   loadingIndicator={
-                    <CircularProgress color="inherit" size={18} />
+                    <CircularProgress color="inherit" size={18} role="progressbar" />
                   }
                   onClick={() => {
                     makeBid(
@@ -340,6 +342,7 @@ export default function Album() {
                       color: "white",
                     }}
                     loading={loading}
+                    loadingPosition="end"
                     loadingIndicator={
                       <CircularProgress color="inherit" size={18} />
                     }
@@ -376,6 +379,7 @@ export default function Album() {
                       color: "white",
                     }}
                     loading={loading}
+                    loadingPosition="end"
                     loadingIndicator={
                       <CircularProgress color="inherit" size={18} />
                     }
@@ -399,6 +403,7 @@ export default function Album() {
                     borderRadius: "20px",
                     color: "white",
                   }}
+                  loadingPosition="end"
                   loading={loading}
                   loadingIndicator={
                     <CircularProgress color="inherit" size={18} />
@@ -423,6 +428,7 @@ export default function Album() {
                     color: "white",
                   }}
                   loading={loading}
+                  loadingPosition="end"
                   loadingIndicator={
                     <CircularProgress color="inherit" size={18} />
                   }
