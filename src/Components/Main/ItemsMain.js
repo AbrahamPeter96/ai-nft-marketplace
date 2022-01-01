@@ -1,19 +1,16 @@
 /* eslint-disable-next-line */
-import React, { useState, useEffect } from "react";
+import { CardActionArea } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import { CardActionArea } from "@mui/material";
-import { Row, Col } from "react-bootstrap";
-import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import one from "../../Images/1.png";
+import Typography from "@mui/material/Typography";
+import React, { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import {
-  getIsApprovedForAll,
   getNftCollectionName,
-  getNftImageUrl,
-  uploadNft,
+  getNftImage
 } from "../../libs/apis";
 import { urlNft } from "../../libs/utils";
 
@@ -49,218 +46,76 @@ function ActionAreaCard({ img, title, des }) {
 
 export default function Items() {
 
-
-
   const [nftCollectionNameOne, setNftCollectionNameOne] =
     useState("Loading...");
-
-  const [nftImageUrlOne, setNftImageUrlOne] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjOne, setImageObjOne] = useState("Loading...");
 
   const [nftCollectionNameTwo, setNftCollectionNameTwo] =
     useState("Loading...");
 
-  const [nftImageUrlTwo, setNftImageUrlTwo] = useState("Loading..."); // eslint-disable-next-line
-
   const [imageObjTwo, setImageObjTwo] = useState("Loading...");
 
   const [nftCollectionNameThree, setNftCollectionNameThree] =
     useState("Loading...");
-
-  const [nftImageUrlThree, setNftImageUrlThree] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjThree, setImageObjThree] = useState("Loading...");
 
   const [nftCollectionNameFor, setNftCollectionNameFor] =
     useState("Loading...");
 
-  const [nftImageUrlFor, setNftImageUrlFor] = useState("Loading..."); // eslint-disable-next-line
-
   const [imageObjFor, setImageObjFor] = useState("Loading...");
 
   const [nftCollectionNamefiv, setNftCollectionNamefiv] =
     useState("Loading...");
-
-  const [nftImageUrlfiv, setNftImageUrlfiv] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjfiv, setImageObjfiv] = useState("Loading...");
 
   const [nftCollectionNameSix, setNftCollectionNameSix] =
     useState("Loading...");
 
-  const [nftImageUrlSix, setNftImageUrlSix] = useState("Loading..."); // eslint-disable-next-line
-
   const [imageObjSix, setImageObjSix] = useState("Loading...");
 
   const [nftCollectionNameSeven, setNftCollectionNameSeven] =
     useState("Loading...");
-
-  const [nftImageUrlSeven, setNftImageUrlSeven] = useState("Loading..."); // eslint-disable-next-line
 
   const [imageObjSeven, setImageObjSeven] = useState("Loading...");
 
   const [nftCollectionNameEeight, setNftCollectionNameEeight] =
     useState("Loading...");
 
-  const [nftImageUrlEeight, setNftImageUrlEeight] = useState("Loading..."); // eslint-disable-next-line
-
   const [imageObjEeight, setImageObjEeight] = useState("Loading...");
 
   const [nftCollectionNameNine, setNftCollectionNameNine] =
     useState("Loading...");
 
-  const [nftImageUrlNine, setNftImageUrlNine] = useState("Loading..."); // eslint-disable-next-line
-
   const [imageObjNine, setImageObjNine] = useState("Loading...");
 
-  const [isApprovedForAll, setIsApprovedForAll] = useState(false); // eslint-disable-next-line
-  const [loading, setLoading] = useState(false); // eslint-disable-next-line
-  console.log({
-    isApprovedForAll,
-    nftImageUrlNine,
-    nftImageUrlfiv,
-    nftImageUrlFor,
-    nftImageUrlEeight,
-    nftImageUrlOne,
-    nftImageUrlTwo,
-    nftImageUrlSeven,
-    nftImageUrlSix,
-    nftImageUrlThree,
-  });
   useEffect(() => {
-    setLoading(false); // for remove warnings
+    // getNftImage(urlNft, urlTokenId).then(setImageObj);
+
+    getNftImage(urlNft, "1").then(setImageObjOne)
+    getNftImage(urlNft, "2").then(setImageObjTwo)
+    getNftImage(urlNft, "3").then(setImageObjThree)
+    getNftImage(urlNft, "4").then(setImageObjFor)
+    getNftImage(urlNft, "5").then(setImageObjfiv)
+    getNftImage(urlNft, "6").then(setImageObjSix)
+    getNftImage(urlNft, "7").then(setImageObjSeven)
+    getNftImage(urlNft, "8").then(setImageObjEeight)
+    getNftImage(urlNft, "9").then(setImageObjNine)
 
 
-    const fun2 = async () => {
-     0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "1");
-      setNftImageUrlOne(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObjOne(img);
-    };
-
-    const fun3 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "2");
-      setNftImageUrlTwo(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObjTwo(img);
-    };
-
-    const fun4 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "3");
-      setNftImageUrlThree(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObjThree(img);
-    };
-
-    const fun5 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "4");
-      setNftImageUrlFor(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObjFor(img);
-    };
-
-    const fun6 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "5");
-      setNftImageUrlfiv(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObjfiv(img);
-    };
-
-    const fun7 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "6");
-      setNftImageUrlSix(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObjSix(img);
-    };
-
-    const fun8 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "7");
-      setNftImageUrlSeven(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObjSeven(img);
-    };
-
-    const fun9 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "8");
-      setNftImageUrlEeight(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObjEeight(img);
-    };
-    const fun10 = async () => {
-      0 && uploadNft(setLoading, await (await fetch(one)).blob());
-
-      // const url = await getNftImageUrl(urlNft, urlTokenId);
-      const url = await getNftImageUrl(urlNft, "9");
-      setNftImageUrlNine(url);
-      const laser = await fetch(url);
-      const img = URL.createObjectURL(await laser.blob());
-      setImageObjNine(img);
-    };
-
-    // getNftCollectionName(urlNft).then(setNftCollectionName);
     // getNftCollectionName(urlNft).then(setNftCollectionName);
     getNftCollectionName(urlNft).then(setNftCollectionNameOne);
-
     getNftCollectionName(urlNft).then(setNftCollectionNameTwo);
-
     getNftCollectionName(urlNft).then(setNftCollectionNameThree);
-
     getNftCollectionName(urlNft).then(setNftCollectionNameFor);
-
     getNftCollectionName(urlNft).then(setNftCollectionNamefiv);
-
     getNftCollectionName(urlNft).then(setNftCollectionNameSix);
-
     getNftCollectionName(urlNft).then(setNftCollectionNameSeven);
-
     getNftCollectionName(urlNft).then(setNftCollectionNameEeight);
-
     getNftCollectionName(urlNft).then(setNftCollectionNameNine);
 
-    getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
-
-    fun2();
-    fun3();
-    fun4();
-    fun5();
-    fun6();
-    fun7();
-    fun8();
-    fun9();
-    fun10();
   }, []);
   return (
     <ThemeProvider theme={theme}>
