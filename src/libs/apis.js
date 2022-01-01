@@ -581,6 +581,7 @@ export const uploadNft = async (setLoading, image, ipfs, name, link) => {
 //
 //
 //
+/**/
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> READ CONTRACT
 export const getNftImageUrl = async (nftContract, tokenId) => {
   if (!isAddress(nftContract)) {
