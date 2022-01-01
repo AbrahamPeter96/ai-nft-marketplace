@@ -10,12 +10,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles"; // {styled}
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { fromWei } from "web3-utils";
-import one from "../../Images/1.png";
-import two from "../../Images/2.png";
-import three from "../../Images/3.png";
+// import Carousel from "react-multi-carousel";
+// import one from "../../Images/1.png";
+// import two from "../../Images/2.png";
+// import three from "../../Images/3.png";
+import { fromWei, toChecksumAddress } from "web3-utils";
 import {
   approveBidingContract,
   approveStakingContract,
@@ -37,24 +37,24 @@ import {
 } from "../../libs/apis";
 import { displayAddr, urlNft, urlTokenId } from "../../libs/utils";
 
-const responsive = {
-  superLargeDesktop: {
-    breakpoint: { max: 4000, min: 3000 },
-    items: 5,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
+// const responsive = {
+//   superLargeDesktop: {
+//     breakpoint: { max: 4000, min: 3000 },
+//     items: 5,
+//   },
+//   desktop: {
+//     breakpoint: { max: 3000, min: 1024 },
+//     items: 3,
+//   },
+//   tablet: {
+//     breakpoint: { max: 1024, min: 464 },
+//     items: 2,
+//   },
+//   mobile: {
+//     breakpoint: { max: 464, min: 0 },
+//     items: 1,
+//   },
+// };
 
 const theme = createTheme();
 // const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -117,36 +117,36 @@ function ActionAreaCard({ img, title, des }) {
   );
 }
 
-function ActionSliderCard({ img, title, des }) {
-  return (
-    <Card
-      sx={{
-        maxWidth: 325,
-        height: 300,
-        marginLeft: "auto",
-        marginRight: "auto",
-        boxShadow: "-12px 13px 0px -2px #61fbda",
-      }}
-    >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image={img}
-          alt="green iguana"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {des}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  );
-}
+// function ActionSliderCard({ img, title, des }) {
+//   return (
+//     <Card
+//       sx={{
+//         maxWidth: 325,
+//         height: 300,
+//         marginLeft: "auto",
+//         marginRight: "auto",
+//         boxShadow: "-12px 13px 0px -2px #61fbda",
+//       }}
+//     >
+//       <CardActionArea>
+//         <CardMedia
+//           component="img"
+//           height="240"
+//           image={img}
+//           alt="green iguana"
+//         />
+//         <CardContent>
+//           <Typography gutterBottom variant="h5" component="div">
+//             {title}
+//           </Typography>
+//           <Typography variant="body2" color="text.secondary">
+//             {des}
+//           </Typography>
+//         </CardContent>
+//       </CardActionArea>
+//     </Card>
+//   );
+// }
 
 export default function Album() {
   const [loading, setLoading] = useState(false);
@@ -154,7 +154,7 @@ export default function Album() {
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
   const [imageObj, setImageObj] = useState("Loading...");
 
-  const [nftStakeReward, setNftStakeReward] = useState();
+  const [nftStakeReward, setNftStakeReward] = useState(null);
 
   const [isApprovedForAll, setIsApprovedForAll] = useState(false); // buy sell bid contract
   const [isApprovedForAllStaking, setIsApprovedForAllStaking] = useState(false);
@@ -191,6 +191,10 @@ export default function Album() {
 
     getAuction(urlNft, urlTokenId).then(setAuction);
   }, []);
+
+  const isOwnerSignedIn = () =>
+    toChecksumAddress(userAddr) === toChecksumAddress(nftOwner);
+
   return (
     <ThemeProvider theme={theme}>
       <main>
@@ -220,7 +224,9 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                {auction && fromWei(auction.minPrice) !== "0" && `Min Price ${fromWei(auction.minPrice)} BNB`}
+                {auction &&
+                  fromWei(auction.minPrice) !== "0" &&
+                  `Min Price ${fromWei(auction.minPrice)} BNB`}
               </Typography>
               <Typography
                 textAlign="left"
@@ -229,7 +235,9 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                {auction && fromWei(auction.buyNowPrice) !== "0" && `Buy Now Price ${fromWei(auction.buyNowPrice)} BNB`}
+                {auction &&
+                  fromWei(auction.buyNowPrice) !== "0" &&
+                  `Buy Now Price ${fromWei(auction.buyNowPrice)} BNB`}
               </Typography>
 
               <Typography
@@ -239,7 +247,9 @@ export default function Album() {
                 variant="p"
                 component="div"
               >
-                {auction && fromWei(auction.nftHighestBid) !== "0" && `Highest Bid ${fromWei(auction.nftHighestBid)} BNB`}
+                {auction &&
+                  fromWei(auction.nftHighestBid) !== "0" &&
+                  `Highest Bid ${fromWei(auction.nftHighestBid)} BNB`}
               </Typography>
               <Typography
                 textAlign="left"
@@ -295,87 +305,98 @@ export default function Album() {
                 fontWeight="bolder"
                 textAlign="left"
               >
-                {!isApprovedForAll && (
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      approveBidingContract(() => {
-                        // getIsApprovedForAll(urlNft).then(setIsApprovedForAll); // (done &&) later
-                      }, urlNft);
-                    }}
-                  >
-                    Approve
-                  </Button>
+                {!isApprovedForAll && isOwnerSignedIn() && (
+                  <>
+                    <Button
+                      style={{
+                        backgroundColor: "#00e8c9",
+                        width: 120,
+                        height: 40,
+                        borderRadius: "20px",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        approveBidingContract(() => {
+                          // getIsApprovedForAll(urlNft).then(setIsApprovedForAll); // (done &&) later
+                        }, urlNft);
+                      }}
+                    >
+                      Approve
+                    </Button>
+                    <>&nbsp;</>
+                  </>
                 )}
-                {isApprovedForAll && (
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      listToSell(
-                        () => {
-                          getNftOwner(urlNft, urlTokenId).then(setNftOwner);
-                        },
-                        urlNft,
-                        urlTokenId,
-                        prompt("Please enter price in BNB", "0.1"),
-                      );
-                    }}
-                  >
-                    List to Sell
-                  </Button>
+                {isOwnerSignedIn() && isApprovedForAll && (
+                  <>
+                    <Button
+                      style={{
+                        backgroundColor: "#00e8c9",
+                        width: 120,
+                        height: 40,
+                        borderRadius: "20px",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        listToSell(
+                          () => {
+                            getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                          },
+                          urlNft,
+                          urlTokenId,
+                          prompt("Please enter price in BNB", "0.1"),
+                        );
+                      }}
+                    >
+                      List to Sell
+                    </Button>
+                    <>&nbsp;</>
+                  </>
                 )}
-                &nbsp;
-                {isApprovedForAll && (
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      makeBid(
-                        setLoading,
-                        urlNft,
-                        urlTokenId,
-                        prompt("Please enter NFT price in BNB", "0.1"),
-                      );
-                    }}
-                  >
-                    Bid {false && loading /* just to remove warnings*/}
-                  </Button>
+
+                {!isOwnerSignedIn() && (
+                  <>
+                    <Button
+                      style={{
+                        backgroundColor: "#00e8c9",
+                        width: 120,
+                        height: 40,
+                        borderRadius: "20px",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        makeBid(
+                          setLoading,
+                          urlNft,
+                          urlTokenId,
+                          prompt("Please enter NFT price in BNB", "0.1"),
+                        );
+                      }}
+                    >
+                      Bid {false && loading /* just to remove warnings*/}
+                    </Button>
+                    <>&nbsp;</>
+                  </>
                 )}
-                &nbsp;
-                {isApprovedForAll && (
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      takeHighestBid(setLoading, urlNft, urlTokenId);
-                    }}
-                  >
-                    Accept Bid{" "}
-                  </Button>
+                {isOwnerSignedIn() && (
+                  <>
+                    <Button
+                      style={{
+                        backgroundColor: "#00e8c9",
+                        width: 120,
+                        height: 40,
+                        borderRadius: "20px",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        takeHighestBid(setLoading, urlNft, urlTokenId);
+                      }}
+                    >
+                      Accept Bid
+                    </Button>
+                    <>&nbsp;</>
+                  </>
                 )}
-                &nbsp;
+
                 {isApprovedForAll && (
                   <Button
                     style={{
@@ -394,123 +415,127 @@ export default function Album() {
                 )}
               </Typography>
 
-              <Typography
-                gutterBottom
-                variant="h6"
-                component="div"
-                color="#fff"
-                textAlign="left"
-              >
-                Staking
-              </Typography>
+              {isOwnerSignedIn() && nftStakeReward !== null && (
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  component="div"
+                  color="#fff"
+                  textAlign="left"
+                >
+                  Staking
+                </Typography>
+              )}
 
-              <Typography
-                textAlign="left"
-                color="#ccc"
-                gutterBottom
-                variant="p"
-                component="div"
-              >
-                {nftStakeReward &&
-                  fromWei(nftStakeReward) !== "0" &&
-                  `Reward ${fromWei(nftStakeReward)} AZI`}
-              </Typography>
-   
-              
-              <Typography
-                gutterBottom
-                variant="h3"
-                component="div"
-                color="#fff"
-                fontWeight="bolder"
-                textAlign="left"
-              >
-                {!isApprovedForAllStaking && (
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      approveStakingContract(() => {
-                        getIsApprovedForAllStaking(urlNft).then(
-                          setIsApprovedForAllStaking,
+              {nftStakeReward !== null && (
+                <Typography
+                  textAlign="left"
+                  color="#ccc"
+                  gutterBottom
+                  variant="p"
+                  component="div"
+                >
+                  {nftStakeReward &&
+                    fromWei(nftStakeReward) !== "0" &&
+                    `Reward ${fromWei(nftStakeReward)} AZI`}
+                </Typography>
+              )}
+
+              {nftStakeReward !== null && (
+                <Typography
+                  gutterBottom
+                  variant="h3"
+                  component="div"
+                  color="#fff"
+                  fontWeight="bolder"
+                  textAlign="left"
+                >
+                  {!isApprovedForAllStaking && isOwnerSignedIn() &&(
+                    <Button
+                      style={{
+                        backgroundColor: "#00e8c9",
+                        width: 120,
+                        height: 40,
+                        borderRadius: "20px",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        approveStakingContract(() => {
+                          getIsApprovedForAllStaking(urlNft).then(
+                            setIsApprovedForAllStaking,
+                          );
+                        }, urlNft);
+                      }}
+                    >
+                      Approve
+                    </Button>
+                  )}
+                  {isApprovedForAllStaking && (
+                    <Button
+                      style={{
+                        backgroundColor: "#00e8c9",
+                        width: 120,
+                        height: 40,
+                        borderRadius: "20px",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        stakeNft(
+                          () => {
+                            // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                            getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                          },
+                          urlNft,
+                          urlTokenId,
                         );
-                        
-                      }, urlNft);
-                    }}
-                  >
-                    Approve
-                  </Button>
-                )}
-                {isApprovedForAllStaking && (
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      stakeNft(
-                        () => {
-                          // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
-                          getNftOwner(urlNft, urlTokenId).then(setNftOwner);
-                        },
-                        urlNft,
-                        urlTokenId,
-                      );
-                    }}
-                  >
-                    Stake
-                  </Button>
-                )}
-                &nbsp;
-                {isApprovedForAllStaking && (
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      unstakeNft(
-                        () => {
-                          // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
-                          getNftOwner(urlNft, urlTokenId).then(setNftOwner);
-                        },
-                        urlNft,
-                        urlTokenId,
-                      );
-                    }}
-                  >
-                    UnStake
-                  </Button>
-                )}
-                &nbsp;
-                {isApprovedForAllStaking && (
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      harvestNft(() => {}, urlNft);
-                    }}
-                  >
-                    Harvest
-                  </Button>
-                )}
-              </Typography>
+                      }}
+                    >
+                      Stake
+                    </Button>
+                  )}
+                  &nbsp;
+                  {isApprovedForAllStaking && (
+                    <Button
+                      style={{
+                        backgroundColor: "#00e8c9",
+                        width: 120,
+                        height: 40,
+                        borderRadius: "20px",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        unstakeNft(
+                          () => {
+                            // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
+                            getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                          },
+                          urlNft,
+                          urlTokenId,
+                        );
+                      }}
+                    >
+                      UnStake
+                    </Button>
+                  )}
+                  &nbsp;
+                  {isApprovedForAllStaking && (
+                    <Button
+                      style={{
+                        backgroundColor: "#00e8c9",
+                        width: 120,
+                        height: 40,
+                        borderRadius: "20px",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        harvestNft(() => {}, urlNft);
+                      }}
+                    >
+                      Harvest
+                    </Button>
+                  )}
+                </Typography>
+              )}
             </Col>
           </Row>
         </Container>
@@ -518,7 +543,7 @@ export default function Album() {
         <br />
         <br />
 
-        <Container>
+        {/* <Container>
           <Typography
             component="h1"
             variant="h5"
@@ -546,7 +571,7 @@ export default function Album() {
             <ActionSliderCard img={one} title="001 ELLAN KARA" />
             <ActionSliderCard img={three} title="001 ELLAN KARA" />
           </Carousel>
-        </Container>
+        </Container> */}
       </main>
       <br />
       <br />

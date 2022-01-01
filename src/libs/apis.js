@@ -509,12 +509,14 @@ export const harvestNft = async (setLoading, nftContract) => {
   });
 };
 
-export const uploadNft = async (setLoading, image, ipfs) => {
+export const uploadNft = async (setLoading, image, ipfs, name, link) => {
+  console.log('link ', link);
+  console.log('name ', name);
   setLoading(true);
 
   const imgHash = await uploadIpfsText(ipfs, image);
   console.log(`imgHash: ${imgHash}`);
-  const metadata = JSON.stringify({ image: `ipfs://${imgHash}/` }, null, 4);
+  const metadata = JSON.stringify({ image: `ipfs://${imgHash}/`, name, external_link: link }, null, 4);
   console.log(`metadata: ${metadata}`);
   const metadataHash = await uploadIpfsText(ipfs, metadata);
   console.log(`metadataHash: ${metadataHash}`);
@@ -687,7 +689,7 @@ export const getNftStakeReward = async (nftContract) => {
 
   if (pid === maxUint256) {
     // alert('Staking not available for this Nft collection');
-    return;
+    return null;
   }
   
   const reward = await _doThis(

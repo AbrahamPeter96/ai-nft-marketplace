@@ -45,6 +45,7 @@ export default function CreateNftMain({ipfs}) {
     //     console.log(res);
     //   })
     //   .catch(console.log);
+    uploadNft(() => {}, file, ipfs, name, link);
   };
   return (
     <div style={{ backgroundColor: "#282c34", color: "#fff" }}>
@@ -73,10 +74,10 @@ export default function CreateNftMain({ipfs}) {
             >
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                  <Input placeholder="NFT Name" onChange={setName} />
+                  <Input placeholder="NFT Name" onChange={(e)=>setName(e.target.value)} />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Input placeholder="External Link" onChange={setLink} />
+                  <Input placeholder="External Link" onChange={(e)=>setLink(e.target.value)} />
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
@@ -89,7 +90,7 @@ export default function CreateNftMain({ipfs}) {
                     <input
                       type="file"
                       onChange={(e) => {
-                        uploadNft(() => {}, e.target.files[0], ipfs);
+                        setFile(e.target.files[0]);
                       }}
                     />
                   )}
