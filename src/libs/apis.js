@@ -15,6 +15,9 @@ import {
   zeroAddr,
   _doThis,
 } from './utils.js';
+import demo from "../Images/1.png";
+// import one from "../../Images/1.png";
+
 const { isAddress, toWei } = pkg;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> WRITE CONTRACT
@@ -586,7 +589,20 @@ export const getNftImageUrl = async (nftContract, tokenId) => {
   const tokenURI = await nft.methods.tokenURI(tokenId).call();
   const url = parseIpfs(tokenURI);
   const metadata = (await axios.get(url)).data;
-  return parseIpfs(metadata.image);
+  const urlImage = parseIpfs(metadata.image);
+  return urlImage;
+};
+
+
+export const getNftImage = async (nftContract, tokenId) => {
+  const url = await getNftImageUrl(nftContract, tokenId);
+  try {
+    const imgObj = await fetch(url);
+    const img = URL.createObjectURL(await imgObj.blob());
+    return img;
+  } catch (error) {
+    return demo;
+  }
 };
 
 export const getNftCollectionName = async nftContract => {
@@ -670,7 +686,7 @@ export const getNftStakeReward = async (nftContract) => {
   const pid = await contract.methods.getPidOfToken(nftContract).call();
 
   if (pid === maxUint256) {
-    alert('Staking not available for this Nft collection');
+    // alert('Staking not available for this Nft collection');
     return;
   }
   
@@ -694,13 +710,6 @@ export const getAuction = async (nftContract, tokenId) => {
   console.log('res ', res);
   return res;
 }
-
-export const getNftImage = async (nftContract, tokenId) => {
-  const url = await getNftImageUrl(nftContract, tokenId);
-  const laser = await fetch(url);
-  const img = URL.createObjectURL(await laser.blob());
-  return img;
-};
 
 // extra
 export const createNftAuction = async (
