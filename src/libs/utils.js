@@ -73,7 +73,7 @@ export const parseIpfs = uriStr => {
   } catch (e) {
     url = ipfsExplorer + uriStr;
   }
-  console.log(`url: ${url}`);
+  // console.log(`url: ${url}`);
   return url;
 };
 
