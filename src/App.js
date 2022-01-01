@@ -24,8 +24,17 @@ import {
   CreateNFT,
 } from "./Pages";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import * as IPFS from "ipfs-core";
+import { useEffect } from "react";
+import { useState } from "react";
 
 function App() {
+  const [ipfs, setIpfs] = useState();
+
+  useEffect(() => {
+    IPFS.create().then(setIpfs);
+  }, []);
+
   return (
     <div className="App">
       <TransitionGroup>
@@ -66,7 +75,7 @@ function App() {
                 <Testimonials />
               </Route>
               <Route path="/CreateNFT">
-                <CreateNFT />
+                <CreateNFT ipfs={ipfs} />
               </Route>
               <Route path="/Signin">
                 <SignIn />

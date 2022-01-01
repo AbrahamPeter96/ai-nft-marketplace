@@ -11,14 +11,16 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Input, Button } from "antd";
 import { Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { uploadNft } from "../../libs/apis";
 // import { uploadNft } from "../../libs/apis";
 
 const theme = createTheme();
 
-export default function CreateNftMain() {
+export default function CreateNftMain({ipfs}) {
   const [name, setName] = useState(null);
   const [link, setLink] = useState(null);
   const [file, setFile] = useState(null);
+
   const props = {
     action: "//jsonplaceholder.typicode.com/posts/",
     listType: "picture",
@@ -37,7 +39,7 @@ export default function CreateNftMain() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-console
-    console.log(name, link,file);
+    console.log(name, link, file);
     // uploadNft(false, file)
     //   .then((res) => {
     //     console.log(res);
@@ -78,9 +80,19 @@ export default function CreateNftMain() {
                 </Grid>
 
                 <Grid item xs={12} sm={6}>
-                  <Upload {...props}>
-                    <Button icon={<UploadOutlined />}>Upload Image</Button>
-                  </Upload>
+                  {false && (
+                    <Upload {...props}>
+                      <Button icon={<UploadOutlined />}>Upload Image</Button>
+                    </Upload>
+                  )}
+                  {true && (
+                    <input
+                      type="file"
+                      onChange={(e) => {
+                        uploadNft(() => {}, e.target.files[0], ipfs);
+                      }}
+                    />
+                  )}
                 </Grid>
               </Grid>
               <MButton

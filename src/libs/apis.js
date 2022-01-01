@@ -15,7 +15,6 @@ import {
   zeroAddr,
   _doThis,
 } from './utils.js';
-import * as IPFS from 'ipfs-core';
 const { isAddress, toWei } = pkg;
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> WRITE CONTRACT
@@ -507,10 +506,8 @@ export const harvestNft = async (setLoading, nftContract) => {
   });
 };
 
-export const uploadNft = async (setLoading, image) => {
+export const uploadNft = async (setLoading, image, ipfs) => {
   setLoading(true);
-
-  const ipfs = await IPFS.create();
 
   const imgHash = await uploadIpfsText(ipfs, image);
   console.log(`imgHash: ${imgHash}`);
