@@ -144,7 +144,7 @@ function ActionAreaCard({ img, title, des }) {
 // }
 
 export default function Album() {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
 
   const [nftCollectionName, setNftCollectionName] = useState("Loading...");
   const [imageObj, setImageObj] = useState("Loading...");
@@ -161,30 +161,28 @@ export default function Album() {
   // it contains many things
   const [auction, setAuction] = useState();
 
-  console.log("aoa");
+  // console.log("aoa");
 
   // refresh reward every second
   setInterval(() => {
     getNftStakeReward(urlNft).then(setNftStakeReward);
-  }, 1000);
+  }, 3000);
+
+  // setLoading(false); // warnings remove
 
   // load data on startup
   useEffect(() => {
-    setLoading(false); // for removing warnings
-
     getNftImage(urlNft, urlTokenId).then(setImageObj);
-
     getNftCollectionName(urlNft).then(setNftCollectionName);
+
+    // getNftStakeReward(urlNft).then(setNftStakeReward);
 
     getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
     getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
-
-    getNftStakeReward(urlNft).then(setNftStakeReward);
-
     getNftOwner(urlNft, urlTokenId).then(setNftOwner);
-    getUserAddr().then(setUserAddr);
-
     getAuction(urlNft, urlTokenId).then(setAuction);
+
+    getUserAddr().then(setUserAddr);
   }, []);
 
   const isOwnerSignedIn = () =>
@@ -312,7 +310,7 @@ export default function Album() {
                       }}
                       onClick={() => {
                         approveBidingContract(() => {
-                          // getIsApprovedForAll(urlNft).then(setIsApprovedForAll); // (done &&) later
+                          getIsApprovedForAll(urlNft).then(setIsApprovedForAll);
                         }, urlNft);
                       }}
                     >
@@ -335,6 +333,7 @@ export default function Album() {
                         listToSell(
                           () => {
                             getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                            getAuction(urlNft, urlTokenId).then(setAuction);
                           },
                           urlNft,
                           urlTokenId,
@@ -360,14 +359,17 @@ export default function Album() {
                       }}
                       onClick={() => {
                         makeBid(
-                          setLoading,
+                          () => {
+                            getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                            getAuction(urlNft, urlTokenId).then(setAuction);
+                          },
                           urlNft,
                           urlTokenId,
                           prompt("Please enter NFT price in BNB", "0.1"),
                         );
                       }}
                     >
-                      Bid {false && loading /* just to remove warnings*/}
+                      Bid
                     </Button>
                     <>&nbsp;</>
                   </>
@@ -385,7 +387,14 @@ export default function Album() {
                           color: "white",
                         }}
                         onClick={() => {
-                          takeHighestBid(setLoading, urlNft, urlTokenId);
+                          takeHighestBid(
+                            () => {
+                              getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                              getAuction(urlNft, urlTokenId).then(setAuction);
+                            },
+                            urlNft,
+                            urlTokenId,
+                          );
                         }}
                       >
                         Accept Bid
@@ -394,22 +403,32 @@ export default function Album() {
                     </>
                   )}
 
-                {isApprovedForAll && (
-                  <Button
-                    style={{
-                      backgroundColor: "#00e8c9",
-                      width: 120,
-                      height: 40,
-                      borderRadius: "20px",
-                      color: "white",
-                    }}
-                    onClick={() => {
-                      buyNft(() => {}, urlNft, urlTokenId);
-                    }}
-                  >
-                    Buy NFT
-                  </Button>
-                )}
+                {!isOwnerSignedIn() &&
+                  isApprovedForAll &&
+                  auction &&
+                  fromWei(auction.buyNowPrice) !== "0" && (
+                    <Button
+                      style={{
+                        backgroundColor: "#00e8c9",
+                        width: 120,
+                        height: 40,
+                        borderRadius: "20px",
+                        color: "white",
+                      }}
+                      onClick={() => {
+                        buyNft(
+                          () => {
+                            getNftOwner(urlNft, urlTokenId).then(setNftOwner);
+                            getAuction(urlNft, urlTokenId).then(setAuction);
+                          },
+                          urlNft,
+                          urlTokenId,
+                        );
+                      }}
+                    >
+                      Buy NFT
+                    </Button>
+                  )}
               </Typography>
 
               {isOwnerSignedIn() && nftStakeReward !== null && (
@@ -479,7 +498,6 @@ export default function Album() {
                       onClick={() => {
                         stakeNft(
                           () => {
-                            // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
                             getNftOwner(urlNft, urlTokenId).then(setNftOwner);
                           },
                           urlNft,
@@ -503,7 +521,6 @@ export default function Album() {
                       onClick={() => {
                         unstakeNft(
                           () => {
-                            // getIsApprovedForAllStaking(urlNft).then(setIsApprovedForAllStaking);
                             getNftOwner(urlNft, urlTokenId).then(setNftOwner);
                           },
                           urlNft,
