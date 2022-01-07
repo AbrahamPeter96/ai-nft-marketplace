@@ -719,7 +719,7 @@ export const getUserAddr = async () => {
 export const getAuction = async (nftContract, tokenId) => {
   const contract = getContractBiding({ });
   const res = await contract.methods.nftContractAuctions(nftContract, tokenId).call();
-  console.log('res ', res);
+  // console.log('res ', res);
   return res;
 }
 
