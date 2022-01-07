@@ -1,6 +1,7 @@
 import axios from 'axios';
 import pkg from 'web3-utils';
 import {
+  artAddress,
   bidingAddress,
   getContractArt,
   getContractBiding,
@@ -550,11 +551,14 @@ export const uploadNft = async (setLoading, image, ipfs, name, link) => {
     }
 
     try {
-      await method.send(options).on('confirmation', i => {
-        //here
+      await method.send(options).on("confirmation", (i, a) => {
         if (i === 0) {
           setLoading(false);
-          alert('done');
+          if (
+            window.confirm(`Welcome to the Azimuth! Go check out your Nfts`)
+          ) {
+            window.location.href = `${window.location.origin}/detail/${artAddress}/${a.events.Transfer.returnValues.tokenId}`;
+          }
         }
       });
     } catch (e) {
