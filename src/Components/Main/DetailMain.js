@@ -161,7 +161,7 @@ export default function Album() {
   // it contains many things
   const [auction, setAuction] = useState();
 
-  // console.log("aoa");
+  // // console.log("aoa");
 
   // refresh reward every second
   setInterval(() => {

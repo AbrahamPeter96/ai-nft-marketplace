@@ -25,7 +25,7 @@ export default function CreateNftMain({ipfs}) {
     action: "//jsonplaceholder.typicode.com/posts/",
     listType: "picture",
     previewFile(file) {
-      console.log("Your upload file:", file);
+      // console.log("Your upload file:", file);
       setFile(file);
       // Your process logic. Here we just mock to the same file
       return fetch("https://next.json-generator.com/api/json/get/4ytyBoLK8", {
@@ -39,10 +39,10 @@ export default function CreateNftMain({ipfs}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-console
-    console.log(name, link, file);
+    // console.log(name, link, file);
     // uploadNft(false, file)
     //   .then((res) => {
-    //     console.log(res);
+    //     // console.log(res);
     //   })
     //   .catch(console.log);
     uploadNft(() => {}, file, ipfs, name, link);
