@@ -595,7 +595,9 @@ export const getNftImageUrl = async (nftContract, tokenId) => {
     return;
   }
   const nft = getContractNft({ address: nftContract });
-  const tokenURI = await nft.methods.tokenURI(tokenId).call();
+  const circulatingSupply = await nft.methods.circulatingSupply().call();
+  console.log({ circulatingSupply });
+  const tokenURI = await nft.methods.tokenURI(tokenId - 1).call();
   const url = parseIpfs(tokenURI);
   // console.log('url metadata', url);
   const metadata = (await axios.get(url)).data;
@@ -605,8 +607,9 @@ export const getNftImageUrl = async (nftContract, tokenId) => {
 };
 
 export const getNftImage = async (nftContract, tokenId) => {
+  console.log("url image coming");
   const url = await getNftImageUrl(nftContract, tokenId);
-  // console.log('url image', url);
+  console.log("url image", url);
   try {
     const imgObj = await fetch(url);
     // console.log('imgObj ', imgObj);
